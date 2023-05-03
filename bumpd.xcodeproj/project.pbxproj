@@ -10,6 +10,7 @@
 		011A06F68E27568B85744AC7 /* Pods_bumpd_bumpdUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87461EFC1B482F88530FF380 /* Pods_bumpd_bumpdUITests.framework */; };
 		46AD61210CEF0A03F245401D /* Pods_bumpdTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A7FCD9DBB664F8289522F3 /* Pods_bumpdTests.framework */; };
 		AAEF0C150C48D34DA309A619 /* Pods_bumpd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7B7C1547B14AC85524E161 /* Pods_bumpd.framework */; };
+		FF4C4F992A02E06600B83FAF /* googleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4C4F982A02E06500B83FAF /* googleView.swift */; };
 		FF7C43F829F836B8001B9D35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7C43F729F836B8001B9D35 /* AppDelegate.swift */; };
 		FF7C43FA29F836B8001B9D35 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7C43F929F836B8001B9D35 /* SceneDelegate.swift */; };
 		FF7C43FF29F836B8001B9D35 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF7C43FD29F836B8001B9D35 /* Main.storyboard */; };
@@ -31,7 +32,6 @@
 		FF7C444A29F88966001B9D35 /* addView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7C444929F88966001B9D35 /* addView.swift */; };
 		FF7C444C29F889A0001B9D35 /* profileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7C444B29F889A0001B9D35 /* profileView.swift */; };
 		FF7C444E29F8DF32001B9D35 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF7C444D29F8DE48001B9D35 /* GoogleService-Info.plist */; };
-		FF7C445029F97FA4001B9D35 /* googleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7C444F29F97FA4001B9D35 /* googleView.swift */; };
 		FFB817462A015AF1008E7E69 /* identityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB817452A015AF1008E7E69 /* identityView.swift */; };
 		FFB817482A015B0D008E7E69 /* birthdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB817472A015B0D008E7E69 /* birthdayView.swift */; };
 		FFB8174A2A015B23008E7E69 /* phoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB817492A015B23008E7E69 /* phoneView.swift */; };
@@ -66,6 +66,7 @@
 		AB3C17B02182F19DFA1AEDD1 /* Pods-bumpd.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bumpd.release.xcconfig"; path = "Target Support Files/Pods-bumpd/Pods-bumpd.release.xcconfig"; sourceTree = "<group>"; };
 		B82DAB37A2848FFAED544C12 /* Pods-bumpd.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bumpd.debug.xcconfig"; path = "Target Support Files/Pods-bumpd/Pods-bumpd.debug.xcconfig"; sourceTree = "<group>"; };
 		E4B4D6384C7FB9D69D1C00A1 /* Pods-bumpd-bumpdUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bumpd-bumpdUITests.debug.xcconfig"; path = "Target Support Files/Pods-bumpd-bumpdUITests/Pods-bumpd-bumpdUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		FF4C4F982A02E06500B83FAF /* googleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = googleView.swift; sourceTree = "<group>"; };
 		FF7C43F429F836B8001B9D35 /* bumpd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bumpd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF7C43F729F836B8001B9D35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FF7C43F929F836B8001B9D35 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,7 +100,6 @@
 		FF7C444929F88966001B9D35 /* addView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addView.swift; sourceTree = "<group>"; };
 		FF7C444B29F889A0001B9D35 /* profileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileView.swift; sourceTree = "<group>"; };
 		FF7C444D29F8DE48001B9D35 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		FF7C444F29F97FA4001B9D35 /* googleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = googleView.swift; sourceTree = "<group>"; };
 		FFB817452A015AF1008E7E69 /* identityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = identityView.swift; sourceTree = "<group>"; };
 		FFB817472A015B0D008E7E69 /* birthdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = birthdayView.swift; sourceTree = "<group>"; };
 		FFB817492A015B23008E7E69 /* phoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = phoneView.swift; sourceTree = "<group>"; };
@@ -163,7 +163,6 @@
 		FF7C43EB29F836B8001B9D35 = {
 			isa = PBXGroup;
 			children = (
-				FF7C444F29F97FA4001B9D35 /* googleView.swift */,
 				FF7C43F629F836B8001B9D35 /* bumpd */,
 				FF7C440D29F836BB001B9D35 /* bumpdTests */,
 				FF7C441729F836BB001B9D35 /* bumpdUITests */,
@@ -246,6 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				FF7C443429F866B5001B9D35 /* landingView.swift */,
+				FF4C4F982A02E06500B83FAF /* googleView.swift */,
 				FF7C443C29F87439001B9D35 /* loginNav.swift */,
 				FF7C443829F86816001B9D35 /* loginView.swift */,
 				FF7C443E29F8746A001B9D35 /* signupNav.swift */,
@@ -588,10 +588,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF7C444C29F889A0001B9D35 /* profileView.swift in Sources */,
+				FF4C4F992A02E06600B83FAF /* googleView.swift in Sources */,
 				FF7C444429F8886F001B9D35 /* feedView.swift in Sources */,
 				FF7C443729F867E5001B9D35 /* signupView.swift in Sources */,
 				FF7C443529F866B5001B9D35 /* landingView.swift in Sources */,
-				FF7C445029F97FA4001B9D35 /* googleView.swift in Sources */,
 				FFB8174A2A015B23008E7E69 /* phoneView.swift in Sources */,
 				FF7C444A29F88966001B9D35 /* addView.swift in Sources */,
 				FF7C43F829F836B8001B9D35 /* AppDelegate.swift in Sources */,
