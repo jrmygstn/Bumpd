@@ -6,14 +6,33 @@
 //
 
 import UIKit
+import CoreData
+import Firebase
+import FirebaseCore
+import FirebaseAppCheck
+import GooglePlaces
+import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+    
+    var databaseRef: DatabaseReference! {
+        
+        return Database.database().reference()
+    }
+    
+    var googleAPIKey = "AIzaSyAH1RgK1qot4jRe0k-_SnUtJUJZ9GKGCaE"
+    
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        FirebaseApp.configure()
+        Database.database().isPersistenceEnabled = true
+        
+        GMSPlacesClient.provideAPIKey(googleAPIKey)
+        
         return true
     }
 
