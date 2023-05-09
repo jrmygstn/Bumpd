@@ -10,10 +10,6 @@ import Firebase
 
 class phoneView: UIViewController {
     
-    static let path = Bundle.main.path(forResource: "Config", ofType: "plist")
-    static let config = NSDictionary(contentsOfFile: path!)
-    private static let baseURLString = config!["serverUrl"] as! String
-    
     // Variables
     
     var databaseRef: DatabaseReference! {
@@ -65,16 +61,16 @@ class phoneView: UIViewController {
 
                 let userObj = ["phone": phone]
 
-                ref.updateChildValues(userObj)
+//                ref.updateChildValues(userObj)
                 
                 if let phoneNumber = self.phoneField.text, let countryCode = self.countryField.text {
                     
                     VerifyAPI.sendVerificationCode(countryCode, phoneNumber)
                     
-                    let go = self.storyboard?.instantiateViewController(withIdentifier: "verifyNav") as! verifyNav
-                    go.phoneNumber = self.phoneField.text!
-                    go.countryCode = self.countryField.text!
-                    self.present(go, animated: true, completion: nil)
+//                    let go = self.storyboard?.instantiateViewController(withIdentifier: "verifyNav") as! verifyNav
+//                    go.phoneNumber = self.phoneField.text!
+//                    go.countryCode = self.countryField.text!
+//                    self.present(go, animated: true, completion: nil)
                     
                 }
                 
@@ -88,58 +84,6 @@ class phoneView: UIViewController {
             
         }
         
-    }
-    
-    // Functions
-    
-    static func sendVerificationCode(_ countryCode: String, _ phoneNumber: String) {
-        
-        let parameters = [
-            "via": "sms",
-            "country_code": countryCode,
-            "phone_number": phoneNumber
-        ]
-        
-        let path = "start"
-        let method = "POST"
-        
-        let urlPath = "\(baseURLString)/\(path)"
-        var components = URLComponents(string: urlPath)!
-        
-        var queryItems = [URLQueryItem]()
-        
-        for (key, value) in parameters {
-            let item = URLQueryItem(name: key, value: value)
-            queryItems.append(item)
-        }
-        
-        components.queryItems = queryItems
-        
-        let url = components.url!
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = method
-        
-        let session: URLSession = {
-            let config = URLSessionConfiguration.default
-            return URLSession(configuration: config)
-        }()
-        
-        let task = session.dataTask(with: request) {
-            (data, response, error) in
-            if let data = data {
-                do {
-                    let jsonSerialized = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
-                    
-                    print(jsonSerialized!)
-                }  catch let error as NSError {
-                    print(error.localizedDescription)
-                }
-            } else if let error = error {
-                print(error.localizedDescription)
-            }
-        }
-        task.resume()
     }
 
 }
