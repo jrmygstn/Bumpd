@@ -1,0 +1,6 @@
+Config.plist
+
+.DS_Store
+
+bumpd.xcodeproj/xcuserdata/*
+bumpd.xcodeproj/project.xcworkspace/xcuserdata/*
