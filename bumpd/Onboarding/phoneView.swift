@@ -58,8 +58,6 @@ class phoneView: UIViewController {
             if phone != number {
                 
                 let uid = Auth.auth().currentUser?.uid
-                let phoneNumber = self.phoneField.text!
-                let countryCode = self.countryField.text!
                 let ref = self.databaseRef.child("Users/\(uid!)")
                 
                 let alert = UIAlertController(title: "Verifing...", message: "", preferredStyle: UIAlertController.Style.alert)
@@ -69,12 +67,16 @@ class phoneView: UIViewController {
 
                 ref.updateChildValues(userObj)
                 
-                VerifyAPI.sendVerificationCode(countryCode, phoneNumber)
-
-                let go = self.storyboard?.instantiateViewController(withIdentifier: "verifyNav") as! verifyNav
-                go.phoneNumber = phoneNumber
-                go.countryCode = countryCode
-                self.present(go, animated: true, completion: nil)
+                if let phoneNumber = self.phoneField.text, let countryCode = self.countryField.text {
+                    
+                    VerifyAPI.sendVerificationCode(countryCode, phoneNumber)
+                    
+                    let go = self.storyboard?.instantiateViewController(withIdentifier: "verifyNav") as! verifyNav
+                    go.phoneNumber = self.phoneField.text!
+                    go.countryCode = self.countryField.text!
+                    self.present(go, animated: true, completion: nil)
+                    
+                }
                 
             } else {
                 

@@ -53,7 +53,7 @@ class verifyView: UIViewController {
             VerifyAPI.validateVerificationCode(self.countryCode!, self.phoneNumber!, code) { checked in
                 
                 if checked.success {
-                    let alert = UIAlertController(title: "", message: checked.message, preferredStyle: UIAlertController.Style.alert)
+                    let alert = UIAlertController(title: "Verification Successful!", message: "", preferredStyle: UIAlertController.Style.alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
 
                     let go = self.storyboard?.instantiateViewController(withIdentifier: "mainView")
