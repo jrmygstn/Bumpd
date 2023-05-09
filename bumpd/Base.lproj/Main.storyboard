@@ -1475,13 +1475,13 @@ View</string>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="leading" contentVerticalAlignment="center" placeholder="Your phone" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SZW-11-vH4">
-                                        <rect key="frame" x="102" y="170" width="220" height="70"/>
+                                        <rect key="frame" x="118" y="170" width="204" height="70"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="70" id="34f-xI-cyu"/>
-                                            <constraint firstAttribute="width" constant="220" id="GZz-KY-gGu"/>
+                                            <constraint firstAttribute="width" constant="204" id="GZz-KY-gGu"/>
                                         </constraints>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="21"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="phonePad" returnKeyType="done" enablesReturnKeyAutomatically="YES" smartInsertDeleteType="yes" textContentType="tel"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1492,16 +1492,52 @@ View</string>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SaE-57-fWG" customClass="CustomizableImageView">
+                                        <rect key="frame" x="35" y="183" width="70" height="44"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="70" id="1xL-5P-w2S"/>
+                                            <constraint firstAttribute="height" constant="44" id="Jfa-7T-OzF"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="22"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="leading" contentVerticalAlignment="center" text="+1" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TOu-8K-fhL">
+                                        <rect key="frame" x="35" y="183" width="70" height="44"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="70" id="6cf-20-ocp"/>
+                                            <constraint firstAttribute="height" constant="44" id="o3Z-eS-cwz"/>
+                                        </constraints>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="phonePad" returnKeyType="done" enablesReturnKeyAutomatically="YES" smartInsertDeleteType="yes" textContentType="tel"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="22"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="cax-d9-deF" firstAttribute="centerX" secondItem="Dpi-lt-Yne" secondAttribute="centerX" id="1Eu-VR-FZT"/>
+                                    <constraint firstItem="TOu-8K-fhL" firstAttribute="centerX" secondItem="SaE-57-fWG" secondAttribute="centerX" id="42t-rA-2sH"/>
                                     <constraint firstItem="Ohv-hX-cz7" firstAttribute="centerX" secondItem="Dpi-lt-Yne" secondAttribute="centerX" id="52e-7k-ctm"/>
                                     <constraint firstItem="cax-d9-deF" firstAttribute="top" secondItem="Ohv-hX-cz7" secondAttribute="bottom" constant="79" id="5l5-aT-pHM"/>
+                                    <constraint firstItem="TOu-8K-fhL" firstAttribute="bottom" secondItem="SaE-57-fWG" secondAttribute="bottom" id="6KI-GW-4bT"/>
+                                    <constraint firstItem="SaE-57-fWG" firstAttribute="top" secondItem="Dpi-lt-Yne" secondAttribute="top" constant="183" id="6Zf-Co-5LR"/>
                                     <constraint firstItem="SZW-11-vH4" firstAttribute="top" secondItem="cax-d9-deF" secondAttribute="top" id="87W-zl-JLZ"/>
                                     <constraint firstAttribute="width" constant="359" id="Kt4-2z-Q02"/>
                                     <constraint firstItem="Ohv-hX-cz7" firstAttribute="top" secondItem="Dpi-lt-Yne" secondAttribute="top" constant="32" id="NE6-br-X6r"/>
+                                    <constraint firstItem="SaE-57-fWG" firstAttribute="leading" secondItem="Dpi-lt-Yne" secondAttribute="leading" constant="35" id="Yfw-Tq-mem"/>
+                                    <constraint firstItem="TOu-8K-fhL" firstAttribute="centerY" secondItem="SaE-57-fWG" secondAttribute="centerY" id="ZXp-ni-tmA"/>
+                                    <constraint firstItem="TOu-8K-fhL" firstAttribute="top" secondItem="SaE-57-fWG" secondAttribute="top" id="gjQ-4u-5MA"/>
+                                    <constraint firstItem="SZW-11-vH4" firstAttribute="leading" secondItem="SaE-57-fWG" secondAttribute="trailing" constant="13" id="jKb-9O-kKw"/>
                                     <constraint firstItem="brn-2v-AXP" firstAttribute="centerX" secondItem="Dpi-lt-Yne" secondAttribute="centerX" id="kQy-hf-qLZ"/>
-                                    <constraint firstItem="SZW-11-vH4" firstAttribute="centerX" secondItem="cax-d9-deF" secondAttribute="centerX" constant="32.5" id="kkv-BJ-XaL"/>
+                                    <constraint firstItem="SZW-11-vH4" firstAttribute="centerX" secondItem="cax-d9-deF" secondAttribute="centerX" constant="40.5" id="kkv-BJ-XaL"/>
                                     <constraint firstItem="SZW-11-vH4" firstAttribute="bottom" secondItem="cax-d9-deF" secondAttribute="bottom" id="wa5-gq-fB5"/>
                                     <constraint firstAttribute="bottom" secondItem="brn-2v-AXP" secondAttribute="bottom" constant="32" id="x8U-fq-NsL"/>
                                     <constraint firstItem="SZW-11-vH4" firstAttribute="centerY" secondItem="cax-d9-deF" secondAttribute="centerY" id="yCi-4L-cUi"/>
@@ -1535,6 +1571,7 @@ View</string>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="countryField" destination="TOu-8K-fhL" id="fIR-iM-LCv"/>
                         <outlet property="phoneField" destination="SZW-11-vH4" id="Jzf-Zj-C5E"/>
                         <segue destination="vyV-gC-PSd" kind="unwind" identifier="unwindToLanding" unwindAction="unwindToLandingWithSegue:" id="XOg-a1-Ike"/>
                     </connections>
@@ -1542,7 +1579,7 @@ View</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEj-Fd-752" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="vyV-gC-PSd" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5191" y="-12"/>
+            <point key="canvasLocation" x="5190.6976744186049" y="-12.231759656652361"/>
         </scene>
         <!--Verify View-->
         <scene sceneID="Uao-e4-deI">
@@ -1724,10 +1761,10 @@ View</string>
             </objects>
             <point key="canvasLocation" x="4467" y="-12"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Verify Nav-->
         <scene sceneID="zWd-Sn-t08">
             <objects>
-                <navigationController storyboardIdentifier="verifyNav" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="JRv-jJ-6iO" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="verifyNav" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="JRv-jJ-6iO" customClass="verifyNav" customModule="bumpd" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="zDu-kV-qqk"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="TQy-PN-xlk">
                         <rect key="frame" x="0.0" y="59" width="430" height="44"/>

@@ -17,6 +17,8 @@ class verifyView: UIViewController {
         return Database.database().reference()
     }
     
+    var countryCode: String!
+    var phoneNumber: String!
     
     
     // Outlets
@@ -47,25 +49,25 @@ class verifyView: UIViewController {
                 return
         }
         
-//        verified.verify(code) { (isSuccess, error) in
-//
-//            if isSuccess == true {
-//
-//                let alert = UIAlertController(title: "Verified ✅", message: "", preferredStyle: UIAlertController.Style.alert)
-//                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
-//
-//                let go = self.storyboard?.instantiateViewController(withIdentifier: "mainView")
-//                self.present(go!, animated: true, completion: nil)
-//
-//            } else {
-//
-//                let alertVC = UIAlertController(title: "", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-//                alertVC.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.cancel, handler: nil))
-//                self.present(alertVC, animated: true, completion: nil)
-//
-//            }
-//
-//        }
+        if let code = codeField.text {
+            VerifyAPI.validateVerificationCode(self.countryCode!, self.phoneNumber!, code) { checked in
+                
+                if checked.success {
+                    let alert = UIAlertController(title: "", message: checked.message, preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+
+                    let go = self.storyboard?.instantiateViewController(withIdentifier: "mainView")
+                    self.present(go!, animated: true, completion: nil)
+                    
+                } else {
+                    
+                    let alertVC = UIAlertController(title: "", message: checked.message, preferredStyle: UIAlertController.Style.alert)
+                    alertVC.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.cancel, handler: nil))
+                    self.present(alertVC, animated: true, completion: nil)
+                    
+                }
+            }
+        }
         
     }
     
