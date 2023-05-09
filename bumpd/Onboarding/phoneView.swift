@@ -7,7 +7,6 @@
 
 import UIKit
 import Firebase
-import SinchVerification
 
 class phoneView: UIViewController {
     
@@ -18,8 +17,7 @@ class phoneView: UIViewController {
         return Database.database().reference()
     }
     
-    var verify: Verification!
-    var apKey = "d687f7c3-83c5-441d-8876-8cedd8345f32"
+    
     
     // Outlets
     
@@ -56,30 +54,30 @@ class phoneView: UIViewController {
                 let uid = Auth.auth().currentUser?.uid
                 let ref = self.databaseRef.child("Users/\(uid!)")
                 
-                self.verify = SMSVerification(self.apKey, phoneNumber: number)
-                self.verify.initiate { (initiationResult, error) in
-                    
-                    if initiationResult.success == true {
-                        
-                        let alert = UIAlertController(title: "Verifing...", message: "", preferredStyle: UIAlertController.Style.alert)
-                        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
-                        
-                        let userObj = ["phone": phone]
-
-                        ref.updateChildValues(userObj)
-                        
-                        let go = self.storyboard?.instantiateViewController(withIdentifier: "verifyNav")
-                        self.present(go!, animated: true, completion: nil)
-                        
-                    } else {
-                        
-                        let alertVC = UIAlertController(title: "", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                        alertVC.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.cancel, handler: nil))
-                        self.present(alertVC, animated: true, completion: nil)
-                        
-                    }
-                    
-                }
+//                self.verify = SMSVerification(self.apKey, phoneNumber: number)
+//                self.verify.initiate { (initiationResult, error) in
+//
+//                    if initiationResult.success == true {
+//
+//                        let alert = UIAlertController(title: "Verifing...", message: "", preferredStyle: UIAlertController.Style.alert)
+//                        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+//
+//                        let userObj = ["phone": phone]
+//
+//                        ref.updateChildValues(userObj)
+//
+//                        let go = self.storyboard?.instantiateViewController(withIdentifier: "verifyNav")
+//                        self.present(go!, animated: true, completion: nil)
+//
+//                    } else {
+//
+//                        let alertVC = UIAlertController(title: "", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+//                        alertVC.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.cancel, handler: nil))
+//                        self.present(alertVC, animated: true, completion: nil)
+//
+//                    }
+//
+//                }
                 
             } else {
                 

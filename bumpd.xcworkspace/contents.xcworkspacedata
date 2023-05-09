@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:bumpd/Config.plist">
+   </FileRef>
+   <FileRef
       location = "group:bumpd.xcodeproj">
    </FileRef>
    <FileRef

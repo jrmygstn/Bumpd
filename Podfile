@@ -18,7 +18,6 @@ target 'bumpd' do
   pod 'Firebase/Storage'
   pod 'GooglePlaces'
   pod 'IQKeyboardManager'
-  pod 'SinchVerification-Swift'
 
   target 'bumpdTests' do
     inherit! :search_paths
