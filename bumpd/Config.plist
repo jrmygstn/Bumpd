@@ -3,6 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>serverUrl</key>
-	<string>https://bumpd-app.herokuapp.com/</string>
+	<string>https://bumpd-ios-app.herokuapp.com/</string>
 </dict>
 </plist>
