@@ -18,7 +18,6 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     var feed = [Feed]()
-    var user = [Users]()
     var like = [Likes]()
     
     // Outlets
@@ -51,13 +50,63 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         cell.setupCell(bump: feed[indexPath.row])
         
+        cell.btnTapAction = {
+            
+            () in
+            
+            if cell.likeBtn.isSelected == false {
+                
+                cell.likeBtn.isSelected = true
+                
+                let id = self.feed[indexPath.row].id
+                let uid = Auth.auth().currentUser?.uid
+                
+                let ref = self.databaseRef.child("Feed/\(id)/Likes")
+                
+                let value = [uid: ["uid": uid!] as [String: Any]]
+                
+                DispatchQueue.main.async {
+                    
+                    ref.updateChildValues(value)
+                    
+                }
+                
+            } else if cell.likeBtn.isSelected == true {
+                
+                cell.likeBtn.isSelected = false
+                
+                let id = self.feed[indexPath.row].id
+                let uid = Auth.auth().currentUser?.uid
+                
+                let ref = self.databaseRef.child("Feed/\(id)/Likes/\(uid!)")
+                
+                DispatchQueue.main.async {
+                    
+                    ref.removeValue()
+                    
+                }
+                
+            }
+            
+        }
+        
         return cell
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let vc = storyboard?.instantiateViewController(identifier: "feedDetails") as! feedDetailsView
+        vc.feed = feed[indexPath.row]
+        self.present(vc, animated: true, completion: nil)
         
     }
     
     // Actions
     
-    
+    @IBAction func unwindToFeed(segue:UIStoryboardSegue) {
+        
+    }
     
     // Functions
     
@@ -73,8 +122,11 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 
                 // Feed
                 let author = child.childSnapshot(forPath: "author").value as? String ?? ""
+                let bumpId = child.childSnapshot(forPath: "bumpId").value as? String ?? ""
                 let id = child.childSnapshot(forPath: "id").value as? String ?? ""
+                let lat = child.childSnapshot(forPath: "latitude").value as? Double ?? 0
                 let location = child.childSnapshot(forPath: "location").value as? String ?? ""
+                let long = child.childSnapshot(forPath: "longitude").value as? Double ?? 0
                 let receipt = child.childSnapshot(forPath: "recipient").value as? String ?? ""
                 let stamp = child.childSnapshot(forPath: "timestamp").value as? Double ?? 0
                 
@@ -83,7 +135,7 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 
                 // Snapshots
                 let lke = Likes(uid: uids)
-                let feeed = Feed(author: author, timestamp: stamp, id: id, likes: lke, location: location, recipient: receipt)
+                let feeed = Feed(author: author, bumpId: bumpId, timestamp: stamp, id: id, lat: lat, likes: lke, location: location, long: long, recipient: receipt)
                 
                 array.append(feeed)
                 

@@ -10,6 +10,7 @@ import CoreData
 import Firebase
 import FirebaseCore
 import FirebaseAppCheck
+import GoogleMaps
 import GooglePlaces
 import UserNotifications
 
@@ -31,9 +32,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         Database.database().isPersistenceEnabled = true
         
+        GMSServices.provideAPIKey(googleAPIKey)
         GMSPlacesClient.provideAPIKey(googleAPIKey)
         
+        let user = Auth.auth().currentUser?.uid
+        
+        if user != nil {
+            let pushManager = PushNotificationManager(userID: "\(user!)")
+            pushManager.registerForPushNotifications()
+        }
+        
+        let sender = PushNotificationSender()
+        sender.sendPushNotification(to: "token", title: "Notification title", body: "Notification body")
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: .badge) { (granted, error) in
+            if error != nil {
+                UIApplication.shared.applicationIconBadgeNumber = 0
+            }
+            
+            
+        }
+        
         return true
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        
+        
+        
     }
 
     // MARK: UISceneSession Lifecycle

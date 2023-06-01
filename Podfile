@@ -16,6 +16,7 @@ target 'bumpd' do
   pod 'Firebase/Firestore'
   pod 'Firebase/Messaging'
   pod 'Firebase/Storage'
+  pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod 'IQKeyboardManager'
 

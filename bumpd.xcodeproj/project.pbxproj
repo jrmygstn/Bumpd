@@ -10,6 +10,10 @@
 		011A06F68E27568B85744AC7 /* Pods_bumpd_bumpdUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87461EFC1B482F88530FF380 /* Pods_bumpd_bumpdUITests.framework */; };
 		46AD61210CEF0A03F245401D /* Pods_bumpdTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A7FCD9DBB664F8289522F3 /* Pods_bumpdTests.framework */; };
 		AAEF0C150C48D34DA309A619 /* Pods_bumpd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7B7C1547B14AC85524E161 /* Pods_bumpd.framework */; };
+		FF10E8F72A1D49D700ED1517 /* ConciergeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF10E8F62A1D49D700ED1517 /* ConciergeView.swift */; };
+		FF2D48332A20EC4400B27FE6 /* likeCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D48322A20EC4400B27FE6 /* likeCVC.swift */; };
+		FF2D48352A20EC9E00B27FE6 /* moreCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D48342A20EC9E00B27FE6 /* moreCVC.swift */; };
+		FF2D48372A22F4EE00B27FE6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF2D48362A22F30100B27FE6 /* GoogleService-Info.plist */; };
 		FF3EBA022A0A10B900B4E6AE /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF3EBA012A0A10B900B4E6AE /* Config.plist */; };
 		FF3EBA042A0A10C600B4E6AE /* verifyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3EBA032A0A10C600B4E6AE /* verifyAPI.swift */; };
 		FF3EBA062A0A1A9F00B4E6AE /* verifyNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3EBA052A0A1A9F00B4E6AE /* verifyNav.swift */; };
@@ -21,6 +25,12 @@
 		FF3EBA142A0AC46E00B4E6AE /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3EBA132A0AC46E00B4E6AE /* Users.swift */; };
 		FF3EBA162A0AC4CB00B4E6AE /* Likes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3EBA152A0AC4CB00B4E6AE /* Likes.swift */; };
 		FF4C4F992A02E06600B83FAF /* googleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4C4F982A02E06500B83FAF /* googleView.swift */; };
+		FF6A24F12A1D5A5900D74339 /* feedDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6A24F02A1D5A5900D74339 /* feedDetailsView.swift */; };
+		FF6A24F32A1D615100D74339 /* style.json in Resources */ = {isa = PBXBuildFile; fileRef = FF6A24F22A1D615100D74339 /* style.json */; };
+		FF6A24F62A1D648200D74339 /* mapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6A24F52A1D648200D74339 /* mapView.swift */; };
+		FF6A24F92A1D65D600D74339 /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6A24F82A1D65D600D74339 /* PushNotificationManager.swift */; };
+		FF6A24FA2A1D65D600D74339 /* PushNotificationSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6A24F72A1D65D500D74339 /* PushNotificationSender.swift */; };
+		FF6A24FC2A1E937A00D74339 /* feedDetailsNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6A24FB2A1E937A00D74339 /* feedDetailsNav.swift */; };
 		FF7C43F829F836B8001B9D35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7C43F729F836B8001B9D35 /* AppDelegate.swift */; };
 		FF7C43FA29F836B8001B9D35 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7C43F929F836B8001B9D35 /* SceneDelegate.swift */; };
 		FF7C43FF29F836B8001B9D35 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF7C43FD29F836B8001B9D35 /* Main.storyboard */; };
@@ -41,7 +51,6 @@
 		FF7C444829F8890E001B9D35 /* bumpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7C444729F8890E001B9D35 /* bumpView.swift */; };
 		FF7C444A29F88966001B9D35 /* addView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7C444929F88966001B9D35 /* addView.swift */; };
 		FF7C444C29F889A0001B9D35 /* profileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7C444B29F889A0001B9D35 /* profileView.swift */; };
-		FF7C444E29F8DF32001B9D35 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF7C444D29F8DE48001B9D35 /* GoogleService-Info.plist */; };
 		FFAB19652A0ACA2F009384C9 /* CustomizableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7C442C29F85224001B9D35 /* CustomizableImageView.swift */; };
 		FFAB19662A0ACA32009384C9 /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7C442D29F85224001B9D35 /* PlaceholderView.swift */; };
 		FFAB19672A0ACA35009384C9 /* CustomizableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7C442E29F85224001B9D35 /* CustomizableButton.swift */; };
@@ -84,6 +93,10 @@
 		AB3C17B02182F19DFA1AEDD1 /* Pods-bumpd.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bumpd.release.xcconfig"; path = "Target Support Files/Pods-bumpd/Pods-bumpd.release.xcconfig"; sourceTree = "<group>"; };
 		B82DAB37A2848FFAED544C12 /* Pods-bumpd.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bumpd.debug.xcconfig"; path = "Target Support Files/Pods-bumpd/Pods-bumpd.debug.xcconfig"; sourceTree = "<group>"; };
 		E4B4D6384C7FB9D69D1C00A1 /* Pods-bumpd-bumpdUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bumpd-bumpdUITests.debug.xcconfig"; path = "Target Support Files/Pods-bumpd-bumpdUITests/Pods-bumpd-bumpdUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		FF10E8F62A1D49D700ED1517 /* ConciergeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConciergeView.swift; sourceTree = "<group>"; };
+		FF2D48322A20EC4400B27FE6 /* likeCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = likeCVC.swift; sourceTree = "<group>"; };
+		FF2D48342A20EC9E00B27FE6 /* moreCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = moreCVC.swift; sourceTree = "<group>"; };
+		FF2D48362A22F30100B27FE6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FF3EBA012A0A10B900B4E6AE /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		FF3EBA032A0A10C600B4E6AE /* verifyAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = verifyAPI.swift; sourceTree = "<group>"; };
 		FF3EBA052A0A1A9F00B4E6AE /* verifyNav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = verifyNav.swift; sourceTree = "<group>"; };
@@ -95,6 +108,13 @@
 		FF3EBA132A0AC46E00B4E6AE /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		FF3EBA152A0AC4CB00B4E6AE /* Likes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Likes.swift; sourceTree = "<group>"; };
 		FF4C4F982A02E06500B83FAF /* googleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = googleView.swift; sourceTree = "<group>"; };
+		FF6A24F02A1D5A5900D74339 /* feedDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = feedDetailsView.swift; sourceTree = "<group>"; };
+		FF6A24F22A1D615100D74339 /* style.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = style.json; sourceTree = "<group>"; };
+		FF6A24F42A1D634800D74339 /* bumpd.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = bumpd.entitlements; sourceTree = "<group>"; };
+		FF6A24F52A1D648200D74339 /* mapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapView.swift; sourceTree = "<group>"; };
+		FF6A24F72A1D65D500D74339 /* PushNotificationSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSender.swift; sourceTree = "<group>"; };
+		FF6A24F82A1D65D600D74339 /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
+		FF6A24FB2A1E937A00D74339 /* feedDetailsNav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = feedDetailsNav.swift; sourceTree = "<group>"; };
 		FF7C43F429F836B8001B9D35 /* bumpd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bumpd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF7C43F729F836B8001B9D35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FF7C43F929F836B8001B9D35 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -127,7 +147,6 @@
 		FF7C444729F8890E001B9D35 /* bumpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bumpView.swift; sourceTree = "<group>"; };
 		FF7C444929F88966001B9D35 /* addView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addView.swift; sourceTree = "<group>"; };
 		FF7C444B29F889A0001B9D35 /* profileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileView.swift; sourceTree = "<group>"; };
-		FF7C444D29F8DE48001B9D35 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FFAB196D2A0ACCC5009384C9 /* extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extentions.swift; sourceTree = "<group>"; };
 		FFB817452A015AF1008E7E69 /* identityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = identityView.swift; sourceTree = "<group>"; };
 		FFB817472A015B0D008E7E69 /* birthdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = birthdayView.swift; sourceTree = "<group>"; };
@@ -224,6 +243,7 @@
 		FF7C43F629F836B8001B9D35 /* bumpd */ = {
 			isa = PBXGroup;
 			children = (
+				FF6A24F42A1D634800D74339 /* bumpd.entitlements */,
 				FF7C440029F836BB001B9D35 /* Assets.xcassets */,
 				FF7C43F729F836B8001B9D35 /* AppDelegate.swift */,
 				FF7C43F929F836B8001B9D35 /* SceneDelegate.swift */,
@@ -235,9 +255,10 @@
 				FF7C442B29F85224001B9D35 /* Customizables */,
 				FF7C444229F882B9001B9D35 /* Helpers */,
 				FF7C442929F84DB8001B9D35 /* poppins */,
-				FF7C444D29F8DE48001B9D35 /* GoogleService-Info.plist */,
+				FF2D48362A22F30100B27FE6 /* GoogleService-Info.plist */,
 				FF7C440529F836BB001B9D35 /* Info.plist */,
 				FF3EBA012A0A10B900B4E6AE /* Config.plist */,
+				FF6A24F22A1D615100D74339 /* style.json */,
 			);
 			path = bumpd;
 			sourceTree = "<group>";
@@ -277,6 +298,8 @@
 		FF7C444229F882B9001B9D35 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				FF6A24F82A1D65D600D74339 /* PushNotificationManager.swift */,
+				FF6A24F72A1D65D500D74339 /* PushNotificationSender.swift */,
 				FF3EBA072A0AB08800B4E6AE /* dataStructures.swift */,
 				FF3EBA092A0AB10E00B4E6AE /* requestHelper.swift */,
 				FF7C444029F882A2001B9D35 /* tabBarControls.swift */,
@@ -289,6 +312,7 @@
 		FFB8173E2A0159EA008E7E69 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				FF10E8F62A1D49D700ED1517 /* ConciergeView.swift */,
 				FF7C443429F866B5001B9D35 /* landingView.swift */,
 				FF4C4F982A02E06500B83FAF /* googleView.swift */,
 				FF7C443C29F87439001B9D35 /* loginNav.swift */,
@@ -309,6 +333,11 @@
 			children = (
 				FF7C444329F8886F001B9D35 /* feedView.swift */,
 				FF3EBA0B2A0AC28B00B4E6AE /* feedCell.swift */,
+				FF6A24FB2A1E937A00D74339 /* feedDetailsNav.swift */,
+				FF6A24F02A1D5A5900D74339 /* feedDetailsView.swift */,
+				FF2D48342A20EC9E00B27FE6 /* moreCVC.swift */,
+				FF2D48322A20EC4400B27FE6 /* likeCVC.swift */,
+				FF6A24F52A1D648200D74339 /* mapView.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -470,10 +499,11 @@
 			files = (
 				FF7C440429F836BB001B9D35 /* LaunchScreen.storyboard in Resources */,
 				FF7C442A29F84DB8001B9D35 /* poppins in Resources */,
-				FF7C444E29F8DF32001B9D35 /* GoogleService-Info.plist in Resources */,
 				FF7C440129F836BB001B9D35 /* Assets.xcassets in Resources */,
 				FF3EBA022A0A10B900B4E6AE /* Config.plist in Resources */,
+				FF6A24F32A1D615100D74339 /* style.json in Resources */,
 				FF7C43FF29F836B8001B9D35 /* Main.storyboard in Resources */,
+				FF2D48372A22F4EE00B27FE6 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -637,9 +667,11 @@
 			files = (
 				FF7C444C29F889A0001B9D35 /* profileView.swift in Sources */,
 				FF4C4F992A02E06600B83FAF /* googleView.swift in Sources */,
+				FF6A24F92A1D65D600D74339 /* PushNotificationManager.swift in Sources */,
 				FF7C444429F8886F001B9D35 /* feedView.swift in Sources */,
 				FF3EBA082A0AB08800B4E6AE /* dataStructures.swift in Sources */,
 				FFAB196B2A0ACA43009384C9 /* CustomizableView.swift in Sources */,
+				FF6A24F12A1D5A5900D74339 /* feedDetailsView.swift in Sources */,
 				FFAB19692A0ACA3D009384C9 /* CustomizableLabel.swift in Sources */,
 				FFAB196A2A0ACA40009384C9 /* DraggableLabel.swift in Sources */,
 				FF7C443729F867E5001B9D35 /* signupView.swift in Sources */,
@@ -654,13 +686,17 @@
 				FF3EBA042A0A10C600B4E6AE /* verifyAPI.swift in Sources */,
 				FFAB19662A0ACA32009384C9 /* PlaceholderView.swift in Sources */,
 				FFAB19682A0ACA39009384C9 /* CustomizableTextField.swift in Sources */,
+				FF6A24F62A1D648200D74339 /* mapView.swift in Sources */,
 				FF7C43F829F836B8001B9D35 /* AppDelegate.swift in Sources */,
 				FF3EBA162A0AC4CB00B4E6AE /* Likes.swift in Sources */,
 				FFAB19652A0ACA2F009384C9 /* CustomizableImageView.swift in Sources */,
 				FF7C443929F86816001B9D35 /* loginView.swift in Sources */,
+				FF2D48332A20EC4400B27FE6 /* likeCVC.swift in Sources */,
 				FF7C443F29F8746A001B9D35 /* signupNav.swift in Sources */,
 				FF7C444629F888D7001B9D35 /* memoriesView.swift in Sources */,
+				FF6A24FC2A1E937A00D74339 /* feedDetailsNav.swift in Sources */,
 				FF3EBA062A0A1A9F00B4E6AE /* verifyNav.swift in Sources */,
+				FF6A24FA2A1D65D600D74339 /* PushNotificationSender.swift in Sources */,
 				FF7C444829F8890E001B9D35 /* bumpView.swift in Sources */,
 				FFB817462A015AF1008E7E69 /* identityView.swift in Sources */,
 				FF7C444129F882A2001B9D35 /* tabBarControls.swift in Sources */,
@@ -668,9 +704,11 @@
 				FF7C43FA29F836B8001B9D35 /* SceneDelegate.swift in Sources */,
 				FF7C443D29F87439001B9D35 /* loginNav.swift in Sources */,
 				FF3EBA142A0AC46E00B4E6AE /* Users.swift in Sources */,
+				FF2D48352A20EC9E00B27FE6 /* moreCVC.swift in Sources */,
 				FFB817482A015B0D008E7E69 /* birthdayView.swift in Sources */,
 				FFB8174C2A015B43008E7E69 /* verifyView.swift in Sources */,
 				FF3EBA0A2A0AB10E00B4E6AE /* requestHelper.swift in Sources */,
+				FF10E8F72A1D49D700ED1517 /* ConciergeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -846,9 +884,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = bumpd/bumpd.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7HYEU555LQ;
+				DEVELOPMENT_TEAM = X8L4NGJ9BL;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = bumpd/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Bumpd;
@@ -856,6 +896,8 @@
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "This is necessary for replacing your profile avatar and posting media files.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This is necessary if you wish to capture memories.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Location access is required in order to bump with your friends automatically.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location access is required in order to bump with your friends.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This is necessary if you want to be able to upload image files.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This is necessary if you want to be able to upload image files.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -869,9 +911,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bumpd.bumpd;
+				MARKETING_VERSION = 1.01;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bumpd.bumpdapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -884,9 +927,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = bumpd/bumpd.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7HYEU555LQ;
+				DEVELOPMENT_TEAM = X8L4NGJ9BL;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = bumpd/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Bumpd;
@@ -894,6 +939,8 @@
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "This is necessary for replacing your profile avatar and posting media files.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This is necessary if you wish to capture memories.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Location access is required in order to bump with your friends automatically.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location access is required in order to bump with your friends.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This is necessary if you want to be able to upload image files.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This is necessary if you want to be able to upload image files.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -907,9 +954,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bumpd.bumpd;
+				MARKETING_VERSION = 1.01;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bumpd.bumpdapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
