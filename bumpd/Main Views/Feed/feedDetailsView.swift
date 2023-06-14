@@ -19,12 +19,14 @@ class feedDetailsView: UIViewController, UICollectionViewDelegate, UICollectionV
     
     var feed: Feed!
     var like = [Likes]()
+    var liked = [Likes]()
     
     // Outlets
     
     @IBOutlet weak var authorImg: CustomizableImageView!
     @IBOutlet weak var recipientImg: CustomizableImageView!
     @IBOutlet weak var likeCollection: UICollectionView!
+    @IBOutlet weak var detailsLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +43,7 @@ class feedDetailsView: UIViewController, UICollectionViewDelegate, UICollectionV
         
         setupBump()
         setupLikes()
+        checkLikes()
         
     }
     
@@ -51,6 +54,12 @@ class feedDetailsView: UIViewController, UICollectionViewDelegate, UICollectionV
         let vc = segue.destination as? mapView
         vc?.feed = self.feed
         
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        
+        // .default
+        return .darkContent
     }
     
     // MARK: – Collection view data source
@@ -87,19 +96,17 @@ class feedDetailsView: UIViewController, UICollectionViewDelegate, UICollectionV
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "more", for: indexPath) as! moreCVC
             
-            if like.count >= 5 {
-                
-                print("IT'S GREATER THAN OR EQUAL TO 5!!!!")
+            if liked.count >= 5 {
                 
                 cell.countLabel.isHidden = false
                 
-            } else if like.count <= 4 {
-                
-                print("IT'S LESS THAN OR EQUAL TO 4!!!!")
+            } else if liked.count <= 4 {
                 
                 cell.countLabel.isHidden = true
                 
             }
+            
+            cell.countLabel.text = "+\(liked.count - 4)"
             
             return cell
         default:
@@ -141,19 +148,41 @@ class feedDetailsView: UIViewController, UICollectionViewDelegate, UICollectionV
     
     func setupBump() {
         
-        databaseRef.child("Users/\(feed.author)").observe(.value) { (snapshot) in
+        let uid = Auth.auth().currentUser?.uid
+        let ref1 = databaseRef.child("Users/\(feed.author)")
+        let ref2 = databaseRef.child("Users/\(feed.recipient)")
+        
+        ref1.observe(.value) { (snapshot) in
             
-            let img = snapshot.childSnapshot(forPath: "img").value as? String ?? "https://firebasestorage.googleapis.com/v0/b/bumpd-7f46b.appspot.com/o/profileImg%2Fprofile-img%402x.png?alt=media&token=22b312c9-65e0-4463-a126-21ee2fdcdd61"
+            let fullname = snapshot.childSnapshot(forPath: "name").value as? String ?? ""
+            let aname = fullname.components(separatedBy: " ")[0]
+            let img = snapshot.childSnapshot(forPath: "img").value as? String ?? "https://firebasestorage.googleapis.com/v0/b/bumpd-7f46b.appspot.com/o/profileImage%2Fdefault_profile%402x.png?alt=media&token=973f10a5-4b54-433f-859f-c6657bed5c29"
             
             self.authorImg.loadImageUsingCacheWithUrlString(urlString: img)
             
-        }
-        
-        databaseRef.child("Users/\(feed.recipient)").observe(.value) { (snapshot) in
-            
-            let img = snapshot.childSnapshot(forPath: "img").value as? String ?? "https://firebasestorage.googleapis.com/v0/b/bumpd-7f46b.appspot.com/o/profileImg%2Fprofile-img%402x.png?alt=media&token=22b312c9-65e0-4463-a126-21ee2fdcdd61"
-            
-            self.recipientImg.loadImageUsingCacheWithUrlString(urlString: img)
+            ref2.observe(.value) { (snapshot) in
+                
+                let fullname = snapshot.childSnapshot(forPath: "name").value as? String ?? ""
+                let name = fullname.components(separatedBy: " ")[0]
+                let img = snapshot.childSnapshot(forPath: "img").value as? String ?? "https://firebasestorage.googleapis.com/v0/b/bumpd-7f46b.appspot.com/o/profileImage%2Fdefault_profile%402x.png?alt=media&token=973f10a5-4b54-433f-859f-c6657bed5c29"
+                
+                if self.feed.author == uid {
+                    
+                    self.detailsLabel.text = "You\nbumpd into\n\(name)"
+                    
+                } else if self.feed.recipient == uid {
+                    
+                    self.detailsLabel.text = "\(aname)\nbumpd into\nYou"
+                    
+                } else {
+                    
+                    self.detailsLabel.text = "\(aname)\nbumpd into\n\(name)"
+                    
+                }
+                
+                self.recipientImg.loadImageUsingCacheWithUrlString(urlString: img)
+                
+            }
             
         }
         
@@ -177,6 +206,28 @@ class feedDetailsView: UIViewController, UICollectionViewDelegate, UICollectionV
             
             self.like = array
             self.likeCollection.reloadData()
+            
+        }
+        
+    }
+    
+    func checkLikes() {
+        
+        databaseRef.child("Feed/\(feed.id)/Likes").observe(.value) { (snapshot) in
+            
+            var array = [Likes]()
+            
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+                
+                let uid = child.childSnapshot(forPath: "uid").value as? String ?? ""
+                
+                let likey = Likes(uid: uid)
+                
+                array.append(likey)
+                
+            }
+            
+            self.liked = array
             
         }
         

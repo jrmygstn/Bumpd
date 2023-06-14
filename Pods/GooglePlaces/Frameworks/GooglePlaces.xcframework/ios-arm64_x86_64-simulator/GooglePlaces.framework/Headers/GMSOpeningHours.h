@@ -31,6 +31,7 @@ typedef NS_ENUM(NSInteger, GMSOpenNowStatus) {
 
 /**@}*/
 
+
 /**
  * \defgroup DayOfWeek GMSDayOfWeek
  * @{
@@ -113,6 +114,7 @@ typedef NS_ENUM(NSUInteger, GMSDayOfWeek) {
  *       Do not use the GMSDayOfWeek enum to index into the array.
  */
 @property(nullable, nonatomic, readonly, strong) NSArray<NSString *> *weekdayText;
+
 
 @end
 

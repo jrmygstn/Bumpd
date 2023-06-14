@@ -24,6 +24,7 @@ class feedCell: UITableViewCell {
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var authorImg: CustomizableImageView!
     @IBOutlet weak var recipientImg: CustomizableImageView!
+    @IBOutlet weak var locationData: CustomizableButton!
     @IBOutlet weak var metaData: UILabel!
     @IBOutlet weak var likeBtn: UIButton!
     
@@ -32,6 +33,7 @@ class feedCell: UITableViewCell {
         
         self.authorImg.image = nil
         self.recipientImg.image = nil
+        self.metaData.text = nil
         
     }
     
@@ -60,7 +62,7 @@ class feedCell: UITableViewCell {
             
             let fullname = snapshot.childSnapshot(forPath: "name").value as? String ?? ""
             let aname = fullname.components(separatedBy: " ")[0]
-            let img = snapshot.childSnapshot(forPath: "img").value as? String ?? "https://firebasestorage.googleapis.com/v0/b/bumpd-7f46b.appspot.com/o/profileImg%2Fprofile-img%402x.png?alt=media&token=22b312c9-65e0-4463-a126-21ee2fdcdd61"
+            let img = snapshot.childSnapshot(forPath: "img").value as? String ?? "https://firebasestorage.googleapis.com/v0/b/bumpd-7f46b.appspot.com/o/profileImage%2Fdefault_profile%402x.png?alt=media&token=973f10a5-4b54-433f-859f-c6657bed5c29"
             
             self.authorImg.loadImageUsingCacheWithUrlString(urlString: img)
             
@@ -68,16 +70,30 @@ class feedCell: UITableViewCell {
 
                 let fullname = snapshot.childSnapshot(forPath: "name").value as? String ?? ""
                 let name = fullname.components(separatedBy: " ")[0]
-                let img = snapshot.childSnapshot(forPath: "img").value as? String ?? "https://firebasestorage.googleapis.com/v0/b/bumpd-7f46b.appspot.com/o/profileImg%2Fprofile-img%402x.png?alt=media&token=22b312c9-65e0-4463-a126-21ee2fdcdd61"
+                let img = snapshot.childSnapshot(forPath: "img").value as? String ?? "https://firebasestorage.googleapis.com/v0/b/bumpd-7f46b.appspot.com/o/profileImage%2Fdefault_profile%402x.png?alt=media&token=973f10a5-4b54-433f-859f-c6657bed5c29"
                 
-                self.authorLabel.text = "\(aname)\nbumpd with\n\(name)"
+                if bump.author == uid {
+                    
+                    self.authorLabel.text = "You\nbumpd into\n\(name)"
+                    
+                } else if bump.recipient == uid {
+                    
+                    self.authorLabel.text = "\(aname)\nbumpd into\nYou"
+                    
+                } else {
+                    
+                    self.authorLabel.text = "\(aname)\nbumpd into\n\(name)"
+                    
+                }
+                
                 self.recipientImg.loadImageUsingCacheWithUrlString(urlString: img)
 
             }
 
         }
         
-        metaData.text = "@ \(bump.location)\n\(bump.createdAt.timestampSinceNow())"
+        locationData.setTitle("\(bump.location)", for: .normal)
+        metaData.text = "\(bump.createdAt.timestampSinceNow())"
         
         ref3.observe(.value) { (snapshot) in
             

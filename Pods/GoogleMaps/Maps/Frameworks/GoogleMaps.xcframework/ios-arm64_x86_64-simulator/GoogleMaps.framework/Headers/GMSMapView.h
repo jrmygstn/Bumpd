@@ -38,6 +38,26 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * \defgroup MapCapabilityFlags GMSMapCapabilityFlags
+ * @{
+ */
+
+/**
+ * Flags that represent conditionally-available map capabilities (ones that require a mapID or some
+ * other map setting) that can be used to indicate availability.
+ */
+typedef NS_OPTIONS(NSUInteger, GMSMapCapabilityFlags) {
+  /** No conditional capabilities are enabled on the GMSMapView. */
+  GMSMapCapabilityFlagsNone = 0,
+  /** Advanced markers are enabled on the GMSMapView. */
+  GMSMapCapabilityFlagsAdvancedMarkers = 1 << 0,
+  /** GMSPolyline with a stampStyle of GMSSpriteStyle is enabled on the GMSMapView. */
+  GMSMapCapabilityFlagsSpritePolylines = 1 << 2,
+};
+
+/**@}*/
+
 /** Delegate for events on GMSMapView. */
 @protocol GMSMapViewDelegate <NSObject>
 
@@ -171,7 +191,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return YES if the listener has consumed the event (i.e., the default behavior should not occur),
  *         NO otherwise (i.e., the default behavior should occur). The default behavior is for the
- *         camera to move such that it is centered on the user location.
+ *         camera to move such that it is centered on the device location.
  */
 - (BOOL)didTapMyLocationButtonForMapView:(GMSMapView *)mapView;
 
@@ -179,7 +199,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Called when the My Location Dot is tapped.
  *
  * @param mapView The map view that was tapped.
- * @param location The location of the user when the location dot was tapped.
+ * @param location The location of the device when the location dot was tapped.
  */
 - (void)mapView:(GMSMapView *)mapView didTapMyLocation:(CLLocationCoordinate2D)location;
 
@@ -194,6 +214,15 @@ NS_ASSUME_NONNULL_BEGIN
  * been rendered.
  */
 - (void)mapViewSnapshotReady:(GMSMapView *)mapView;
+
+/**
+ * Called every time map capabilities are changed.
+ *
+ * @param mapView The map view where mapCapabilities was changed.
+ * @param mapCapabilities Flags representing the capabilities on the map currently.
+ */
+- (void)mapView:(GMSMapView *)mapView
+    didChangeMapCapabilities:(GMSMapCapabilityFlags)mapCapabilities;
 
 @end
 
@@ -307,8 +336,8 @@ typedef NS_ENUM(NSUInteger, GMSMapViewPaddingAdjustmentBehavior) {
 @property(nonatomic, getter=isMyLocationEnabled) BOOL myLocationEnabled;
 
 /**
- * If My Location is enabled, reveals where the user location dot is being drawn. If it is disabled,
- * or it is enabled but no location data is available, this will be nil.  This property is
+ * If My Location is enabled, reveals where the device location dot is being drawn. If it is
+ * disabled, or it is enabled but no location data is available, this will be nil.  This property is
  * observable using KVO.
  */
 @property(nonatomic, readonly, nullable) CLLocation *myLocation;
@@ -399,7 +428,7 @@ typedef NS_ENUM(NSUInteger, GMSMapViewPaddingAdjustmentBehavior) {
  * Defaults to YES. If set to NO, GMSMapView will generate accessibility elements for overlay
  * objects, such as GMSMarker and GMSPolyline.
  *
- * This property is as per the informal UIAccessibility protocol, except for the default value of
+ * This property follows the informal UIAccessibility protocol, except for the default value of
  * YES.
  */
 @property(nonatomic) BOOL accessibilityElementsHidden;
@@ -416,6 +445,11 @@ typedef NS_ENUM(NSUInteger, GMSMapViewPaddingAdjustmentBehavior) {
  */
 @property(nonatomic, nullable) GMSCoordinateBounds *cameraTargetBounds;
 
+/**
+ * All conditionally-available (dependent on mapID or other map settings) capabilities that are
+ * available at the current moment in time. Does not include always-available capabilities.
+ */
+@property(nonatomic, readonly) GMSMapCapabilityFlags mapCapabilities;
 
 /** Builds and returns a map view with a frame and camera target. */
 + (instancetype)mapWithFrame:(CGRect)frame camera:(GMSCameraPosition *)camera;

@@ -13,7 +13,6 @@
 
 #import "GMSPlacesDeprecationUtils.h"
 
-
 @class GMSAddressComponent;
 @class GMSOpeningHours;
 @class GMSPlacePhotoMetadata;
@@ -188,10 +187,11 @@ typedef NS_ENUM(NSInteger, GMSBooleanPlaceAttribute) {
 @property(nonatomic, strong, readonly, nullable) GMSPlusCode *plusCode;
 
 /**
- * The Opening Hours information for this place. Includes open status, periods and weekday text when
- * available.
+ * The normal business Opening Hours information for this place. Includes open status, periods and
+ * weekday text when available.
  */
 @property(nonatomic, strong, readonly, nullable) GMSOpeningHours *openingHours;
+
 
 /** Represents how many reviews make up this place's rating. */
 @property(nonatomic, readonly, assign) NSUInteger userRatingsTotal;

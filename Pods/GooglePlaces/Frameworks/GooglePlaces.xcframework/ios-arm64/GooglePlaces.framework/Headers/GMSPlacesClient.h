@@ -11,10 +11,10 @@
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
 
+#import "GMSPlace.h"
 #import "GMSPlaceFieldMask.h"
 #import "GMSPlacesDeprecationUtils.h"
 #import "GMSPlacesErrors.h"
-
 
 @class GMSAutocompleteFilter;
 @class GMSAutocompletePrediction;
@@ -90,6 +90,7 @@ typedef void (^GMSPlacePhotoMetadataResultCallback)(GMSPlacePhotoMetadataList *_
  */
 typedef void (^GMSPlacePhotoImageResultCallback)(UIImage *_Nullable photo,
                                                  NSError *_Nullable error);
+
 
 /**
  * Main interface to the Places SDK. Used for searching and getting details about places. This class
@@ -261,6 +262,7 @@ typedef void (^GMSPlacePhotoImageResultCallback)(UIImage *_Nullable photo,
 - (void)findPlaceLikelihoodsFromCurrentLocationWithPlaceFields:(GMSPlaceField)placeFields
                                                       callback:
                                                           (GMSPlaceLikelihoodsCallback)callback;
+
 
 
 @end

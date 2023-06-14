@@ -53,4 +53,38 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+/**
+ * Describes the drawing style for a stamp image over a @c GMSStyleSpan.
+ *
+ * @note Only supports transparent background. If any color is set to the @c GMSStyleSpan it will
+ * only be treated as a fallback.
+ *
+ * Only supports being used with the Metal renderer. See setMetalRendererEnabled in GMSServices.h to
+ * learn how to enable Metal. If @c GMSStyleSpan is added to a map without Metal being enabled, the
+ * stamp will not render and instead the polyline span will attempt to fallback to any set color.
+ * If no color is set, it will fallback to the default polyline color, [UIColor blueColor].
+ *
+ * Use mapCapabilities in GMSMapView.h to query if a GMSMapView supports GMSSpriteStyle.
+ */
+@interface GMSSpriteStyle : GMSStampStyle
+
+/**
+ * Returns a sprite stamp style with the given image.
+ *
+ * @param image A @c UIImage object to use as the stamp image.
+ * @return An initialized sprite stamp style.
+ */
++ (instancetype)spriteStyleWithImage:(UIImage *)image
+    NS_SWIFT_UNAVAILABLE("Use initializer instead");
+
+/**
+ * Returns an initialized sprite stamp style with the given image.
+ *
+ * @param image A @c UIImage object to use as the stamp image.
+ * @return An initialized sprite stamp style.
+ */
+- (instancetype)initWithImage:(UIImage *)image NS_DESIGNATED_INITIALIZER;
+
+@end
+
 NS_ASSUME_NONNULL_END

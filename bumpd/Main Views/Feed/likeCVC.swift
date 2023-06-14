@@ -41,7 +41,7 @@ class likeCVC: UICollectionViewCell {
         
         databaseRef.child("Users/\(uid)").observeSingleEvent(of: .value) { (snapshot) in
             
-            let img = snapshot.childSnapshot(forPath: "img").value as? String ?? "https://firebasestorage.googleapis.com/v0/b/bumpd-7f46b.appspot.com/o/profileImg%2Fprofile-img%402x.png?alt=media&token=22b312c9-65e0-4463-a126-21ee2fdcdd61"
+            let img = snapshot.childSnapshot(forPath: "img").value as? String ?? "https://firebasestorage.googleapis.com/v0/b/bumpd-7f46b.appspot.com/o/profileImage%2Fdefault_profile%402x.png?alt=media&token=973f10a5-4b54-433f-859f-c6657bed5c29"
             
             self.thumbnail.loadImageUsingCacheWithUrlString(urlString: img)
             

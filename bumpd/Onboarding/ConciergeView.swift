@@ -24,6 +24,20 @@ class ConciergeView: UIViewController {
         
     }
     
+    // Actions
+    
+    @IBAction func signupBtnTapped(_ sender: Any) {
+        
+        performSegue(withIdentifier: "toLanding", sender: nil)
+        
+    }
+    
+    @IBAction func loginBtnTapped(_ sender: Any) {
+        
+        performSegue(withIdentifier: "toLogin", sender: nil)
+        
+    }
+    
     // Functions
     
     func checkIfLoggedIn() {
@@ -33,12 +47,6 @@ class ConciergeView: UIViewController {
             print("USER WAS ALREADY LOGGED IN!!!")
             
             self.checkAccountComplete()
-            
-        } else if Auth.auth().currentUser == nil {
-            
-            print("USER WAS NOT EVEN LOGGED IN!!!")
-            
-            self.performSegue(withIdentifier: "goToLanding", sender: nil)
             
         }
         
@@ -100,6 +108,8 @@ class ConciergeView: UIViewController {
             
             if phone != "" {
                 
+                self.setVersionNumber()
+                
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "mainView")
                 self.present(vc!, animated: false, completion: nil)
                 
@@ -111,6 +121,16 @@ class ConciergeView: UIViewController {
             }
             
         })
+        
+    }
+    
+    func setVersionNumber() {
+        
+        let uid = Auth.auth().currentUser?.uid
+        let ref = databaseRef.child("Users/\(uid!)")
+        
+        let value = ["version": "1.0"]
+        ref.updateChildValues(value)
         
     }
 

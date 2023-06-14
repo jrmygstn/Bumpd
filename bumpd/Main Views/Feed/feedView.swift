@@ -114,7 +114,7 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         let ref = databaseRef.child("Feed")
         
-        ref.observe(.value, with: { (snapshot) in
+        ref.queryOrdered(byChild: "timestamp").observe(.value, with: { (snapshot) in
             
             var array = [Feed]()
             
@@ -137,7 +137,7 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 let lke = Likes(uid: uids)
                 let feeed = Feed(author: author, bumpId: bumpId, timestamp: stamp, id: id, lat: lat, likes: lke, location: location, long: long, recipient: receipt)
                 
-                array.append(feeed)
+                array.insert(feeed, at: 0)
                 
             }
             

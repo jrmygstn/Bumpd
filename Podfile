@@ -19,6 +19,7 @@ target 'bumpd' do
   pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod 'IQKeyboardManager'
+  pod 'FSCalendar'
 
   target 'bumpdTests' do
     inherit! :search_paths
