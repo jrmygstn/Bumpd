@@ -59,12 +59,14 @@ NS_ASSUME_NONNULL_BEGIN
  * @note Only supports transparent background. If any color is set to the @c GMSStyleSpan it will
  * only be treated as a fallback.
  *
- * Only supports being used with the Metal renderer. See setMetalRendererEnabled in GMSServices.h to
- * learn how to enable Metal. If @c GMSStyleSpan is added to a map without Metal being enabled, the
- * stamp will not render and instead the polyline span will attempt to fallback to any set color.
- * If no color is set, it will fallback to the default polyline color, [UIColor blueColor].
+ * @note Use of @c GMSSpriteStyle requires Metal rendering framework. See
+ * GMSServices::setMetalRendererEnabled:(BOOL) to learn how to enable Metal. If @c GMSStyleSpan is
+ * added to a map without Metal being enabled, the stamp will not render and instead the polyline
+ * span will attempt to fallback to any set color. If no color is set, it will fallback to the
+ * default polyline color, [UIColor blueColor].
  *
- * Use mapCapabilities in GMSMapView.h to query if a GMSMapView supports GMSSpriteStyle.
+ * @note Use GMSMapView::mapCapabilities property to query if a @c GMSMapView supports @c
+ * GMSSpriteStyle.
  */
 @interface GMSSpriteStyle : GMSStampStyle
 

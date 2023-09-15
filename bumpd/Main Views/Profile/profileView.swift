@@ -98,7 +98,6 @@ class profileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
         
     }
     
-    
     // Actions
     
     @IBAction func settingBtnTapped(_ sender: Any) {
@@ -166,7 +165,7 @@ class profileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
         
         let uid = Auth.auth().currentUser?.uid
         
-        databaseRef.child("Users/\(uid!)/Bumps").queryOrdered(byChild: "timestamp").observe(.value) { (snapshot) in
+        databaseRef.child("Feed").queryOrdered(byChild: "timestamp").observe(.value) { (snapshot) in
 
             var array = [Bumps]()
 
@@ -179,10 +178,14 @@ class profileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
                 let lat = child.childSnapshot(forPath: "latitude").value as? Double ?? 0.0
                 let long = child.childSnapshot(forPath: "longitude").value as? Double ?? 0.0
                 let recipient = child.childSnapshot(forPath: "recipient").value as? String ?? ""
+                
+                if auth == uid || recipient == uid {
+                    
+                    let bmp = Bumps(author: auth, timestamp: stamp, id: id, location: local, latitude: lat, longitude: long, recipient: recipient)
 
-                let bmp = Bumps(author: auth, timestamp: stamp, id: id, location: local, latitude: lat, longitude: long, recipient: recipient)
-
-                array.insert(bmp, at: 0)
+                    array.insert(bmp, at: 0)
+                    
+                }
 
             }
             

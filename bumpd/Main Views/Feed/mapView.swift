@@ -28,8 +28,6 @@ class mapView: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
     var bump = GMSMarker()
     var feed: Feed!
     
-    let hq = CLLocation(latitude: 33.087561, longitude: -96.818984)
-    
     // Outlets
     
     @IBOutlet weak var longField: UILabel!
@@ -41,23 +39,25 @@ class mapView: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
         // Do any additional setup after loading the view.
         
         locationManager = CLLocationManager()
+        locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
         locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
-        locationManager.delegate = self
         
         placesClient = GMSPlacesClient.shared()
         
         //Create a map.
         
-        let camera = GMSCameraPosition.camera(withLatitude: hq.coordinate.latitude,
-                                              longitude: hq.coordinate.longitude,
+        let lat = feed.lat
+        let long = feed.long
+        
+        let camera = GMSCameraPosition.camera(withLatitude: lat,
+                                              longitude: long,
                                               zoom: zoomLevel)
         
         mapView = GMSMapView.map(withFrame: self.view.bounds, camera: camera)
-        
-        mapView.settings.compassButton = true
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.setMinZoom(4, maxZoom: mapView.maxZoom)
         
@@ -79,13 +79,13 @@ class mapView: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         // Add map marker
         
-        self.bump.position = CLLocationCoordinate2DMake(feed.lat, feed.long)
-        self.bump.icon = UIImage(named: "marker-img")
-        self.bump.title = feed.location
-        self.latField.text = "\(feed.lat)"
-        self.longField.text = "\(feed.long)"
+        let position = CLLocationCoordinate2DMake(lat, long)
+        let marker = GMSMarker(position: position)
+        marker.icon = UIImage(named: "marker-img")
+        marker.map = mapView
         
-        print("****THE INFO THAT SHOULD BE SHOWING IS-->> \(feed.lat), \(feed.long), \(feed.location)")
+        self.latField.text = "\(lat)"
+        self.longField.text = "\(long)"
         
     }
     

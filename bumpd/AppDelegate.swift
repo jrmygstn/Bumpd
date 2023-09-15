@@ -9,7 +9,6 @@ import UIKit
 import CoreData
 import Firebase
 import FirebaseCore
-import FirebaseAppCheck
 import GoogleMaps
 import GooglePlaces
 import UserNotifications
@@ -29,26 +28,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        let providerFactory = AppCheckDebugProviderFactory()
-        AppCheck.setAppCheckProviderFactory(providerFactory)
-        
         FirebaseApp.configure()
         Database.database().isPersistenceEnabled = true
         
         GMSServices.provideAPIKey(googleAPIKey)
         GMSPlacesClient.provideAPIKey(googleAPIKey)
         
-        let user = Auth.auth().currentUser?.uid
-        
-        if user != nil {
-            let pushManager = PushNotificationManager(userID: "\(user!)")
-            pushManager.registerForPushNotifications()
+        if Auth.auth().currentUser != nil {
+            
+            let user = Auth.auth().currentUser?.uid
+            let ref = databaseRef.child("Users/\(user!)")
+            
+            databaseRef.child("Users/\(user!)/fcmToken").observe(.value, with: { snapshot in
+                
+                if snapshot.exists() {
+                    
+                    if user != nil {
+                        let pushManager = PushNotificationManager(userID: "\(user!)")
+                        pushManager.registerForPushNotifications()
+                    }
+                    
+                }
+                
+            })
+            
+            let value = ["version": "1.0"]
+            
+            ref.updateChildValues(value)
+            
         }
         
         let sender = PushNotificationSender()
         sender.sendPushNotification(to: "token", title: "Notification title", body: "Notification body")
         
-        UNUserNotificationCenter.current().requestAuthorization(options: .badge) { (granted, error) in
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { (granted, error) in
             if error != nil {
                 UIApplication.shared.applicationIconBadgeNumber = 0
             }

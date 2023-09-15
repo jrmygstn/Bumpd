@@ -20,6 +20,7 @@ class likeCVC: UICollectionViewCell {
     // Outlets
     
     @IBOutlet weak var thumbnail: CustomizableImageView!
+    @IBOutlet weak var cellEmpty: CustomizableImageView!
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -38,6 +39,8 @@ class likeCVC: UICollectionViewCell {
     func configureLikes(lk: Likes){
         
         let uid = lk.uid
+        
+        cellEmpty.isHidden = true
         
         databaseRef.child("Users/\(uid)").observeSingleEvent(of: .value) { (snapshot) in
             

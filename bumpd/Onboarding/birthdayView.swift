@@ -29,7 +29,11 @@ class birthdayView: UIViewController {
 
         let imgTitle = UIImage(named: "Bumpd_brandmark-01")
         navigationItem.titleView = UIImageView(image: imgTitle)
-        navigationItem.leftBarButtonItem?.isHidden = true
+        if #available(iOS 16.0, *) {
+            navigationItem.leftBarButtonItem?.isHidden = true
+        } else {
+            // Fallback on earlier versions
+        }
         
         createDatePicker()
         
@@ -54,7 +58,7 @@ class birthdayView: UIViewController {
 
         ref.updateChildValues(userObj)
         
-        let go = self.storyboard?.instantiateViewController(withIdentifier: "phoneNav")
+        let go = self.storyboard?.instantiateViewController(withIdentifier: "mainView")
         self.present(go!, animated: true, completion: nil)
         
     }
@@ -66,7 +70,7 @@ class birthdayView: UIViewController {
         birthday.preferredDatePickerStyle = .wheels
         birthday.datePickerMode = .date
         birthday.maximumDate = Calendar.current.date(byAdding: .year, value: -16, to: Date())
-        birthday.frame = CGRect(x: 10, y: 100, width: self.view.frame.width, height: 150)
+        birthday.frame = CGRect(x: 10, y: 100, width: self.view.frame.width, height: 270)
         
         let toolbar = UIToolbar()
         toolbar.sizeToFit()

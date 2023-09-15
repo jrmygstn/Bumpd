@@ -1,6 +1,67 @@
 [
   {
-    "featureType": "road.arterial",
+    "featureType": "administrative.land_parcel",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.neighborhood",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.neighborhood",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "on"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "on"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.business",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "on"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.business",
+    "elementType": "labels.icon",
+    "stylers": [
+      {
+        "color": "#e8e7de"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
     "elementType": "labels",
     "stylers": [
       {
@@ -9,7 +70,7 @@
     ]
   },
   {
-    "featureType": "road.highway",
+    "featureType": "transit",
     "elementType": "labels",
     "stylers": [
       {
@@ -18,7 +79,8 @@
     ]
   },
   {
-    "featureType": "road.local",
+    "featureType": "water",
+    "elementType": "labels.text",
     "stylers": [
       {
         "visibility": "off"

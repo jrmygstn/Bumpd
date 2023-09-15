@@ -10,7 +10,10 @@ import Firebase
 
 class Bumps {
     
+    var approved: Bool
     var author: String
+    var date: String
+    var details: String
     var createdAt: Date
     var id: String
     var location: String
@@ -20,9 +23,12 @@ class Bumps {
     var ref: DatabaseReference!
     var key: String = ""
     
-    init(author: String, timestamp: Double, id: String, location: String, latitude: Double, longitude: Double, recipient: String) {
+    init(approved: Bool, author: String, date: String, details: String, timestamp: Double, id: String, location: String, latitude: Double, longitude: Double, recipient: String) {
         
+        self.approved = approved
         self.author = author
+        self.date = date
+        self.details = details
         self.createdAt = Date(timeIntervalSince1970: timestamp / 1000)
         self.id = id
         self.location = location

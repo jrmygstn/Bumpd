@@ -17,7 +17,9 @@ class feedCell: UITableViewCell {
         return Database.database().reference()
     }
     
-    var btnTapAction : (()->())?
+    var btnTapAction1 : (()->())?
+    var btnTapAction2 : (()->())?
+    var btnTapAction3 : (()->())?
     
     // Outlets
     
@@ -27,6 +29,8 @@ class feedCell: UITableViewCell {
     @IBOutlet weak var locationData: CustomizableButton!
     @IBOutlet weak var metaData: UILabel!
     @IBOutlet weak var likeBtn: UIButton!
+    @IBOutlet weak var authBtn: UIButton!
+    @IBOutlet weak var recipBtn: UIButton!
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -58,7 +62,7 @@ class feedCell: UITableViewCell {
         let ref2 = databaseRef.child("Users/\(bump.recipient)")
         let ref3 = databaseRef.child("Feed/\(bump.id)/Likes/\(uid!)")
 
-        ref1.observe(.value) { (snapshot) in
+        ref1.observeSingleEvent(of: .value) { (snapshot) in
             
             let fullname = snapshot.childSnapshot(forPath: "name").value as? String ?? ""
             let aname = fullname.components(separatedBy: " ")[0]
@@ -66,7 +70,7 @@ class feedCell: UITableViewCell {
             
             self.authorImg.loadImageUsingCacheWithUrlString(urlString: img)
             
-            ref2.observe(.value) { (snapshot) in
+            ref2.observeSingleEvent(of: .value) { (snapshot) in
 
                 let fullname = snapshot.childSnapshot(forPath: "name").value as? String ?? ""
                 let name = fullname.components(separatedBy: " ")[0]
@@ -113,13 +117,29 @@ class feedCell: UITableViewCell {
     
     func setupViews() {
         
-        likeBtn.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
+        likeBtn.addTarget(self, action: #selector(btnTapped1), for: .touchUpInside)
+        
+        authBtn.addTarget(self, action: #selector(btnTapped2), for: .touchUpInside)
+        
+        recipBtn.addTarget(self, action: #selector(btnTapped3), for: .touchUpInside)
         
     }
     
-    @objc func btnTapped() {
+    @objc func btnTapped1() {
         
-        btnTapAction?()
+        btnTapAction1?()
+        
+    }
+    
+    @objc func btnTapped2() {
+        
+        btnTapAction2?()
+        
+    }
+    
+    @objc func btnTapped3() {
+        
+        btnTapAction3?()
         
     }
 

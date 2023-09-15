@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * How markers interact with other markers and regular labels. Defaults to
- * GMSCollsionBehaviorRequired.
+ * GMSCollisionBehaviorRequired.
  *
  * Marker collisions occur when coordinates intersect.
  *

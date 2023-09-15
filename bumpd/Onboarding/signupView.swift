@@ -19,7 +19,6 @@ class signupView: UIViewController {
     
     // Outlets
     
-    @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var matchPwdField: UITextField!
@@ -42,45 +41,50 @@ class signupView: UIViewController {
         
     }
     
+    @IBAction func termBtnTapped(_ sender: Any) {
+        
+        let go = self.storyboard?.instantiateViewController(withIdentifier: "termsNav")
+        self.present(go!, animated: true, completion: nil)
+        
+    }
+    
     @IBAction func continueBtnTapped(_ sender: Any) {
         
-        guard let name = nameField.text, name != "", let email = emailField.text?.replacingOccurrences(of: " ", with: ""), email != "", let password = passwordField.text, password != ""
+        guard let email = emailField.text, email != "", let password = passwordField.text, password != ""
             else {
                 let alert = UIAlertController(title: "Forget Something?", message: "Please fill out all fields.", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
                 return
         }
-
-        Auth.auth().createUser(withEmail: emailField.text!, password: passwordField.text!) { (user, error) in
-            if (error != nil) {
-                let alert = UIAlertController(title: "Error", message: error!.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-                return
-            }
-            guard let user = user else { return }
-
-            let userObj = ["uid": user.user.uid , "email": email, "name": name]
-
-            self.databaseRef.child("Users").child(user.user.uid).setValue(userObj)
-
-            print("HERE'S YOUR NAME & EMAIL ADDRESS -->> \(name) \(email)")
-
-        }
-
-        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-
-        changeRequest?.displayName = name
-
-        changeRequest?.commitChanges { error in
-
-            print("********Your change request was not completed!")
-
-        }
         
-        let go = self.storyboard?.instantiateViewController(withIdentifier: "identityNav")
-        self.present(go!, animated: true, completion: nil)
+        if passwordField.text! == matchPwdField.text! {
+            
+            Auth.auth().createUser(withEmail: emailField.text!, password: passwordField.text!) { (user, error) in
+                if (error != nil) {
+                    let alert = UIAlertController(title: "Error", message: error!.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    return
+                }
+                guard let user = user else { return }
+
+                let userObj = ["uid": user.user.uid , "email": email]
+
+                self.databaseRef.child("Users").child(user.user.uid).setValue(userObj)
+
+            }
+            
+            let go = self.storyboard?.instantiateViewController(withIdentifier: "usernameNav")
+            self.present(go!, animated: true, completion: nil)
+            
+        } else if passwordField.text! != matchPwdField.text! {
+            
+            let alert = UIAlertController(title: "Uh oh!", message: "The passwords don't seem to match.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            
+        }
         
     }
 

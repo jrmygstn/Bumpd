@@ -255,20 +255,20 @@ extension Date {
         let seconds = components.second!
         
         if years > 0 {
-            return years == 1 ? "1 yr ago" : "\(years) yrs ago"
+            return years == 1 ? "1yr ago" : "\(years)yr ago"
         } else if months > 0 {
-            return months == 1 ? "1 mo ago" : "\(months) mos ago"
+            return months == 1 ? "1mo ago" : "\(months)mo ago"
         } else if days >= 7 {
             let weeks = days / 7
-            return weeks == 1 ? "1 wk ago" : "\(weeks) wks ago"
+            return weeks == 1 ? "1w ago" : "\(weeks)w ago"
         } else if days > 0 {
-            return days == 1 ? "1 dy ago" : "\(days) dys ago"
+            return days == 1 ? "1d ago" : "\(days)d ago"
         } else if hours > 0 {
-            return hours == 1 ? "1 hr ago" : "\(hours) hrs ago"
+            return hours == 1 ? "1h ago" : "\(hours)h ago"
         } else if minutes > 0 {
-            return minutes == 1 ? "1 mn ago" : "\(minutes) mns ago"
+            return minutes == 1 ? "1m ago" : "\(minutes)m ago"
         } else {
-            return seconds == 1 ? "1 sec ago" : "\(seconds) secs ago"
+            return seconds == 1 ? "1s ago" : "\(seconds)s ago"
         }
         
     }
@@ -317,20 +317,20 @@ extension Date {
         let seconds = components.second!
         
         if years > 0 {
-            return years == 1 ? "1 yr" : "\(years) yrs"
+            return years == 1 ? "1yr" : "\(years)yr"
         } else if months > 0 {
-            return months == 1 ? "1 mo" : "\(months) mos"
+            return months == 1 ? "1mo" : "\(months)mo"
         } else if days >= 7 {
             let weeks = days / 7
-            return weeks == 1 ? "1 wk" : "\(weeks) wks"
+            return weeks == 1 ? "1w" : "\(weeks)w"
         } else if days > 0 {
-            return days == 1 ? "1 dy" : "\(days) dys"
+            return days == 1 ? "1d" : "\(days)d"
         } else if hours > 0 {
-            return hours == 1 ? "1 hr" : "\(hours) hrs"
+            return hours == 1 ? "1h" : "\(hours)h"
         } else if minutes > 0 {
-            return minutes == 1 ? "1 min" : "\(minutes) mins"
+            return minutes == 1 ? "1m" : "\(minutes)m"
         } else {
-            return seconds == 1 ? "1 sec" : "\(seconds) secs"
+            return seconds == 1 ? "1s" : "\(seconds)s"
         }
         
     }
@@ -338,168 +338,168 @@ extension Date {
     func tillNextSession() -> String {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: self, to: Date())
-                
-                let years = components.year!
-                let months = components.month!
-                let days = components.day!
-                let hours = components.hour!
-                let minutes = components.minute!
-                let seconds = components.second!
-                
-                if years > 0 {
-                    return years == 1 ? "Next session starts in 1 year" : "Next session starts in \(years) years"
-                } else if months > 0 {
-                    return months == 1 ? "Next session starts in 1 month" : "Next session starts in \(months) months"
-                } else if days >= 7 {
-                    let weeks = days / 7
-                    return weeks == 1 ? "Next session starts in 1 week" : "Next session starts in \(weeks) weeks"
-                } else if days > 0 {
-                    return days == 1 ? "Next session starts in 1 day" : "Next session starts in \(days) days"
-                } else if hours > 0 {
-                    return hours == 1 ? "Next session starts in 1 hour" : "Next session starts in \(hours) hours"
-                } else if minutes > 0 {
-                    return minutes == 1 ? "Next session starts in 1 minute" : "Next session is in \(minutes) minutes"
-                } else {
-                    return seconds == 1 ? "Next session starts in 1 second" : "Next session starts in \(seconds) seconds"
-                }
-                
-            }
-            
-            func clientSinceNow() -> String {
-                let calendar = Calendar.current
-                
-                let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: self, to: Date())
-                
-                let years = components.year!
-                let months = components.month!
-                let days = components.day!
-                let hours = components.hour!
-                let minutes = components.minute!
-                let seconds = components.second!
-                
-                if years > 0 {
-                    return years == 1 ? "Last year" : "\(years) years ago"
-                } else if months > 0 {
-                    return months == 1 ? "Last month" : "\(months) months ago"
-                } else if days >= 7 {
-                    let weeks = days / 7
-                    return weeks == 1 ? "Last week" : "\(weeks) weeks ago"
-                } else if days > 0 {
-                    return days == 1 ? "Yesterday" : "\(days) days ago"
-                } else if hours > 0 {
-                    return hours == 1 ? "An hour ago" : "\(hours) hours ago"
-                } else if minutes > 0 {
-                    return minutes == 1 ? "A minute ago" : "\(minutes) minutes ago"
-                } else {
-                    return seconds == 1 ? "A second ago" : "\(seconds) seconds ago"
-                }
-                
-            }
-            
+        
+        let years = components.year!
+        let months = components.month!
+        let days = components.day!
+        let hours = components.hour!
+        let minutes = components.minute!
+        let seconds = components.second!
+        
+        if years > 0 {
+            return years == 1 ? "Next session starts in 1 year" : "Next session starts in \(years) years"
+        } else if months > 0 {
+            return months == 1 ? "Next session starts in 1 month" : "Next session starts in \(months) months"
+        } else if days >= 7 {
+            let weeks = days / 7
+            return weeks == 1 ? "Next session starts in 1 week" : "Next session starts in \(weeks) weeks"
+        } else if days > 0 {
+            return days == 1 ? "Next session starts in 1 day" : "Next session starts in \(days) days"
+        } else if hours > 0 {
+            return hours == 1 ? "Next session starts in 1 hour" : "Next session starts in \(hours) hours"
+        } else if minutes > 0 {
+            return minutes == 1 ? "Next session starts in 1 minute" : "Next session is in \(minutes) minutes"
+        } else {
+            return seconds == 1 ? "Next session starts in 1 second" : "Next session starts in \(seconds) seconds"
         }
+        
+    }
+    
+    func clientSinceNow() -> String {
+        let calendar = Calendar.current
+        
+        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: self, to: Date())
+        
+        let years = components.year!
+        let months = components.month!
+        let days = components.day!
+        let hours = components.hour!
+        let minutes = components.minute!
+        let seconds = components.second!
+        
+        if years > 0 {
+            return years == 1 ? "Last year" : "\(years) years ago"
+        } else if months > 0 {
+            return months == 1 ? "Last month" : "\(months) months ago"
+        } else if days >= 7 {
+            let weeks = days / 7
+            return weeks == 1 ? "Last week" : "\(weeks) weeks ago"
+        } else if days > 0 {
+            return days == 1 ? "Yesterday" : "\(days) days ago"
+        } else if hours > 0 {
+            return hours == 1 ? "An hour ago" : "\(hours) hours ago"
+        } else if minutes > 0 {
+            return minutes == 1 ? "A minute ago" : "\(minutes) minutes ago"
+        } else {
+            return seconds == 1 ? "A second ago" : "\(seconds) seconds ago"
+        }
+        
+    }
+    
+}
 
-        extension Int {
-            
-            var degreesToRadians: CGFloat {
-                    return CGFloat(self) * .pi / 180.0
+extension Int {
+    
+    var degreesToRadians: CGFloat {
+        return CGFloat(self) * .pi / 180.0
+    }
+    
+    func formatUsingAbbrevation () -> String {
+        let numFormatter = NumberFormatter()
+        
+        typealias Abbrevation = (threshold:Double, divisor:Double, suffix:String)
+        let abbreviations:[Abbrevation] = [(0.0, 100.0, ""),
+                                           (100_000.0, 100_000.0, "K"),
+                                           (100_000_000.0, 100_000_000.0, "M"),
+                                           (100_000_000_000.0, 100_000_000_000.0, "B")]
+        // you can add more !
+        let startValue = Double (abs(self))
+        let abbreviation:Abbrevation = {
+            var prevAbbreviation = abbreviations[0]
+            for tmpAbbreviation in abbreviations {
+                if (startValue < tmpAbbreviation.threshold) {
+                    break
                 }
-            
-            func formatUsingAbbrevation () -> String {
-                let numFormatter = NumberFormatter()
-                
-                typealias Abbrevation = (threshold:Double, divisor:Double, suffix:String)
-                let abbreviations:[Abbrevation] = [(0.0, 100.0, ""),
-                                                   (100_000.0, 100_000.0, "K"),
-                                                   (100_000_000.0, 100_000_000.0, "M"),
-                                                   (100_000_000_000.0, 100_000_000_000.0, "B")]
-                // you can add more !
-                let startValue = Double (abs(self))
-                let abbreviation:Abbrevation = {
-                    var prevAbbreviation = abbreviations[0]
-                    for tmpAbbreviation in abbreviations {
-                        if (startValue < tmpAbbreviation.threshold) {
-                            break
-                        }
-                        prevAbbreviation = tmpAbbreviation
-                    }
-                    return prevAbbreviation
-                } ()
-                
-                let value = Double(self) / abbreviation.divisor
-                numFormatter.positiveSuffix = abbreviation.suffix
-                numFormatter.negativeSuffix = abbreviation.suffix
-                numFormatter.allowsFloats = true
-                numFormatter.numberStyle = .decimal
-                numFormatter.minimumIntegerDigits = 1
-                numFormatter.minimumFractionDigits = 2
-                numFormatter.maximumFractionDigits = 2
-                
-                return numFormatter.string(from: NSNumber (value:value))!
+                prevAbbreviation = tmpAbbreviation
             }
-            
-            func pointsUsingAbbrevation () -> String {
-                let numFormatter = NumberFormatter()
-                
-                typealias Abbrevation = (threshold:Double, divisor:Double, suffix:String)
-                let abbreviations:[Abbrevation] = [(0, 1, ""),
-                                                   (1000.0, 1000.0, "K"),
-                                                   (10000.0, 1000.0, "K"),
-                                                   (100000.0, 1000.0, "K"),
-                                                   (1000000.0, 1000000.0, "M"),
-                                                   (10000000.0, 1000000.0, "M"),
-                                                   (100000000.0, 1000000.0, "M"),
-                                                   (1000000000.0, 1000000000.0, "B")]
-                // you can add more !
-                let startValue = Double (abs(self))
-                let abbreviation:Abbrevation = {
-                    var prevAbbreviation = abbreviations[0]
-                    for tmpAbbreviation in abbreviations {
-                        if (startValue < tmpAbbreviation.threshold) {
-                            break
-                        }
-                        prevAbbreviation = tmpAbbreviation
-                    }
-                    return prevAbbreviation
-                } ()
-                
-                let value = Double(self) / abbreviation.divisor
-                numFormatter.positiveSuffix = abbreviation.suffix
-                numFormatter.negativeSuffix = abbreviation.suffix
-                numFormatter.allowsFloats = true
-                numFormatter.minimumIntegerDigits = 1
-                numFormatter.minimumFractionDigits = 0
-                numFormatter.maximumFractionDigits = 1
-                
-                return numFormatter.string(from: NSNumber (value:value))!
-            }
-            
-        }
-
-        extension Double {
-            
-          var toTimeString: String {
-            
-            let seconds: Int = Int(self.truncatingRemainder(dividingBy: 60.0))
-            let minutes: Int = Int(self / 60.0)
-            return String(format: "%d:%02d", minutes, seconds)
-            
-          }
-            
-        }
-
-        extension UINavigationController {
-            
-            func setStatusBar(backgroundColor: UIColor) {
-                let statusBarFrame: CGRect
-                if #available(iOS 13.0, *) {
-                    statusBarFrame = view.window?.windowScene?.statusBarManager?.statusBarFrame ?? CGRect.zero
-                } else {
-                    statusBarFrame = UIApplication.shared.statusBarFrame
+            return prevAbbreviation
+        } ()
+        
+        let value = Double(self) / abbreviation.divisor
+        numFormatter.positiveSuffix = abbreviation.suffix
+        numFormatter.negativeSuffix = abbreviation.suffix
+        numFormatter.allowsFloats = true
+        numFormatter.numberStyle = .decimal
+        numFormatter.minimumIntegerDigits = 1
+        numFormatter.minimumFractionDigits = 2
+        numFormatter.maximumFractionDigits = 2
+        
+        return numFormatter.string(from: NSNumber (value:value))!
+    }
+    
+    func pointsUsingAbbrevation () -> String {
+        let numFormatter = NumberFormatter()
+        
+        typealias Abbrevation = (threshold:Double, divisor:Double, suffix:String)
+        let abbreviations:[Abbrevation] = [(0, 1, ""),
+                                           (1000.0, 1000.0, "K"),
+                                           (10000.0, 1000.0, "K"),
+                                           (100000.0, 1000.0, "K"),
+                                           (1000000.0, 1000000.0, "M"),
+                                           (10000000.0, 1000000.0, "M"),
+                                           (100000000.0, 1000000.0, "M"),
+                                           (1000000000.0, 1000000000.0, "B")]
+        // you can add more !
+        let startValue = Double (abs(self))
+        let abbreviation:Abbrevation = {
+            var prevAbbreviation = abbreviations[0]
+            for tmpAbbreviation in abbreviations {
+                if (startValue < tmpAbbreviation.threshold) {
+                    break
                 }
-                let statusBarView = UIView(frame: statusBarFrame)
-                statusBarView.backgroundColor = backgroundColor
-                view.addSubview(statusBarView)
+                prevAbbreviation = tmpAbbreviation
             }
-            
+            return prevAbbreviation
+        } ()
+        
+        let value = Double(self) / abbreviation.divisor
+        numFormatter.positiveSuffix = abbreviation.suffix
+        numFormatter.negativeSuffix = abbreviation.suffix
+        numFormatter.allowsFloats = true
+        numFormatter.minimumIntegerDigits = 1
+        numFormatter.minimumFractionDigits = 0
+        numFormatter.maximumFractionDigits = 1
+        
+        return numFormatter.string(from: NSNumber (value:value))!
+    }
+    
+}
+
+extension Double {
+    
+    var toTimeString: String {
+        
+        let seconds: Int = Int(self.truncatingRemainder(dividingBy: 60.0))
+        let minutes: Int = Int(self / 60.0)
+        return String(format: "%d:%02d", minutes, seconds)
+        
+    }
+    
+}
+
+extension UINavigationController {
+    
+    func setStatusBar(backgroundColor: UIColor) {
+        let statusBarFrame: CGRect
+        if #available(iOS 13.0, *) {
+            statusBarFrame = view.window?.windowScene?.statusBarManager?.statusBarFrame ?? CGRect.zero
+        } else {
+            statusBarFrame = UIApplication.shared.statusBarFrame
         }
+        let statusBarView = UIView(frame: statusBarFrame)
+        statusBarView.backgroundColor = backgroundColor
+        view.addSubview(statusBarView)
+    }
+    
+}
 

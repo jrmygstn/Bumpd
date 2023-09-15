@@ -10,8 +10,10 @@ import Firebase
 
 class Memories {
     
+    var approved: Bool
     var author: String
     var date: String
+    var details: String
     var createdAt: Date
     var id: String
     var lat: Double
@@ -22,11 +24,13 @@ class Memories {
     var ref: DatabaseReference!
     var key: String = ""
     
-    init(author: String, timestamp: Double, date: String, id: String, lat: Double, location: String, long: Double, month: String, recipient: String) {
+    init(approved: Bool, author: String, timestamp: Double, date: String, details: String, id: String, lat: Double, location: String, long: Double, month: String, recipient: String) {
         
+        self.approved = approved
         self.author = author
         self.createdAt = Date(timeIntervalSince1970: timestamp / 1000)
         self.date = date
+        self.details = details
         self.id = id
         self.lat = lat
         self.location = location

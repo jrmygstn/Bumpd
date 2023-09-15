@@ -31,7 +31,11 @@ class verifyView: UIViewController {
 
         let imgTitle = UIImage(named: "Bumpd_brandmark-01")
         navigationItem.titleView = UIImageView(image: imgTitle)
-        navigationItem.leftBarButtonItem?.isHidden = true
+        if #available(iOS 16.0, *) {
+            navigationItem.leftBarButtonItem?.isHidden = true
+        } else {
+            // Fallback on earlier versions
+        }
         
         setupText()
         

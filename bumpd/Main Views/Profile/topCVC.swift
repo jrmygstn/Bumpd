@@ -21,6 +21,7 @@ class topCVC: UICollectionViewCell {
     
     @IBOutlet weak var authorImg: CustomizableImageView!
     @IBOutlet weak var metaData: UILabel!
+    @IBOutlet weak var cellEmpty: UIView!
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -34,15 +35,18 @@ class topCVC: UICollectionViewCell {
         
         let uid = bums.uid
         
+        cellEmpty.isHidden = true
+        
         databaseRef.child("Users/\(uid)").observe(.value) { (snapshot) in
             
+            let fullname = snapshot.childSnapshot(forPath: "name").value as? String ?? ""
+            let name = fullname.components(separatedBy: " ")[0]
             let img = snapshot.childSnapshot(forPath: "img").value as? String ?? "https://firebasestorage.googleapis.com/v0/b/bumpd-7f46b.appspot.com/o/profileImage%2Fdefault_profile%402x.png?alt=media&token=973f10a5-4b54-433f-859f-c6657bed5c29"
             
+            self.metaData.text = "\(name)\n\(bums.bumps)"
             self.authorImg.loadImageUsingCacheWithUrlString(urlString: img)
             
         }
-        
-        metaData.text = "\(bums.bumps)"
         
     }
     
