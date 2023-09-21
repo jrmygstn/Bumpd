@@ -88,10 +88,10 @@ class birthdayView: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+        dateFormatter.locale = Locale(identifier: "en_us")
         
         let dob:String = dateFormatter.string(from: birthday.date)
-        
-        dateFormatter.dateFormat = "MM-dd-yyyy"
         
         let finalDate:Date = dateFormatter.date(from: dob)!
         

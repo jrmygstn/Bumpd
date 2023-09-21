@@ -100,6 +100,8 @@ typedef void (^GMSPlacePhotoImageResultCallback)(UIImage *_Nullable photo,
  * @related GMSPlacesClient
  */
 typedef void (^GMSPlaceOpenStatusCallback)(GMSPlaceOpenStatus result, NSError *_Nullable error);
+
+
 /**
  * Main interface to the Places SDK. Used for searching and getting details about places. This class
  * should be accessed through the [GMSPlacesClient sharedClient] method.

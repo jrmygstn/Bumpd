@@ -58,7 +58,8 @@ typedef NS_ENUM(NSInteger, GMSPlaceHoursType) {
   GMSPlaceHoursTypeKitchen,
   GMSPlaceHoursTypeOnlineServiceHours,
   GMSPlaceHoursTypeDriveThrough,
-  GMSPlaceHoursTypeHappyHour
+  GMSPlaceHoursTypeHappyHour,
+  GMSPlaceHoursTypeUnknown
 };
 
 /**@}*/

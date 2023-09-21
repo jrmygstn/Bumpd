@@ -47,6 +47,15 @@ class picView: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     
     @IBAction func continueBtnTapped(_ sender: Any) {
         
+        if thumbnail.image == nil {
+            
+            let alert = UIAlertController(title: "Oh no!", message: "Help your friends know it's you by adding a recognizable photo.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+            
+        }
+        
         saveProfile()
         
         

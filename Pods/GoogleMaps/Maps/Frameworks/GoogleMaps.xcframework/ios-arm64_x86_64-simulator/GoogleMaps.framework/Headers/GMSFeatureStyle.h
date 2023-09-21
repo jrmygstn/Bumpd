@@ -7,18 +7,12 @@
 //  Usage of this SDK is subject to the Google Maps/Google Earth APIs Terms of
 //  Service: https://cloud.google.com/maps-platform/terms
 //
-/**
- *   This product or feature is in pre-GA. Pre-GA products and features might have limited support,
- *   and changes to pre-GA products and features might not be compatible with other pre-GA versions.
- *   Pre-GA Offerings are covered by the Google Maps Platform Service Specific Terms
- *   (https://cloud.google.com/maps-platform/terms/maps-service-terms).
- */
 
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-/** Specification on the way a feature should appear when displayed on a map. */
+/** Specifies how a map feature should appear when displayed on a map. */
 NS_SWIFT_NAME(FeatureStyle)
 @interface GMSFeatureStyle : NSObject
 
@@ -46,7 +40,7 @@ NS_SWIFT_NAME(FeatureStyle)
 
 @end
 
-/** Value to use for strokeWidth parameter when the stroke width should be unchanged. */
+/** Value to use for @c strokeWidth parameter when the stroke width should be unchanged. */
 FOUNDATION_EXTERN const float GMSFeatureStyleStrokeWidthUnspecified;
 
 NS_ASSUME_NONNULL_END
