@@ -38,6 +38,17 @@ class mapView: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
 
         // Do any additional setup after loading the view.
         
+        mainSetup()
+    }
+    
+    // Setup
+    
+    func mainSetup() {
+        setupLocationManager()
+        setupMapView()
+    }
+
+    func setupLocationManager() {
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -47,9 +58,9 @@ class mapView: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
         
         placesClient = GMSPlacesClient.shared()
-        
-        //Create a map.
-        
+    }
+
+    func setupMapView() {
         let lat = feed.lat
         let long = feed.long
         
@@ -60,69 +71,84 @@ class mapView: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
         mapView = GMSMapView.map(withFrame: self.view.bounds, camera: camera)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.setMinZoom(4, maxZoom: mapView.maxZoom)
-        
-        // Add the map to the view, hide it until we've got a location update.
-        
-        self.view.addSubview(mapView)
         mapView.isHidden = true
         
+        // Set the map style
+        setMapStyle()
+        
+        // Add map marker
+        addMapMarker(lat: lat, long: long)
+        
+        self.latField.text = "\(lat)"
+        self.longField.text = "\(long)"
+    }
+
+    func setMapStyle() {
+        guard let styleURL = Bundle.main.url(forResource: "style", withExtension: "json") else {
+            NSLog("Unable to find style.json")
+            return
+        }
+        
         do {
-            // Set the map style by passing the URL of the local file.
-            if let styleURL = Bundle.main.url(forResource: "style", withExtension: "json") {
-                mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
-            } else {
-                NSLog("Unable to find style.json")
-            }
+            mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
         } catch {
             NSLog("One or more of the map styles failed to load. \(error)")
         }
-        
-        // Add map marker
-        
+    }
+
+    func addMapMarker(lat: Double, long: Double) {
         let position = CLLocationCoordinate2DMake(lat, long)
         let marker = GMSMarker(position: position)
         marker.icon = UIImage(named: "marker-img")
         marker.map = mapView
-        
-        self.latField.text = "\(lat)"
-        self.longField.text = "\(long)"
-        
     }
     
     // Functions
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        let camera = GMSCameraPosition.camera(withLatitude: feed.lat,
-                                              longitude: feed.long,
-                                              zoom: self.zoomLevel)
-        
-        if self.mapView.isHidden {
-            self.mapView.isHidden = false
-            self.mapView.camera = camera
-        } else {
-            self.mapView.animate(to: camera)
+    func handleMapLocation(locations: [CLLocation]) {
+        guard let location = locations.first else {
+            return
         }
         
+        let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
+                                              longitude: location.coordinate.longitude,
+                                              zoom: self.zoomLevel)
+        
+        if mapView.isHidden {
+            mapView.isHidden = false
+            mapView.camera = camera
+        } else {
+            mapView.animate(to: camera)
+        }
+    }
+    
+    func handleMapAuthStatus(status: CLAuthorizationStatus) {
+        var newState: LocationAuthorizationState
+        
+        switch status {
+        case .restricted:
+            newState = RestrictedAuthorizationState()
+        case .denied:
+            newState = DeniedAuthorizationState()
+            // Display the map using the default location.
+            mapView.isHidden = false
+        case .notDetermined:
+            newState = NotDeterminedAuthorizationState()
+        case .authorizedAlways, .authorizedWhenInUse:
+            newState = AuthorizedAuthorizationState()
+        @unknown default:
+            newState = UnknownAuthorizationState()
+        }
+        let authorizationHandler = LocationAuthorizationHandler(state: newState)
+            authorizationHandler.handleAuthorization()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        handleMapLocation(locations: locations)
     }
     
     // Handle authorization for the location manager.
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .restricted:
-            print("Location access was restricted.")
-        case .denied:
-            print("User denied access to location.")
-            // Display the map using the default location.
-            mapView.isHidden = false
-        case .notDetermined:
-            print("Location status not determined.")
-        case .authorizedAlways: fallthrough
-        case .authorizedWhenInUse:
-            print("Location status is OK.")
-        @unknown default:
-            print("Fatal error")
-        }
+        handleMapAuthStatus(status: status)
     }
     
     // Handle location manager errors.
