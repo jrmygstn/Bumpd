@@ -146,18 +146,9 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     // Functions
-    
-    func setupFeed() {
-        
-        let ref = databaseRef.child("Feed")
-        
-        ref.queryOrdered(byChild: "timestamp").observeSingleEvent(of: .value, with: { (snapshot) in
-            
-            var array = [Feed]()
-            
-            for child in snapshot.children.allObjects as! [DataSnapshot] {
-                
-                // Feed
+    func createFeedFrom(snapshots: [DataSnapshot]) -> [Feed] {
+        return snapshots
+            .compactMap { (child: DataSnapshot) -> Feed? in
                 let approve = child.childSnapshot(forPath: "approved").value as? Bool ?? false
                 let authId = child.childSnapshot(forPath: "authId").value as? String ?? ""
                 let author = child.childSnapshot(forPath: "author").value as? String ?? ""
@@ -169,117 +160,122 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 let recipId = child.childSnapshot(forPath: "recipId").value as? String ?? ""
                 let receipt = child.childSnapshot(forPath: "recipient").value as? String ?? ""
                 let stamp = child.childSnapshot(forPath: "timestamp").value as? Double ?? 0
-                
-                // Likes
                 let uids = child.childSnapshot(forPath: "uid").value as? String ?? ""
                 
-                // Snapshots
+                if approve {
+                    let likes = Likes(uid: uids)
+                    return Feed(approved: approve, authId: authId, author: author, bumpId: bumpId, timestamp: stamp, id: id, lat: lat, likes: likes, location: location, long: long, recipId: recipId, recipient: receipt)
+                }
                 
-                if approve != false {
-                    
-                    let lke = Likes(uid: uids)
-                    let feeed = Feed(approved: approve, authId: authId, author: author, bumpId: bumpId, timestamp: stamp, id: id, lat: lat, likes: lke, location: location, long: long, recipId: recipId, recipient: receipt)
-                    
-                    array.insert(feeed, at: 0)
-                    
+                return nil
+            }
+    }
+    
+    func setupFeed() {
+        
+        let query = databaseRef.child("Feed")
+            .queryOrdered(byChild: "timestamp")
+        
+        query.observeSingleEvent(of: .value, with: { (snapshot) in
+            let snapshots = snapshot.children.allObjects as! [DataSnapshot]
+            self.feed = self.createFeedFrom(snapshots: snapshots)
+            self.tableView.reloadData()
+        })
+    }
+    
+    func checkUserProximity(uid: String) {
+        let query = databaseRef.child("Users/\(uid)")
+
+        query.observe(.value) { [weak self] (snapshot) in
+            guard let self = self,
+                  let myLat = snapshot.childSnapshot(forPath: "latitude").value as? Double,
+                  let myLong = snapshot.childSnapshot(forPath: "longitude").value as? Double else {
+                return
+            }
+            
+            for user in self.users {
+                let coordinance1 = CLLocation(latitude: myLat, longitude: myLong)
+                let coordinance2 = CLLocation(latitude: user.latitude, longitude: user.longitude)
+                let distance = coordinance2.distance(from: coordinance1)
+                let distanceInMeters = Double(distance.formatted()) ?? 0.0
+                
+                if distanceInMeters < 22.191969 && distanceInMeters != 0.0 {
+                    self.checkBumpStatus(uid: uid, userUID: user.uid)
+                }
+            }
+        }
+    }
+    
+    func checkBumpStatus(uid: String, userUID: String) {
+        let date = Date()
+        let today = date.getFormattedDate(format: "YYYY-MM-dd HH:mm")
+        let query = databaseRef.child("Users/\(uid)/Bumpers/\(userUID)")
+        
+        query.observe(.value) { (snapshot) in
+            
+            let last = snapshot.childSnapshot(forPath: "last").value as? String ?? ""
+            
+            // Getting today's date
+            
+            let todayFormat = DateFormatter()
+            let lastFormat = DateFormatter()
+            
+            todayFormat.dateFormat = "YYYY-MM-dd HH:mm"
+            lastFormat.dateFormat = "YYYY-MM-dd HH:mm"
+            
+            let todayStr = todayFormat.date(from: today)
+            let lastStr = lastFormat.date(from: last)
+            
+            let todayStamp = todayStr?.timeIntervalSince1970
+            let lastStamp = lastStr?.timeIntervalSince1970
+            
+            // Have you bumped in the past hour?
+            
+            if todayStamp ?? 0 > lastStamp ?? 0 {
+                
+                self.addRedDot(index: 2)
+                
+            } else if todayStamp ?? 0 <= lastStamp ?? 0 {
+                
+                if let items = self.tabBarController?.tabBar.items as NSArray? {
+                    let tabItem = items.object(at: 2) as! UITabBarItem
+                    tabItem.badgeValue = nil
                 }
                 
             }
             
-            self.feed = array
-            self.tableView.reloadData()
+        }
+    }
+    
+    func createUsersFrom(snapshots: [DataSnapshot]) -> [Users] {
+        return snapshots.compactMap { (child: DataSnapshot) -> Users? in
+            // Feed
+            let age = child.childSnapshot(forPath: "age").value as? String ?? ""
+            let birth = child.childSnapshot(forPath: "birthday").value as? String ?? ""
+            let email = child.childSnapshot(forPath: "email").value as? String ?? ""
+            let gender = child.childSnapshot(forPath: "gender").value as? String ?? ""
+            let img = child.childSnapshot(forPath: "img").value as? String ?? "https://firebasestorage.googleapis.com/v0/b/bumpd-7f46b.appspot.com/o/profileImage%2Fdefault_profile%402x.png?alt=media&token=973f10a5-4b54-433f-859f-c6657bed5c29"
+            let lat = child.childSnapshot(forPath: "latitude").value as? Double ?? 0.0
+            let long = child.childSnapshot(forPath: "longitude").value as? Double ?? 0.0
+            let name = child.childSnapshot(forPath: "name").value as? String ?? ""
+            let user = child.childSnapshot(forPath: "uid").value as? String ?? ""
             
-        })
-        
+            return Users(age: age, birthday: birth, email: email, gender: gender, img: img, latitude: lat, longitude: long, name: name, uid: user)
+        }
     }
     
     func setupNearUsers() {
         
-        let date = Date()
-        let today = date.getFormattedDate(format: "YYYY-MM-dd HH:mm")
-        let uid = Auth.auth().currentUser?.uid
-        
-        databaseRef.child("Users").observe(.value) { (snapshot) in
-            
-            var array = [Users]()
-            
-            for child in snapshot.children.allObjects as! [DataSnapshot] {
-                
-                // Feed
-                let age = child.childSnapshot(forPath: "age").value as? String ?? ""
-                let birth = child.childSnapshot(forPath: "birthday").value as? String ?? ""
-                let email = child.childSnapshot(forPath: "email").value as? String ?? ""
-                let gender = child.childSnapshot(forPath: "gender").value as? String ?? ""
-                let img = child.childSnapshot(forPath: "img").value as? String ?? "https://firebasestorage.googleapis.com/v0/b/bumpd-7f46b.appspot.com/o/profileImage%2Fdefault_profile%402x.png?alt=media&token=973f10a5-4b54-433f-859f-c6657bed5c29"
-                let lat = child.childSnapshot(forPath: "latitude").value as? Double ?? 0.0
-                let long = child.childSnapshot(forPath: "longitude").value as? Double ?? 0.0
-                let name = child.childSnapshot(forPath: "name").value as? String ?? ""
-                let user = child.childSnapshot(forPath: "uid").value as? String ?? ""
-                
-                if user != uid {
-                    
-                    let use = Users(age: age, birthday: birth, email: email, gender: gender, img: img, latitude: lat, longitude: long, name: name, uid: user)
-                    array.append(use)
-                    
-                    self.databaseRef.child("Users/\(uid!)").observe(.value) { (snapshot) in
-                        
-                        let myLat = snapshot.childSnapshot(forPath: "latitude").value as? Double ?? 0.0
-                        let myLong = snapshot.childSnapshot(forPath: "longitude").value as? Double ?? 0.0
-                        
-                        let coordinance1 = CLLocation(latitude: myLat, longitude: myLong)
-                        let coordinance2 = CLLocation(latitude: lat, longitude: long)
-                        let distance = coordinance2.distance(from: coordinance1)
-                        let distanceInMeters: Double = Double(distance.formatted()) ?? 0.0
-                        
-                        // Compare how close you are to someone else
-                        
-                        if (distanceInMeters < 22.191969 && distanceInMeters != 0.0) {
-                            
-                            self.databaseRef.child("Users/\(uid!)/Bumpers/\(user)").observe(.value) { (snapshot) in
-                                
-                                let last = snapshot.childSnapshot(forPath: "last").value as? String ?? ""
-                                
-                                // Getting today's date
-                                
-                                let todayFormat = DateFormatter()
-                                let lastFormat = DateFormatter()
-                                
-                                todayFormat.dateFormat = "YYYY-MM-dd HH:mm"
-                                lastFormat.dateFormat = "YYYY-MM-dd HH:mm"
-                                
-                                let todayStr = todayFormat.date(from: today)
-                                let lastStr = lastFormat.date(from: last)
-                                
-                                let todayStamp = todayStr?.timeIntervalSince1970
-                                let lastStamp = lastStr?.timeIntervalSince1970
-                                
-                                // Have you bumped in the past hour?
-                                
-                                if todayStamp ?? 0 > lastStamp ?? 0 {
-                                    
-                                    self.addRedDot(index: 2)
-                                    
-                                } else if todayStamp ?? 0 <= lastStamp ?? 0 {
-                                    
-                                    if let items = self.tabBarController?.tabBar.items as NSArray? {
-                                        let tabItem = items.object(at: 2) as! UITabBarItem
-                                        tabItem.badgeValue = nil
-                                    }
-                                    
-                                }
-                                
-                            }
-                            
-                        }
-                        
-                    }
-                    
-                }
-                
-            }
-            
-            self.users = array
-            
+        let uid = Auth.auth().currentUser?.uid ?? ""
+        let query = databaseRef.child("Users")
+            .queryOrdered(byChild: "uid")
+            .queryStarting(atValue: uid)
+            .queryEnding(atValue: (uid) + "\u{f8ff}")
+
+        query.observe(.value) { (snapshot) in
+            let snapshots = snapshot.children.allObjects as! [DataSnapshot]
+            self.users = self.createUsersFrom(snapshots: snapshots)
+            self.checkUserProximity(uid: uid)
         }
         
     }
@@ -287,8 +283,9 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func checkForNotifications() {
         
         let uid = Auth.auth().currentUser?.uid
+        let query = databaseRef.child("Users/\(uid!)/Notify")
         
-        databaseRef.child("Users/\(uid!)/Notify").observe(.value) { (snapshot) in
+        query.observe(.value) { (snapshot) in
             
             if snapshot.exists() {
                 

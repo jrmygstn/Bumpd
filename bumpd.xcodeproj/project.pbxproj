@@ -10,6 +10,7 @@
 		011A06F68E27568B85744AC7 /* Pods_bumpd_bumpdUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87461EFC1B482F88530FF380 /* Pods_bumpd_bumpdUITests.framework */; };
 		46AD61210CEF0A03F245401D /* Pods_bumpdTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A7FCD9DBB664F8289522F3 /* Pods_bumpdTests.framework */; };
 		65A80BDD2AC4AB3700E1F5AD /* LocationAuthorizationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A80BDC2AC4AB3700E1F5AD /* LocationAuthorizationState.swift */; };
+		65A80BE02AC4FEC300E1F5AD /* UsersAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A80BDF2AC4FEC300E1F5AD /* UsersAdapter.swift */; };
 		AAEF0C150C48D34DA309A619 /* Pods_bumpd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7B7C1547B14AC85524E161 /* Pods_bumpd.framework */; };
 		FF037FD32A7191AE00182513 /* notifyViewTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF037FD22A7191AE00182513 /* notifyViewTV.swift */; };
 		FF037FD52A7192E400182513 /* Notify.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF037FD42A7192E400182513 /* Notify.swift */; };
@@ -140,6 +141,7 @@
 		4776CB74F0ECF74C33D6314C /* Pods-bumpdTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bumpdTests.release.xcconfig"; path = "Target Support Files/Pods-bumpdTests/Pods-bumpdTests.release.xcconfig"; sourceTree = "<group>"; };
 		4BD88B5BBE8E7658A919F2CF /* Pods-bumpdTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bumpdTests.debug.xcconfig"; path = "Target Support Files/Pods-bumpdTests/Pods-bumpdTests.debug.xcconfig"; sourceTree = "<group>"; };
 		65A80BDC2AC4AB3700E1F5AD /* LocationAuthorizationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAuthorizationState.swift; sourceTree = "<group>"; };
+		65A80BDF2AC4FEC300E1F5AD /* UsersAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersAdapter.swift; sourceTree = "<group>"; };
 		87461EFC1B482F88530FF380 /* Pods_bumpd_bumpdUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bumpd_bumpdUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A7B7C1547B14AC85524E161 /* Pods_bumpd.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bumpd.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB3C17B02182F19DFA1AEDD1 /* Pods-bumpd.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bumpd.release.xcconfig"; path = "Target Support Files/Pods-bumpd/Pods-bumpd.release.xcconfig"; sourceTree = "<group>"; };
@@ -306,6 +308,14 @@
 			path = States;
 			sourceTree = "<group>";
 		};
+		65A80BDE2AC4FEA900E1F5AD /* Adapters */ = {
+			isa = PBXGroup;
+			children = (
+				65A80BDF2AC4FEC300E1F5AD /* UsersAdapter.swift */,
+			);
+			path = Adapters;
+			sourceTree = "<group>";
+		};
 		C500F00A3DA90A11B64F2B38 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -367,6 +377,7 @@
 				FFA06AAF2A3A490800AE9C7F /* AppointmentCell.xib */,
 				FF135E022A6103FE00B8639E /* commentTVC.xib */,
 				FFEB0E392A63A6D800F11ECF /* footerTVC.xib */,
+				65A80BDE2AC4FEA900E1F5AD /* Adapters */,
 				65A80BDB2AC4AB1600E1F5AD /* States */,
 				FFB8173E2A0159EA008E7E69 /* Onboarding */,
 				FFB817442A015A4D008E7E69 /* Main Views */,
@@ -855,6 +866,7 @@
 				FF135E032A6103FE00B8639E /* commentTVC.swift in Sources */,
 				FFA06AB22A3A4AAA00AE9C7F /* Memories.swift in Sources */,
 				FF135DFC2A5F089300B8639E /* memoriesTableview.swift in Sources */,
+				65A80BE02AC4FEC300E1F5AD /* UsersAdapter.swift in Sources */,
 				FFEBB79E2A4DC81F00F2A18E /* bumpMapView.swift in Sources */,
 				FF679A442A8E73D100F4BA0F /* bumpPhoto.swift in Sources */,
 				FF3EBA0F2A0AC31F00B4E6AE /* Bumps.swift in Sources */,

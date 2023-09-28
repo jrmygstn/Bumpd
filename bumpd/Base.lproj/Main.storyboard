@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TVP-4V-pR4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TVP-4V-pR4">
     <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -6894,7 +6894,7 @@ By using the Bumpd App, you acknowledge that you have read, understood, and agre
             <size key="intrinsicContentSize" width="53" height="32"/>
         </designable>
         <designable name="KR9-Ps-aKS">
-            <size key="intrinsicContentSize" width="10" height="37"/>
+            <size key="intrinsicContentSize" width="271.33333333333331" height="37"/>
         </designable>
         <designable name="S7n-eL-OvX">
             <size key="intrinsicContentSize" width="18.333333333333332" height="22"/>
@@ -6912,7 +6912,7 @@ By using the Bumpd App, you acknowledge that you have read, understood, and agre
             <size key="intrinsicContentSize" width="58" height="32"/>
         </designable>
         <designable name="mLw-a7-OjS">
-            <size key="intrinsicContentSize" width="10" height="37"/>
+            <size key="intrinsicContentSize" width="271.33333333333331" height="37"/>
         </designable>
         <designable name="n2E-OT-8UP">
             <size key="intrinsicContentSize" width="26.666666666666668" height="23.666666666666668"/>
@@ -6970,7 +6970,7 @@ By using the Bumpd App, you acknowledge that you have read, understood, and agre
         <image name="slideshow-plus-img00" width="415" height="896"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
