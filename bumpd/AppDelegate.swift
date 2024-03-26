@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
             })
             
-            let value = ["version": "1.0"]
+            let value = ["version": "1.1.1"]
             
             ref.updateChildValues(value)
             
