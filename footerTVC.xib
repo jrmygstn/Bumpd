@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="footer" rowHeight="180" id="KGk-i7-Jjw" customClass="footerTVC" customModule="bumpd" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="430" height="180"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="430" height="180"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="W92-8C-ugo">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="180"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="180" id="phM-HN-YWu"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="W92-8C-ugo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="4iI-rb-acP"/>
+                    <constraint firstItem="W92-8C-ugo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="C4h-aU-nCv"/>
+                    <constraint firstAttribute="bottom" secondItem="W92-8C-ugo" secondAttribute="bottom" id="MGP-2D-0UH"/>
+                    <constraint firstAttribute="trailing" secondItem="W92-8C-ugo" secondAttribute="trailing" id="txc-JC-IRo"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="background" destination="W92-8C-ugo" id="OOG-8B-AYi"/>
+            </connections>
+            <point key="canvasLocation" x="222.90076335877862" y="68.309859154929583"/>
+        </tableViewCell>
+    </objects>
+</document>
