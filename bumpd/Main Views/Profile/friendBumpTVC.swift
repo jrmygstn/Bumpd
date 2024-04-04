@@ -80,6 +80,8 @@ class friendBumpTVC: UITableViewCell {
         let auth = bum.author
         let user = Auth.auth().currentUser?.uid
         
+        print("THE RECIP IS \(recip), THE AUTH IS \(auth)")
+        
         if recip == user && auth != user {
             
             databaseRef.child("Users/\(auth)").observe(.value) { (snapshot) in

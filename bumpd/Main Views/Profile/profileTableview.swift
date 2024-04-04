@@ -134,12 +134,14 @@ class profileTableview: UITableViewController, UICollectionViewDelegate, UIColle
                     
                     let vc = self.storyboard?.instantiateViewController(identifier: "friendProfileVC") as! friendProfileTV
                     vc.ath = self.bumps[indexPath.row].author
+                    print("YOU SELECTED THE BUMP AUTHOR --->> \(self.bumps[indexPath.row].author)")
                     self.navigationController?.pushViewController(vc, animated: true)
                     
                 } else if self.bumps[indexPath.row].recipient != uid && self.bumps[indexPath.row].author == uid {
                     
                     let vc = self.storyboard?.instantiateViewController(identifier: "friendProfileVC") as! friendProfileTV
                     vc.rec = self.bumps[indexPath.row].recipient
+                    print("YOU SELECTED THE BUMP RECIPIENT --->> \(self.bumps[indexPath.row].recipient)")
                     self.navigationController?.pushViewController(vc, animated: true)
                     
                 }

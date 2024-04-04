@@ -85,11 +85,11 @@ class birthdayView: UIViewController {
     }
     
     @objc func donePressed(){
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
-        dateFormatter.dateFormat = "MM-dd-yyyy"
-        dateFormatter.locale = Locale(identifier: "en_us")
+        dateFormatter.setLocalizedDateFormatFromTemplate("MM-dd-yyyy")
         
         let dob:String = dateFormatter.string(from: birthday.date)
         
@@ -101,11 +101,12 @@ class birthdayView: UIViewController {
         
         let ageComponents = calendar.dateComponents([.year], from: finalDate, to: now)
         
-        print("Age is \(ageComponents.year!)")
-        
         dobField.text = dateFormatter.string(from: birthday.date)
         ageField.text = String(ageComponents.year!)
-        self.view.endEditing(true)
+        
+        print(self.dobField.text!)
+        
+        view.endEditing(true)
     }
 
 }

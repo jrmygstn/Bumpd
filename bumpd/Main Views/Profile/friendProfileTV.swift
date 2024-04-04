@@ -67,6 +67,7 @@ class friendProfileTV: UITableViewController, UICollectionViewDelegate, UICollec
             
         }
         
+        setupBumpCount()
         setupProfile()
         setupTopBumps()
         setupUsersBumps()
@@ -181,8 +182,47 @@ class friendProfileTV: UITableViewController, UICollectionViewDelegate, UICollec
     func setupUsersBumps() {
         
         let user = self.uidLabel.text!
+        let uid = Auth.auth().currentUser?.uid
         
         databaseRef.child("Feed").queryOrdered(byChild: "timestamp").observeSingleEvent(of: .value) { (snapshot) in
+
+            var array = [Bumps]()
+
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+
+                let approve = child.childSnapshot(forPath: "approved").value as? Bool ?? false
+                let ath = child.childSnapshot(forPath: "author").value as? String ?? ""
+                let date = child.childSnapshot(forPath: "date").value as? String ?? ""
+                let dets = child.childSnapshot(forPath: "details").value as? String ?? ""
+                let stamp = child.childSnapshot(forPath: "timestamp").value as? Double ?? 0.0
+                let id = child.childSnapshot(forPath: "id").value as? String ?? ""
+                let local = child.childSnapshot(forPath: "location").value as? String ?? ""
+                let lat = child.childSnapshot(forPath: "latitude").value as? Double ?? 0.0
+                let long = child.childSnapshot(forPath: "longitude").value as? Double ?? 0.0
+                let recipient = child.childSnapshot(forPath: "recipient").value as? String ?? ""
+
+                if ath == user && approve == true && recipient == uid || recipient == user && approve == true && ath == uid {
+                    
+                    let bmp = Bumps(approved: approve, author: ath, date: date, details: dets, timestamp: stamp, id: id, location: local, latitude: lat, longitude: long, recipient: recipient)
+
+                    array.insert(bmp, at: 0)
+                    
+                }
+
+            }
+            
+            self.bumps = array
+            self.tableView.reloadData()
+
+        }
+        
+    }
+    
+    func setupBumpCount() {
+        
+        let user = self.uidLabel.text!
+        
+        databaseRef.child("Feed").observeSingleEvent(of: .value) { (snapshot) in
 
             var array = [Bumps]()
 
@@ -210,7 +250,6 @@ class friendProfileTV: UITableViewController, UICollectionViewDelegate, UICollec
             }
             
             self.bumps = array
-            self.tableView.reloadData()
             
             if self.bumps.count != 0 {
                 

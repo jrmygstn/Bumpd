@@ -18,11 +18,15 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return Database.database().reference()
     }
     
-    var locationManager = CLLocationManager()
-    var currentLocation: CLLocation?
     var feed = [Feed]()
     var like = [Likes]()
     var users = [Users]()
+    var feedData: [String: [String: Any]] = [:]
+    var locationManager = CLLocationManager()
+    var currentLocation: CLLocation?
+    var refreshControl: UIRefreshControl!
+    var refreshButton: RefreshButton!
+    var refreshButtonTopAnchor: NSLayoutConstraint!
     
     // Outlets
     
@@ -30,17 +34,8 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var latLabel: UITextField!
     @IBOutlet weak var longLabel: UITextField!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
-        let imgTitle = UIImage(named: "Bumped_logo_transparent-03")
-        navigationItem.titleView = UIImageView(image: imgTitle)
-        
-        tableView.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1.0)
-        
-        checkForNotifications()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         locationManager.delegate = self
         locationManager = CLLocationManager()
@@ -50,8 +45,43 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
         
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+        
+        var layoutGuide: UILayoutGuide!
+        
+        layoutGuide = view.safeAreaLayoutGuide
+        
+        let imgTitle = UIImage(named: "Bumped_logo_transparent-03")
+        navigationItem.titleView = UIImageView(image: imgTitle)
+        
+        tableView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
+        
+        checkForNotifications()
+        
         setupFeed()
         setupNearUsers()
+//        listenForNewBumps()
+        
+        refreshButton = RefreshButton()
+        view.addSubview(refreshButton)
+        refreshButton.translatesAutoresizingMaskIntoConstraints = false
+        refreshButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        refreshButtonTopAnchor = refreshButton.topAnchor.constraint(equalTo: layoutGuide.topAnchor, constant: -44.0)
+        refreshButtonTopAnchor.isActive = true
+        refreshButton.heightAnchor.constraint(equalToConstant: 36.0).isActive = true
+        refreshButton.widthAnchor.constraint(equalToConstant: 125.0).isActive = true
+        refreshButton.button.addTarget(self, action: #selector(handleRefresh), for: .touchUpInside)
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.tintColor = UIColor(red: 121/255, green: 138/255, blue: 167/255, alpha: 1.0)
+        tableView.refreshControl = refreshControl
+        
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         
     }
     
@@ -65,6 +95,9 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "bumps", for: indexPath) as! feedCell
         
+        let id = feed[indexPath.row].id
+        let uid = Auth.auth().currentUser?.uid
+        
         cell.setupCell(bump: feed[indexPath.row])
         
         cell.btnTapAction1 = {
@@ -74,9 +107,6 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
             if cell.likeBtn.isSelected == false {
                 
                 cell.likeBtn.isSelected = true
-                
-                let id = self.feed[indexPath.row].id
-                let uid = Auth.auth().currentUser?.uid
                 
                 let ref = self.databaseRef.child("Feed/\(id)/Likes")
                 
@@ -91,9 +121,6 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
             } else if cell.likeBtn.isSelected == true {
                 
                 cell.likeBtn.isSelected = false
-                
-                let id = self.feed[indexPath.row].id
-                let uid = Auth.auth().currentUser?.uid
                 
                 let ref = self.databaseRef.child("Feed/\(id)/Likes/\(uid!)")
                 
@@ -134,7 +161,7 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let vc = storyboard?.instantiateViewController(identifier: "feedDetails") as! feedDetailsView
-        vc.feed = feed[indexPath.row]
+        vc.feed = self.feed[indexPath.row]
         self.present(vc, animated: true, completion: nil)
         
     }
@@ -146,6 +173,39 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     // Functions
+    
+    @objc func handleRefresh() {
+        
+        toggleRefreshButton(hidden: true)
+        
+        refreshFeed()
+        print("IT IS REFRESHING!!!!")
+        
+    }
+    
+    func toggleRefreshButton(hidden: Bool) {
+        
+        if hidden {
+            
+            // hide it
+            
+            UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+                self.refreshButtonTopAnchor.constant = -44.0
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+            
+        } else {
+            
+            // show it
+            
+            UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+                self.refreshButtonTopAnchor.constant = 12
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+            
+        }
+        
+    }
     
     func setupFeed() {
         
@@ -188,6 +248,108 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
             self.feed = array
             self.tableView.reloadData()
+            
+        })
+        
+    }
+    
+    func refreshFeed() {
+        
+        let ref = databaseRef.child("Feed")
+        
+        ref.queryOrdered(byChild: "timestamp").observeSingleEvent(of: .childAdded, with: { (snapshot) in
+            
+            var array = [Feed]()
+            
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+                
+                // Feed
+                let approve = child.childSnapshot(forPath: "approved").value as? Bool ?? false
+                let authId = child.childSnapshot(forPath: "authId").value as? String ?? ""
+                let author = child.childSnapshot(forPath: "author").value as? String ?? ""
+                let bumpId = child.childSnapshot(forPath: "bumpId").value as? String ?? ""
+                let id = child.childSnapshot(forPath: "id").value as? String ?? ""
+                let lat = child.childSnapshot(forPath: "latitude").value as? Double ?? 0
+                let location = child.childSnapshot(forPath: "location").value as? String ?? ""
+                let long = child.childSnapshot(forPath: "longitude").value as? Double ?? 0
+                let recipId = child.childSnapshot(forPath: "recipId").value as? String ?? ""
+                let receipt = child.childSnapshot(forPath: "recipient").value as? String ?? ""
+                let stamp = child.childSnapshot(forPath: "timestamp").value as? Double ?? 0
+                
+                // Likes
+                let uids = child.childSnapshot(forPath: "uid").value as? String ?? ""
+                
+                // Snapshots
+                
+                if approve != false {
+                    
+                    let lke = Likes(uid: uids)
+                    let feeed = Feed(approved: approve, authId: authId, author: author, bumpId: bumpId, timestamp: stamp, id: id, lat: lat, likes: lke, location: location, long: long, recipId: recipId, recipient: receipt)
+                    
+                    array.insert(feeed, at: 0)
+                    
+                }
+                
+            }
+            
+            self.feed.insert(contentsOf: array, at: 0)
+            self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
+            
+            
+            
+        })
+        
+    }
+    
+    func listenForNewBumps() {
+        
+        let ref = databaseRef.child("Feed")
+        
+        ref.queryOrdered(byChild: "timestamp").observe(.value, with: { (snapshot) in
+            
+            var array = [Feed]()
+            
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+                
+                // Feed
+                let approve = child.childSnapshot(forPath: "approved").value as? Bool ?? false
+                let authId = child.childSnapshot(forPath: "authId").value as? String ?? ""
+                let author = child.childSnapshot(forPath: "author").value as? String ?? ""
+                let bumpId = child.childSnapshot(forPath: "bumpId").value as? String ?? ""
+                let id = child.childSnapshot(forPath: "id").value as? String ?? ""
+                let lat = child.childSnapshot(forPath: "latitude").value as? Double ?? 0
+                let location = child.childSnapshot(forPath: "location").value as? String ?? ""
+                let long = child.childSnapshot(forPath: "longitude").value as? Double ?? 0
+                let recipId = child.childSnapshot(forPath: "recipId").value as? String ?? ""
+                let receipt = child.childSnapshot(forPath: "recipient").value as? String ?? ""
+                let stamp = child.childSnapshot(forPath: "timestamp").value as? Double ?? 0
+                
+                // Likes
+                let uids = child.childSnapshot(forPath: "uid").value as? String ?? ""
+                
+                // Snapshots
+                
+                if approve != false {
+                    
+                    let lke = Likes(uid: uids)
+                    let feeed = Feed(approved: approve, authId: authId, author: author, bumpId: bumpId, timestamp: stamp, id: id, lat: lat, likes: lke, location: location, long: long, recipId: recipId, recipient: receipt)
+                    
+                    array.insert(feeed, at: 0)
+                    
+                }
+                
+                if snapshot.key != self.feed.first?.id {
+                    
+                    self.toggleRefreshButton(hidden: false)
+                    
+                } else {
+                    
+                    self.toggleRefreshButton(hidden: true)
+                    
+                }
+                
+            }
             
         })
         
@@ -361,7 +523,7 @@ extension feedView: CLLocationManagerDelegate {
         self.latLabel.text = "\(lt)"
         self.longLabel.text = "\(lng)"
         
-        print("MY LAT & LONG ARE -->> \(self.latLabel.text!), \(self.longLabel.text!)")
+        print("*******MY LAT & LONG ARE -->> \(self.latLabel.text!), \(self.longLabel.text!)")
         
     }
 }

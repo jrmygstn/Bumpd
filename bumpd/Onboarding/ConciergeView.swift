@@ -50,8 +50,6 @@ class ConciergeView: UIViewController {
         
         if Auth.auth().currentUser != nil {
             
-            print("USER WAS ALREADY LOGGED IN!!!")
-            
             signupBtn.isHidden = true
             loginBtn.isHidden = true
             

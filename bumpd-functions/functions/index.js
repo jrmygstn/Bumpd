@@ -122,3 +122,52 @@ exports.sendNotification = functions.database
       });
       return Promise.all(tokensToRemove);
     });
+
+exports.sendInactiveUserNotifications = functions.https.onRequest(async (req, res) => {
+  const cutoffDate = new Date();
+  cutoffDate.setDate(cutoffDate.getDate() - 7); // Calculate the date 7 days ago
+
+  try {
+    const usersRef = admin.database().ref("Users");
+    const snapshot = await usersRef.once("value");
+
+    snapshot.forEach((userSnapshot) => {
+      const userData = userSnapshot.val();
+      if (userData.lastActive < cutoffDate.getTime()) {
+        // User is inactive, send them a push notification
+        sendPushNotification(userData.fcmToken, "Don't be a stranger and start bumping.");
+      }
+    });
+
+    res.status(200).send("Notifications sent successfully");
+  } catch (error) {
+    console.error("Error sending notifications:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+function sendPushNotification(token, message) {
+  const payload = {
+    notification: {
+      title: "Bumpd",
+      body: message,
+    },
+  };
+
+  admin.messaging().sendToDevice(token, payload)
+      .then((response) => {
+        console.log("Push notification sent:", response);
+      })
+      .catch((error) => {
+        console.error("Error sending push notification:", error);
+      });
+}
+
+// Function to send a push notification to inactive users
+exports.checkUserActivity = functions.pubsub
+    .schedule("every 2 minutes") // You can change the schedule as needed
+    .timeZone("UTC")
+    .onRun((context) => {
+      console.logger.log("This will be run every 2 minutes!");
+      return null;
+    });
