@@ -36,7 +36,7 @@ class loginView: UIViewController {
     
     @IBAction func backBtnTapped(_ sender: Any) {
         
-        performSegue(withIdentifier: "unwindToLanding", sender: nil)
+        self.dismiss(animated: true, completion: nil)
         
     }
     
