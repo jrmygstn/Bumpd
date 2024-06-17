@@ -73,11 +73,9 @@ class signupView: UIViewController {
 
                 self.databaseRef.child("Users").child(user.user.uid).setValue(userObj)
 
+                let go = self.storyboard?.instantiateViewController(withIdentifier: "usernameNav")
+                self.present(go!, animated: true, completion: nil)
             }
-            
-            let go = self.storyboard?.instantiateViewController(withIdentifier: "usernameNav")
-            self.present(go!, animated: true, completion: nil)
-            
         } else if passwordField.text! != matchPwdField.text! {
             
             let alert = UIAlertController(title: "Uh oh!", message: "The passwords don't seem to match.", preferredStyle: UIAlertController.Style.alert)
