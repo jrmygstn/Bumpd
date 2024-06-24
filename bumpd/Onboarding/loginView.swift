@@ -56,7 +56,7 @@ class loginView: UIViewController {
     
     @IBAction func forgotBtnTapped(_ sender: Any) {
         
-        let email = emailField.text
+        let email = emailField.text?.trim
         Auth.auth().sendPasswordReset(withEmail: email!) {
             (error) in
             if let error = error {
@@ -74,8 +74,7 @@ class loginView: UIViewController {
     }
     
     @IBAction func loginTapped(_ sender: Any) {
-        
-        guard let email = emailField.text, email != "", let password = passwordField.text, password != ""
+        guard let email = emailField.text?.trim, email != "", let password = passwordField.text?.trim, password != ""
             else {
                 let alert = UIAlertController(title: "Forget Something?", message: "Your email or password is missing", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
@@ -83,7 +82,7 @@ class loginView: UIViewController {
                 return
         }
         
-        Auth.auth().signIn(withEmail: self.emailField.text!, password: self.passwordField.text!) { (user, error) in
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             
             if (error != nil) {
                 

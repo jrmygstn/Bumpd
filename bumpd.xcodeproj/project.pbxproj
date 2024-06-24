@@ -557,6 +557,7 @@
 				FF7C43F229F836B8001B9D35 /* Resources */,
 				6C7FA505646CAE5B9664C0FF /* [CP] Embed Pods Frameworks */,
 				1AD4BB77BFE00C9D4EFDB956 /* [CP] Copy Pods Resources */,
+				519C38ED2C25C3ED006C5712 /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -740,6 +741,29 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bumpd-bumpdUITests/Pods-bumpd-bumpdUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		519C38ED2C25C3ED006C5712 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		6C04B4DCD2DEEFDE9DF5953A /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
