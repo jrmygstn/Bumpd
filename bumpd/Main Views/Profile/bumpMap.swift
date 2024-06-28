@@ -6,64 +6,35 @@
 //
 
 import UIKit
-import Firebase
 import GoogleMaps
 import GooglePlaces
 
-class bumpMap: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
+class bumpMap: UIViewController, GMSMapViewDelegate {
 
     // Variables
-    
-    var databaseRef: DatabaseReference! {
-        
-        return Database.database().reference()
-    }
-    
-    var locationManager = CLLocationManager()
-    var currentLocation: CLLocation?
     var mapView: GMSMapView!
-    var placesClient: GMSPlacesClient!
     var zoomLevel: Float = 17.5
-    
     var bumps: Bumps!
     
     // Outlets
-    
     @IBOutlet weak var longField: UILabel!
     @IBOutlet weak var latField: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
-        locationManager = CLLocationManager()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.distanceFilter = 50
-        locationManager.startUpdatingLocation()
-        locationManager.delegate = self
-        
-        placesClient = GMSPlacesClient.shared()
         
         //Create a map.
-        
         let lat = bumps.latitude
         let long = bumps.longitude
-        
         let camera = GMSCameraPosition.camera(withLatitude: lat,
                                               longitude: long,
                                               zoom: zoomLevel)
         
         mapView = GMSMapView.map(withFrame: self.view.bounds, camera: camera)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        mapView.setMinZoom(4, maxZoom: mapView.maxZoom)
-        
-        // Add the map to the view, hide it until we've got a location update.
-        
+        mapView.setMinZoom(4, maxZoom: mapView.maxZoom)        
         self.view.addSubview(mapView)
-        mapView.isHidden = true
+        self.view.layoutIfNeeded()
         
         do {
             // Set the map style by passing the URL of the local file.
@@ -77,57 +48,18 @@ class bumpMap: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
         }
         
         // Add map marker
-        
-        let position = CLLocationCoordinate2DMake(lat, long)
-        let marker = GMSMarker(position: position)
-        marker.icon = UIImage(named: "marker-img")
-        marker.map = mapView
+        DispatchQueue.main.async {
+            let position = CLLocationCoordinate2DMake(lat, long)
+            let marker = GMSMarker(position: position)
+            self.mapView.camera = camera
+            marker.icon = UIImage(named: "marker-img")
+            marker.map = self.mapView
+            // Animar la cámara para centrarla en el marcador
+            self.mapView.animate(to: camera)
+        }
         
         self.latField.text = "\(lat)"
         self.longField.text = "\(long)"
         
     }
-    
-    // Functions
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        let camera = GMSCameraPosition.camera(withLatitude: bumps.latitude,
-                                              longitude: bumps.longitude,
-                                              zoom: self.zoomLevel)
-        
-        if self.mapView.isHidden {
-            self.mapView.isHidden = false
-            self.mapView.camera = camera
-        } else {
-            self.mapView.animate(to: camera)
-        }
-        
-    }
-    
-    // Handle authorization for the location manager.
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .restricted:
-            print("Location access was restricted.")
-        case .denied:
-            print("User denied access to location.")
-            // Display the map using the default location.
-            mapView.isHidden = false
-        case .notDetermined:
-            print("Location status not determined.")
-        case .authorizedAlways: fallthrough
-        case .authorizedWhenInUse:
-            print("Location status is OK.")
-        @unknown default:
-            print("Fatal error")
-        }
-    }
-    
-    // Handle location manager errors.
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        locationManager.stopUpdatingLocation()
-        print("Error: \(error)")
-    }
-
 }
