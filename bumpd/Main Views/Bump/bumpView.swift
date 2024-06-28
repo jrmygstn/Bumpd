@@ -50,46 +50,20 @@ class bumpView: UIViewController, UICollectionViewDelegate, UICollectionViewData
     @IBOutlet weak var nearView: CustomizableView!
     @IBOutlet weak var bottomView: UIView!
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        checkForBumpers()
+        setupNearbyUsers()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
         let imgTitle = UIImage(named: "Bumped_logo_transparent-03")
         navigationItem.titleView = UIImageView(image: imgTitle)
-        
         nearCollection.backgroundColor = UIColor(red: 201/255, green: 152/255, blue: 137/255, alpha: 0.0)
-        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector (self.handleCloseView (_:)))
         bumpView.addGestureRecognizer(tapGesture)
         bumpView.isUserInteractionEnabled = true
-        
-        // Are there bumpers nearby you haven't bumped
-        // with in the last hour. Show or hide "See who's nearby".
-        
-        checkForBumpers()
-        setupNearbyUsers()
-        
-//        let user = textField.text!
-//        let today = Date()
-//        let uid = Auth.auth().currentUser?.uid
-//
-//        if user != "" {
-//
-//            databaseRef.child("Users/\(uid!)/Bumpers/\(user)").observeSingleEvent(of: .value) { (snapshot) in
-//
-//                let stamp = snapshot.childSnapshot(forPath: "timestamp").value as? Double ?? 0.0
-//                let bumpdAt = Date(timeIntervalSince1970: stamp / 1000)
-//                let expires = NSDate(timeIntervalSinceNow: stamp + 3600)
-//
-//
-//                print("**THE TIME FOR THIS BUMP WAS -->> \(bumpdAt) AND IT'S CURRENTLY -->> \(today)")
-//                print("THIS IS WHEN THE BUMPD TIME EXPIRES -->> \(expires)")
-//
-//            }
-//
-//        }
-        
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
@@ -97,9 +71,7 @@ class bumpView: UIViewController, UICollectionViewDelegate, UICollectionViewData
         locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
         locationManager.delegate = self
-        
-        placesClient = GMSPlacesClient.shared()
-        
+        placesClient = GMSPlacesClient.shared()        
     }
     
     // MARK: – Collection view data source

@@ -47,26 +47,22 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        checkForNotifications()
+        setupFeed()
+        setupNearUsers()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        
         var layoutGuide: UILayoutGuide!
-        
         layoutGuide = view.safeAreaLayoutGuide
-        
         let imgTitle = UIImage(named: "Bumped_logo_transparent-03")
         navigationItem.titleView = UIImageView(image: imgTitle)
-        
         tableView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
-        
-        checkForNotifications()
-        
-        setupFeed()
-        setupNearUsers()
-//        listenForNewBumps()
-        
         refreshButton = RefreshButton()
         view.addSubview(refreshButton)
         refreshButton.translatesAutoresizingMaskIntoConstraints = false
@@ -76,14 +72,12 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         refreshButton.heightAnchor.constraint(equalToConstant: 36.0).isActive = true
         refreshButton.widthAnchor.constraint(equalToConstant: 125.0).isActive = true
         refreshButton.button.addTarget(self, action: #selector(handleRefresh), for: .touchUpInside)
-        
         refreshControl = UIRefreshControl()
         refreshControl.tintColor = UIColor(red: 121/255, green: 138/255, blue: 167/255, alpha: 1.0)
         tableView.refreshControl = refreshControl
-        
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
-        
     }
+    
     
     // MARK: – Table view data source
     

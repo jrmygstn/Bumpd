@@ -45,10 +45,13 @@ class profileTableview: UITableViewController, UICollectionViewDelegate, UIColle
         self.headerView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
         self.tableView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         setupProfile()
         setupTopBumps()
         setupYourBumps()
-        
     }
     
     // MARK: – Collection view data source
