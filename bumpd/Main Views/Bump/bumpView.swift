@@ -24,8 +24,8 @@ class bumpView: UIViewController, UICollectionViewDelegate, UICollectionViewData
     var locationManager = CLLocationManager()
     var currentLocation: CLLocation?
     var placesClient: GMSPlacesClient!
-    var usr = [Users]()
-    var user = [Users]()
+    //var usr = [Users]()
+    //var user = [Users]()
     var users = [Users]()
     var feed = [Feed]()
     
@@ -50,12 +50,6 @@ class bumpView: UIViewController, UICollectionViewDelegate, UICollectionViewData
     @IBOutlet weak var nearView: CustomizableView!
     @IBOutlet weak var bottomView: UIView!
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        checkForBumpers()
-        setupNearbyUsers()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         let imgTitle = UIImage(named: "Bumped_logo_transparent-03")
@@ -71,7 +65,13 @@ class bumpView: UIViewController, UICollectionViewDelegate, UICollectionViewData
         locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
         locationManager.delegate = self
-        placesClient = GMSPlacesClient.shared()        
+        placesClient = GMSPlacesClient.shared()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkForBumpers()
+        setupNearbyUsers()
     }
     
     // MARK: – Collection view data source
@@ -165,27 +165,15 @@ class bumpView: UIViewController, UICollectionViewDelegate, UICollectionViewData
         let uid = Auth.auth().currentUser?.uid
         
         databaseRef.child("Users").observe(.value) { (snapshot) in
-            
-            var array = [Users]()
-            
+                        
             for child in snapshot.children.allObjects as! [DataSnapshot] {
-                
-                let age = child.childSnapshot(forPath: "age").value as? String ?? ""
-                let birth = child.childSnapshot(forPath: "birthday").value as? String ?? ""
-                let email = child.childSnapshot(forPath: "email").value as? String ?? ""
-                let gender = child.childSnapshot(forPath: "gender").value as? String ?? ""
-                let img = child.childSnapshot(forPath: "img").value as? String ?? "https://firebasestorage.googleapis.com/v0/b/bumpd-7f46b.appspot.com/o/profileImage%2Fdefault_profile%402x.png?alt=media&token=973f10a5-4b54-433f-859f-c6657bed5c29"
                 let lat = child.childSnapshot(forPath: "latitude").value as? Double ?? 0.0
                 let long = child.childSnapshot(forPath: "longitude").value as? Double ?? 0.0
-                let name = child.childSnapshot(forPath: "name").value as? String ?? ""
                 let user = child.childSnapshot(forPath: "uid").value as? String ?? ""
                 
                 if user != uid {
-                    
-                    let use = Users(age: age, birthday: birth, email: email, gender: gender, img: img, latitude: lat, longitude: long, name: name, uid: user)
-                    array.append(use)
-                    
-                    self.databaseRef.child("Users/\(uid!)").observe(.value) { (snapshot) in
+                                
+                    self.databaseRef.child("Users/\(uid!)").observeSingleEvent(of: .value) { (snapshot) in
                         
                         let myLat = snapshot.childSnapshot(forPath: "latitude").value as? Double ?? 0.0
                         let myLong = snapshot.childSnapshot(forPath: "longitude").value as? Double ?? 0.0
@@ -199,7 +187,7 @@ class bumpView: UIViewController, UICollectionViewDelegate, UICollectionViewData
                         
                         if (distanceInMeters < 22.191969 && distanceInMeters != 0.0) {
                             
-                            self.databaseRef.child("Users/\(uid!)/Bumpers/\(user)").observe(.value) { (snapshot) in
+                            self.databaseRef.child("Users/\(uid!)/Bumpers/\(user)").observeSingleEvent(of: .value) { (snapshot) in
                                 
                                 let last = snapshot.childSnapshot(forPath: "last").value as? String ?? ""
                                 
@@ -238,8 +226,6 @@ class bumpView: UIViewController, UICollectionViewDelegate, UICollectionViewData
                 }
                 
             }
-            
-            self.usr = array
             
         }
         
@@ -288,101 +274,8 @@ class bumpView: UIViewController, UICollectionViewDelegate, UICollectionViewData
             self.nearCollection.reloadData()
             
         })
-        
     }
-    
-    func checkIfBumpd() {
-        
-        let date = Date()
-        let today = date.getFormattedDate(format: "YYYY-MM-dd HH:mm")
-        let uid = Auth.auth().currentUser?.uid
-        
-        databaseRef.child("Users").observeSingleEvent(of: .value) { (snapshot) in
-            
-            var array = [Users]()
-            
-            for child in snapshot.children.allObjects as! [DataSnapshot] {
-                
-                let age = child.childSnapshot(forPath: "age").value as? String ?? ""
-                let birth = child.childSnapshot(forPath: "birthday").value as? String ?? ""
-                let email = child.childSnapshot(forPath: "email").value as? String ?? ""
-                let gender = child.childSnapshot(forPath: "gender").value as? String ?? ""
-                let img = child.childSnapshot(forPath: "img").value as? String ?? "https://firebasestorage.googleapis.com/v0/b/bumpd-7f46b.appspot.com/o/profileImage%2Fdefault_profile%402x.png?alt=media&token=973f10a5-4b54-433f-859f-c6657bed5c29"
-                let lat = child.childSnapshot(forPath: "latitude").value as? Double ?? 0.0
-                let long = child.childSnapshot(forPath: "longitude").value as? Double ?? 0.0
-                let name = child.childSnapshot(forPath: "name").value as? String ?? ""
-                let user = child.childSnapshot(forPath: "uid").value as? String ?? ""
-                
-                if user != uid {
-                    
-                    let use = Users(age: age, birthday: birth, email: email, gender: gender, img: img, latitude: lat, longitude: long, name: name, uid: user)
-                    array.append(use)
-                    
-                    self.databaseRef.child("Users/\(uid!)").observeSingleEvent(of: .value) { (snapshot) in
-                        
-                        let myLat = snapshot.childSnapshot(forPath: "latitude").value as? Double ?? 0.0
-                        let myLong = snapshot.childSnapshot(forPath: "longitude").value as? Double ?? 0.0
-                        
-                        let coordinance1 = CLLocation(latitude: myLat, longitude: myLong)
-                        let coordinance2 = CLLocation(latitude: lat, longitude: long)
-                        let distance = coordinance2.distance(from: coordinance1)
-                        let distanceInMeters: Double = Double(distance.formatted()) ?? 0.0
-                        
-                        // Compare how close you are to someone else
-                        
-                        if (distanceInMeters < 22.191969 && distanceInMeters != 0.0) {
-                            
-                            self.databaseRef.child("Users/\(uid!)/Bumpers/\(user)").observeSingleEvent(of: .value) { (snapshot) in
-                                
-                                let last = snapshot.childSnapshot(forPath: "last").value as? String ?? ""
-                                
-                                // Getting today's date
-                                
-                                let todayFormat = DateFormatter()
-                                let lastFormat = DateFormatter()
-                                
-                                todayFormat.dateFormat = "YYYY-MM-dd HH:mm"
-                                lastFormat.dateFormat = "YYYY-MM-dd HH:mm"
-                                
-                                let todayStr = todayFormat.date(from: today)
-                                let lastStr = lastFormat.date(from: last)
-                                
-                                let todayStamp = todayStr?.timeIntervalSince1970
-                                let lastStamp = lastStr?.timeIntervalSince1970
-                                
-                                // Have you bumped in the past hour?
-                                
-                                if todayStamp ?? 0 <= lastStamp ?? 0 {
-                                    
-                                    self.bumpView.isHidden = true
-                                    self.addBtn.isHidden = true
-                                    
-                                } else if todayStamp ?? 0 > lastStamp ?? 0 {
-                                    
-                                    self.addBtn.isHidden = false
-                                    self.bumpView.isHidden = false
-                                    
-                                    self.thumbnail.loadImageUsingCacheWithUrlString(urlString: img)
-                                    self.nameLabel.text = "Looks like \(name) is close to you, want to bump?"
-                                    self.textField.text = user
-                                    
-                                }
-                                
-                            }
-                            
-                        }
-                        
-                    }
-                    
-                }
-                
-            }
-            
-            self.user = array
-            
-        }
-        
-    }
+
     
     func addToFeed() {
         

@@ -68,7 +68,7 @@ class ConciergeView: UIViewController {
         
         let user = Auth.auth().currentUser?.uid
         
-        databaseRef.child("Users/\(user!)").observe(.value, with: { snapshot in
+        databaseRef.child("Users/\(user!)").observe(.value) { (snapshot) in
             
             let user = snapshot.childSnapshot(forPath: "username").value as? String ?? ""
             
@@ -83,7 +83,7 @@ class ConciergeView: UIViewController {
                 
             }
             
-        })
+        }
         
     }
     
@@ -91,7 +91,7 @@ class ConciergeView: UIViewController {
         
         let user = Auth.auth().currentUser?.uid
         
-        databaseRef.child("Users/\(user!)").observe(.value, with: { snapshot in
+        databaseRef.child("Users/\(user!)").observe(.value) { (snapshot) in
             
             let image = snapshot.childSnapshot(forPath: "img").value as? String ?? ""
             
@@ -106,7 +106,7 @@ class ConciergeView: UIViewController {
                 
             }
             
-        })
+        }
         
     }
     
@@ -114,7 +114,7 @@ class ConciergeView: UIViewController {
         
         let user = Auth.auth().currentUser?.uid
         
-        databaseRef.child("Users/\(user!)").observe(.value, with: { snapshot in
+        databaseRef.child("Users/\(user!)").observe(.value) { (snapshot) in
             
             let bday = snapshot.childSnapshot(forPath: "birthday").value as? String ?? ""
             
@@ -130,7 +130,7 @@ class ConciergeView: UIViewController {
                 
             }
             
-        })
+        }
         
     }
 

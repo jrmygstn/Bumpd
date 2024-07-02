@@ -49,10 +49,10 @@ class confirmView: UIViewController {
         let user = notify?.author
         let uid = Auth.auth().currentUser?.uid
         
-        databaseRef.child("Users/\(user!)").observeSingleEvent(of: .value) { (snap) in
+        databaseRef.child("Users/\(user!)").observeSingleEvent(of: .value) { (snapshot) in
             
-            let img = snap.childSnapshot(forPath: "img").value as? String ?? ""
-            let fullname = snap.childSnapshot(forPath: "name").value as? String ?? ""
+            let img = snapshot.childSnapshot(forPath: "img").value as? String ?? ""
+            let fullname = snapshot.childSnapshot(forPath: "name").value as? String ?? ""
             let name = fullname.components(separatedBy: " ")[0]
             
             self.recipImg.loadImageUsingCacheWithUrlString(urlString: img)

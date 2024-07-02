@@ -24,6 +24,11 @@ class mapView: UIViewController, GMSMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+                
         //Create a map.
         let lat = feed.lat
         let long = feed.long
@@ -63,5 +68,4 @@ class mapView: UIViewController, GMSMapViewDelegate {
         self.latField.text = "\(lat)"
         self.longField.text = "\(long)"
     }
-
 }

@@ -44,11 +44,10 @@ class profileTableview: UITableViewController, UICollectionViewDelegate, UIColle
         self.topCollection.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
         self.headerView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
         self.tableView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
-        
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setupProfile()
         setupTopBumps()
         setupYourBumps()
@@ -247,7 +246,7 @@ class profileTableview: UITableViewController, UICollectionViewDelegate, UIColle
         
         let uid = Auth.auth().currentUser?.uid
         
-        databaseRef.child("Feed").queryOrdered(byChild: "timestamp").observeSingleEvent(of: .value) { (snapshot) in
+        databaseRef.child("Feed").queryOrdered(byChild: "timestamp").observe(.value) { (snapshot) in
 
             var array = [Bumps]()
 

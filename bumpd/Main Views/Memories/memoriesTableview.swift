@@ -35,8 +35,8 @@ class memoriesTableview: UITableViewController, FSCalendarDataSource, FSCalendar
     @IBOutlet weak var monthField: UITextField!
     @IBOutlet weak var dateField: UITextField!
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setupCalendar()
         checkMemories()
     }
@@ -51,7 +51,7 @@ class memoriesTableview: UITableViewController, FSCalendarDataSource, FSCalendar
         let cellNib = UINib(nibName: "AppointmentCell", bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: "memory")
         tableView.sectionFooterHeight = 60
-        tableView.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1.0)
+        tableView.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1.0)        
     }
 
     // MARK: - Table view data source
