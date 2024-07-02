@@ -54,7 +54,7 @@ class allBumpersTV: UITableViewController {
         
         let uid = self.bumpers[indexPath.row].uid
         
-        self.databaseRef.child("Users/\(uid)").observeSingleEvent(of: .value) { snapshot in
+        self.databaseRef.child("Users/\(uid)").observeSingleEvent(of: .value) { (snapshot) in
             
             let name = snapshot.childSnapshot(forPath: "name").value as? String ?? ""
             

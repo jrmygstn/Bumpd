@@ -1123,7 +1123,7 @@
 				CODE_SIGN_ENTITLEMENTS = bumpd/bumpd.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = X8L4NGJ9BL;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = bumpd/Info.plist;
@@ -1166,7 +1166,7 @@
 				CODE_SIGN_ENTITLEMENTS = bumpd/bumpd.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = X8L4NGJ9BL;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = bumpd/Info.plist;

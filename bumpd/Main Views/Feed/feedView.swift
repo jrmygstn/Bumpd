@@ -45,11 +45,6 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
         
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
         checkForNotifications()
         setupFeed()
         setupNearUsers()
@@ -57,7 +52,7 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         var layoutGuide: UILayoutGuide!
         layoutGuide = view.safeAreaLayoutGuide
         let imgTitle = UIImage(named: "Bumped_logo_transparent-03")
@@ -77,7 +72,6 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
     }
-    
     
     // MARK: – Table view data source
     
@@ -205,7 +199,7 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         let ref = databaseRef.child("Feed")
         
-        ref.queryOrdered(byChild: "timestamp").observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.queryOrdered(byChild: "timestamp").observeSingleEvent(of: .value) { (snapshot) in
             
             var array = [Feed]()
             
@@ -243,7 +237,7 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
             self.feed = array
             self.tableView.reloadData()
             
-        })
+        }
         
     }
     

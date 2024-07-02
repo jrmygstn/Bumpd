@@ -66,9 +66,9 @@ class notifyViewTV: UITableViewController {
             
             let value0 = ["approved": true]
             
-            self.databaseRef.child("Users/\(uid!)").observeSingleEvent(of: .value) { (snap) in
+            self.databaseRef.child("Users/\(uid!)").observeSingleEvent(of: .value) { (snapshot) in
                 
-                let name = snap.childSnapshot(forPath: "name").value as? String ?? ""
+                let name = snapshot.childSnapshot(forPath: "name").value as? String ?? ""
                 
                 let value2 = [key: ["author": uid!, "id": key!, "text": "\(name) accepted your bump!", "timestamp": ServerValue.timestamp(), "unread": true] as [String : Any]]
                 
@@ -106,9 +106,9 @@ class notifyViewTV: UITableViewController {
                 ref1.removeValue()
                 ref0.removeValue()
                 
-                self.databaseRef.child("Users/\(uid!)").observeSingleEvent(of: .value) { (snap) in
+                self.databaseRef.child("Users/\(uid!)").observeSingleEvent(of: .value) { (snapshot) in
                     
-                    let name = snap.childSnapshot(forPath: "name").value as? String ?? ""
+                    let name = snapshot.childSnapshot(forPath: "name").value as? String ?? ""
                     
                     let value2 = [key: ["author": uid!, "id": key!, "text": "\(name) did not accepted your bump.", "timestamp": ServerValue.timestamp(), "unread": true] as [String : Any]]
                     

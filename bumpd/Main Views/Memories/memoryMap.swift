@@ -23,6 +23,12 @@ class memoryMap: UIViewController, GMSMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    
         //Create a map.
         let lat = memory.lat
         let long = memory.long

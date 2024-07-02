@@ -23,6 +23,11 @@ class bumpMap: UIViewController, GMSMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         //Create a map.
         let lat = bumps.latitude
         let long = bumps.longitude
@@ -32,7 +37,7 @@ class bumpMap: UIViewController, GMSMapViewDelegate {
         
         mapView = GMSMapView.map(withFrame: self.view.bounds, camera: camera)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        mapView.setMinZoom(4, maxZoom: mapView.maxZoom)        
+        mapView.setMinZoom(4, maxZoom: mapView.maxZoom)
         self.view.addSubview(mapView)
         self.view.layoutIfNeeded()
         

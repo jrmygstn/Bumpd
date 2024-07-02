@@ -419,7 +419,7 @@ class feedDetailsView: UIViewController, UITableViewDelegate, UITableViewDataSou
         let ref1 = databaseRef.child("Users/\(feed.author)")
         let ref2 = databaseRef.child("Users/\(feed.recipient)")
         
-        ref0.observeSingleEvent(of: .value) { (snapshot) in
+        ref0.observe(.value) { (snapshot) in
             
             if snapshot.exists() {
                 

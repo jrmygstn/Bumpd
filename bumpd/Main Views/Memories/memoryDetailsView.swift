@@ -170,9 +170,9 @@ class memoryDetailsView: UIViewController, UIImagePickerControllerDelegate, UINa
     
     func checkMemory() {
         
-        databaseRef.child("Feed/\(memory.id)/Memory").observeSingleEvent(of: .value) { (snap) in
+        databaseRef.child("Feed/\(memory.id)/Memory").observe(.value) { (snapshot) in
             
-            if snap.exists() {
+            if snapshot.exists() {
                 
                 self.moreBtn.isHidden = false
                 
@@ -221,7 +221,7 @@ class memoryDetailsView: UIViewController, UIImagePickerControllerDelegate, UINa
         
         if auth == uid && recip != uid {
             
-            ref0.observeSingleEvent(of: .value) { (snapshot) in
+            ref0.observe(.value) { (snapshot) in
                 
                 let name = snapshot.childSnapshot(forPath: "name").value as? String ?? ""
                 
@@ -239,7 +239,7 @@ class memoryDetailsView: UIViewController, UIImagePickerControllerDelegate, UINa
             
         } else if recip == uid && auth != uid {
             
-            ref0.observeSingleEvent(of: .value) { (snapshot) in
+            ref0.observe(.value) { (snapshot) in
                 
                 let name = snapshot.childSnapshot(forPath: "name").value as? String ?? ""
                 

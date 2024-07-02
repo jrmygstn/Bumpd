@@ -17,15 +17,12 @@ class notifyView: UIViewController {
     @IBOutlet weak var notifyImg: UIImageView!
     @IBOutlet weak var notifyLabel: UILabel!
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        checkForEmpty()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let imgTitle = UIImage(named: "Bumped_logo_transparent-03")
         navigationItem.titleView = UIImageView(image: imgTitle)
+        checkForEmpty()
     }
     
     // Functions
