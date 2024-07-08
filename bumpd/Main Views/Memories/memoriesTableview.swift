@@ -35,26 +35,23 @@ class memoriesTableview: UITableViewController, FSCalendarDataSource, FSCalendar
     @IBOutlet weak var monthField: UITextField!
     @IBOutlet weak var dateField: UITextField!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.navigationController?.setStatusBar(backgroundColor: UIColor(red: 106/225, green: 138/255, blue: 167/255, alpha: 1.0))
-
-        let imgTitle = UIImage(named: "Bumped_logo_transparent-03")
-        navigationItem.titleView = UIImageView(image: imgTitle)
-        
-        calendar.scope = .month
-        calendar.scrollDirection = .horizontal
-        
-        let cellNib = UINib(nibName: "AppointmentCell", bundle: nil)
-        tableView.register(cellNib, forCellReuseIdentifier: "memory")
-        
-        tableView.sectionFooterHeight = 60
-        tableView.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1.0)
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setupCalendar()
         checkMemories()
-        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()        
+        self.navigationController?.setStatusBar(backgroundColor: UIColor(red: 106/225, green: 138/255, blue: 167/255, alpha: 1.0))
+        let imgTitle = UIImage(named: "Bumped_logo_transparent-03")
+        navigationItem.titleView = UIImageView(image: imgTitle)
+        calendar.scope = .month
+        calendar.scrollDirection = .horizontal
+        let cellNib = UINib(nibName: "AppointmentCell", bundle: nil)
+        tableView.register(cellNib, forCellReuseIdentifier: "memory")
+        tableView.sectionFooterHeight = 60
+        tableView.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1.0)        
     }
 
     // MARK: - Table view data source

@@ -50,17 +50,19 @@ class signupView: UIViewController {
     
     @IBAction func continueBtnTapped(_ sender: Any) {
         
-        guard let email = emailField.text, email != "", let password = passwordField.text, password != ""
-            else {
+        guard let email = emailField.text?.trim, email != "",
+              let password = passwordField.text?.trim, password != "",
+              let matchPwd = matchPwdField.text?.trim, matchPwd != ""
+        else {
                 let alert = UIAlertController(title: "Forget Something?", message: "Please fill out all fields.", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
                 return
         }
         
-        if passwordField.text! == matchPwdField.text! {
+        if password == matchPwd {
             
-            Auth.auth().createUser(withEmail: emailField.text!, password: passwordField.text!) { (user, error) in
+            Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
                 if (error != nil) {
                     let alert = UIAlertController(title: "Error", message: error!.localizedDescription, preferredStyle: UIAlertController.Style.alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
@@ -73,12 +75,10 @@ class signupView: UIViewController {
 
                 self.databaseRef.child("Users").child(user.user.uid).setValue(userObj)
 
+                let go = self.storyboard?.instantiateViewController(withIdentifier: "usernameNav")
+                self.present(go!, animated: true, completion: nil)
             }
-            
-            let go = self.storyboard?.instantiateViewController(withIdentifier: "usernameNav")
-            self.present(go!, animated: true, completion: nil)
-            
-        } else if passwordField.text! != matchPwdField.text! {
+        } else if password != matchPwd {
             
             let alert = UIAlertController(title: "Uh oh!", message: "The passwords don't seem to match.", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))

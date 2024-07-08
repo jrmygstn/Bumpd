@@ -19,7 +19,6 @@ class feedDetailsView: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     var feed: Feed!
     var like = [Likes]()
-    var liked = [Likes]()
     var comment = [Comments]()
     
     // Outlets
@@ -55,7 +54,6 @@ class feedDetailsView: UIViewController, UITableViewDelegate, UITableViewDataSou
         detailsTable.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1.0)
         
         setupBump()
-        setupLikes()
         checkLikes()
         checkComments()
         
@@ -214,17 +212,17 @@ class feedDetailsView: UIViewController, UITableViewDelegate, UITableViewDataSou
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "more", for: indexPath) as! moreCVC
             
-            if liked.count >= 5 {
+            if like.count >= 5 {
                 
                 cell.countLabel.isHidden = false
                 
-            } else if liked.count <= 4 {
+            } else if like.count <= 4 {
                 
                 cell.countLabel.isHidden = true
                 
             }
             
-            cell.countLabel.text = "+\(liked.count - 4)"
+            cell.countLabel.text = "+\(like.count - 4)"
             
             return cell
         default:
@@ -260,7 +258,7 @@ class feedDetailsView: UIViewController, UITableViewDelegate, UITableViewDataSou
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "groupVC") as! groupView
             self.navigationController?.pushViewController(vc, animated: true)
             */
-            print("***You selected to see everyone who liked this!!")
+            print("***You selected to see everyone who like this!!")
             
         default:
             break
@@ -421,7 +419,7 @@ class feedDetailsView: UIViewController, UITableViewDelegate, UITableViewDataSou
         let ref1 = databaseRef.child("Users/\(feed.author)")
         let ref2 = databaseRef.child("Users/\(feed.recipient)")
         
-        ref0.observeSingleEvent(of: .value) { (snapshot) in
+        ref0.observe(.value) { (snapshot) in
             
             if snapshot.exists() {
                 
@@ -471,29 +469,6 @@ class feedDetailsView: UIViewController, UITableViewDelegate, UITableViewDataSou
         
     }
     
-    func setupLikes() {
-        
-        databaseRef.child("Feed/\(feed.id)/Likes").queryLimited(toFirst: 4).observeSingleEvent(of: .value) { (snapshot) in
-            
-            var array = [Likes]()
-            
-            for child in snapshot.children.allObjects as! [DataSnapshot] {
-                
-                let uid = child.childSnapshot(forPath: "uid").value as? String ?? ""
-                
-                let likey = Likes(uid: uid)
-                
-                array.append(likey)
-                
-            }
-            
-            self.like = array
-            self.likeCollection.reloadData()
-            
-        }
-        
-    }
-    
     func checkLikes() {
         
         databaseRef.child("Feed/\(feed.id)/Likes").observe(.value) { (snapshot) in
@@ -510,8 +485,8 @@ class feedDetailsView: UIViewController, UITableViewDelegate, UITableViewDataSou
                 
             }
             
-            self.liked = array
-            
+            self.like = array
+            self.likeCollection.reloadData()
         }
         
     }

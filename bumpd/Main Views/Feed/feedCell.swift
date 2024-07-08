@@ -62,7 +62,7 @@ class feedCell: UITableViewCell {
         let ref2 = databaseRef.child("Users/\(bump.recipient)")
         let ref3 = databaseRef.child("Feed/\(bump.id)/Likes/\(uid!)")
 
-        ref1.observeSingleEvent(of: .value) { (snapshot) in
+            ref1.observeSingleEvent(of: .value) { (snapshot) in
             
             let fullname = snapshot.childSnapshot(forPath: "name").value as? String ?? ""
             let aname = fullname.components(separatedBy: " ")[0]

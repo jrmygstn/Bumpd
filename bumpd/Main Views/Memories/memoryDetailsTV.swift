@@ -51,11 +51,14 @@ class memoryDetailsTV: UITableViewController {
             }
             
         }
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setupBump()
         checkComments()
-        
     }
+    
     
     // MARK: – Data Segue
     

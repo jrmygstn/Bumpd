@@ -10,28 +10,19 @@ import Firebase
 
 class notifyView: UIViewController {
     
-    // Variables
-    
+    // Variables    
     var databaseRef: DatabaseReference! {
-        
         return Database.database().reference()
     }
-    
-    // Outlets
-    
     @IBOutlet weak var notifyImg: UIImageView!
     @IBOutlet weak var notifyLabel: UILabel!
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
         let imgTitle = UIImage(named: "Bumped_logo_transparent-03")
         navigationItem.titleView = UIImageView(image: imgTitle)
-        
         checkForEmpty()
-        
     }
     
     // Functions

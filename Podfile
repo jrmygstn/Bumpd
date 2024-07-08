@@ -9,6 +9,7 @@ target 'bumpd' do
   
   pod 'Firebase/Auth'
   pod 'Firebase/Analytics'
+  pod 'Firebase/Crashlytics'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Functions'

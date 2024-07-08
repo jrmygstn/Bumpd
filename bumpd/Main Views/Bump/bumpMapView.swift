@@ -36,7 +36,12 @@ class bumpMapView: UIViewController, GMSMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         // Do any additional setup after loading the view.
         
         locationManager = CLLocationManager()
@@ -56,7 +61,6 @@ class bumpMapView: UIViewController, GMSMapViewDelegate {
                                               zoom: zoomLevel)
         
         mapView = GMSMapView.map(withFrame: self.view.bounds, camera: camera)
-//        mapView.settings.myLocationButton = true
         mapView.isMyLocationEnabled = true
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.setMinZoom(4, maxZoom: mapView.maxZoom)

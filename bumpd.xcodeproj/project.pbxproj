@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		011A06F68E27568B85744AC7 /* Pods_bumpd_bumpdUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87461EFC1B482F88530FF380 /* Pods_bumpd_bumpdUITests.framework */; };
 		46AD61210CEF0A03F245401D /* Pods_bumpdTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A7FCD9DBB664F8289522F3 /* Pods_bumpdTests.framework */; };
+		511C04452C3478C00038601A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 511C04442C3478C00038601A /* GoogleService-Info.plist */; };
 		AAEF0C150C48D34DA309A619 /* Pods_bumpd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7B7C1547B14AC85524E161 /* Pods_bumpd.framework */; };
 		FF037FD32A7191AE00182513 /* notifyViewTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF037FD22A7191AE00182513 /* notifyViewTV.swift */; };
 		FF037FD52A7192E400182513 /* Notify.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF037FD42A7192E400182513 /* Notify.swift */; };
@@ -42,7 +43,6 @@
 		FF3EBA112A0AC33300B4E6AE /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3EBA102A0AC33300B4E6AE /* Feed.swift */; };
 		FF3EBA142A0AC46E00B4E6AE /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3EBA132A0AC46E00B4E6AE /* Users.swift */; };
 		FF3EBA162A0AC4CB00B4E6AE /* Likes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3EBA152A0AC4CB00B4E6AE /* Likes.swift */; };
-		FF43D6B42A2FA7DF00165AA7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF43D6B32A2FA7DF00165AA7 /* GoogleService-Info.plist */; };
 		FF4C4F992A02E06600B83FAF /* googleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4C4F982A02E06500B83FAF /* googleView.swift */; };
 		FF679A3E2A8E723C00F4BA0F /* bumpDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF679A3D2A8E723B00F4BA0F /* bumpDetailsView.swift */; };
 		FF679A402A8E731800F4BA0F /* bumpDetailsTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF679A3F2A8E731700F4BA0F /* bumpDetailsTV.swift */; };
@@ -138,6 +138,7 @@
 		46A7FCD9DBB664F8289522F3 /* Pods_bumpdTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bumpdTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4776CB74F0ECF74C33D6314C /* Pods-bumpdTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bumpdTests.release.xcconfig"; path = "Target Support Files/Pods-bumpdTests/Pods-bumpdTests.release.xcconfig"; sourceTree = "<group>"; };
 		4BD88B5BBE8E7658A919F2CF /* Pods-bumpdTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bumpdTests.debug.xcconfig"; path = "Target Support Files/Pods-bumpdTests/Pods-bumpdTests.debug.xcconfig"; sourceTree = "<group>"; };
+		511C04442C3478C00038601A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		87461EFC1B482F88530FF380 /* Pods_bumpd_bumpdUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bumpd_bumpdUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A7B7C1547B14AC85524E161 /* Pods_bumpd.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bumpd.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB3C17B02182F19DFA1AEDD1 /* Pods-bumpd.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bumpd.release.xcconfig"; path = "Target Support Files/Pods-bumpd/Pods-bumpd.release.xcconfig"; sourceTree = "<group>"; };
@@ -175,7 +176,6 @@
 		FF3EBA102A0AC33300B4E6AE /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		FF3EBA132A0AC46E00B4E6AE /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		FF3EBA152A0AC4CB00B4E6AE /* Likes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Likes.swift; sourceTree = "<group>"; };
-		FF43D6B32A2FA7DF00165AA7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FF4C4F982A02E06500B83FAF /* googleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = googleView.swift; sourceTree = "<group>"; };
 		FF679A3D2A8E723B00F4BA0F /* bumpDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bumpDetailsView.swift; sourceTree = "<group>"; };
 		FF679A3F2A8E731700F4BA0F /* bumpDetailsTV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bumpDetailsTV.swift; sourceTree = "<group>"; };
@@ -364,8 +364,8 @@
 				FF7C444229F882B9001B9D35 /* Helpers */,
 				FF7C442929F84DB8001B9D35 /* poppins */,
 				FF3EBA012A0A10B900B4E6AE /* Config.plist */,
-				FF43D6B32A2FA7DF00165AA7 /* GoogleService-Info.plist */,
 				FF7C440529F836BB001B9D35 /* Info.plist */,
+				511C04442C3478C00038601A /* GoogleService-Info.plist */,
 				FF6A24F22A1D615100D74339 /* style.json */,
 			);
 			path = bumpd;
@@ -557,6 +557,7 @@
 				FF7C43F229F836B8001B9D35 /* Resources */,
 				6C7FA505646CAE5B9664C0FF /* [CP] Embed Pods Frameworks */,
 				1AD4BB77BFE00C9D4EFDB956 /* [CP] Copy Pods Resources */,
+				519C38ED2C25C3ED006C5712 /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -662,9 +663,9 @@
 				FFEB0E3B2A63A6D800F11ECF /* footerTVC.xib in Resources */,
 				FFA06AB02A3A490800AE9C7F /* AppointmentCell.xib in Resources */,
 				FF3EBA022A0A10B900B4E6AE /* Config.plist in Resources */,
+				511C04452C3478C00038601A /* GoogleService-Info.plist in Resources */,
 				FF6A24F32A1D615100D74339 /* style.json in Resources */,
 				FF7C43FF29F836B8001B9D35 /* Main.storyboard in Resources */,
-				FF43D6B42A2FA7DF00165AA7 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -740,6 +741,29 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bumpd-bumpdUITests/Pods-bumpd-bumpdUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		519C38ED2C25C3ED006C5712 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		6C04B4DCD2DEEFDE9DF5953A /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1099,7 +1123,7 @@
 				CODE_SIGN_ENTITLEMENTS = bumpd/bumpd.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = X8L4NGJ9BL;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = bumpd/Info.plist;
@@ -1142,7 +1166,7 @@
 				CODE_SIGN_ENTITLEMENTS = bumpd/bumpd.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = X8L4NGJ9BL;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = bumpd/Info.plist;

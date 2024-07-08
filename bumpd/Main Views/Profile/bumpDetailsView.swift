@@ -170,9 +170,9 @@ class bumpDetailsView: UIViewController, UIImagePickerControllerDelegate, UINavi
     
     func checkMemory() {
         
-        databaseRef.child("Feed/\(bumps.id)/Memory").observeSingleEvent(of: .value) { (snap) in
+        databaseRef.child("Feed/\(bumps.id)/Memory").observeSingleEvent(of: .value) { (snapshot) in
             
-            if snap.exists() {
+            if snapshot.exists() {
                 
                 self.moreBtn.isHidden = false
                 

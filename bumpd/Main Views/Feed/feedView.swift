@@ -45,28 +45,19 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
         
+        checkForNotifications()
+        setupFeed()
+        setupNearUsers()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
         var layoutGuide: UILayoutGuide!
-        
         layoutGuide = view.safeAreaLayoutGuide
-        
         let imgTitle = UIImage(named: "Bumped_logo_transparent-03")
         navigationItem.titleView = UIImageView(image: imgTitle)
-        
         tableView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
-        
-        checkForNotifications()
-        
-        setupFeed()
-        setupNearUsers()
-//        listenForNewBumps()
-        
         refreshButton = RefreshButton()
         view.addSubview(refreshButton)
         refreshButton.translatesAutoresizingMaskIntoConstraints = false
@@ -76,13 +67,10 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         refreshButton.heightAnchor.constraint(equalToConstant: 36.0).isActive = true
         refreshButton.widthAnchor.constraint(equalToConstant: 125.0).isActive = true
         refreshButton.button.addTarget(self, action: #selector(handleRefresh), for: .touchUpInside)
-        
         refreshControl = UIRefreshControl()
         refreshControl.tintColor = UIColor(red: 121/255, green: 138/255, blue: 167/255, alpha: 1.0)
         tableView.refreshControl = refreshControl
-        
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
-        
     }
     
     // MARK: – Table view data source
@@ -211,7 +199,7 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         let ref = databaseRef.child("Feed")
         
-        ref.queryOrdered(byChild: "timestamp").observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.queryOrdered(byChild: "timestamp").observeSingleEvent(of: .value) { (snapshot) in
             
             var array = [Feed]()
             
@@ -249,7 +237,7 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
             self.feed = array
             self.tableView.reloadData()
             
-        })
+        }
         
     }
     
@@ -419,14 +407,11 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 
                                 if todayStamp ?? 0 > lastStamp ?? 0 {
                                     
-                                    self.addRedDot(index: 2)
+                                    self.addRedDot(index: 2, shouldShow: true)
                                     
                                 } else if todayStamp ?? 0 <= lastStamp ?? 0 {
                                     
-                                    if let items = self.tabBarController?.tabBar.items as NSArray? {
-                                        let tabItem = items.object(at: 2) as! UITabBarItem
-                                        tabItem.badgeValue = nil
-                                    }
+                                    self.addRedDot(index: 2, shouldShow: false)
                                     
                                 }
                                 
@@ -454,14 +439,11 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
             if snapshot.exists() {
                 
-                self.addRedDot(index: 3)
+                self.addRedDot(index: 3, shouldShow: true)
                 
             } else {
                 
-                if let items = self.tabBarController?.tabBar.items as NSArray? {
-                    let tabItem = items.object(at: 3) as! UITabBarItem
-                    tabItem.badgeValue = nil
-                }
+                self.addRedDot(index: 3, shouldShow: false)
                 
             }
             
@@ -469,43 +451,37 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    func addRedDot(index: Int) {
-        
-        for subview in tabBarController!.tabBar.subviews {
-            
-            if let subview = subview as? UIView {
-                
-                if subview.tag == 1234 {
-                    subview.removeFromSuperview()
-                    break
-                }
-                
-            }
-            
-            let RedDotRadius: CGFloat = 5
-            let RedDotDiameter = RedDotRadius * 2
-
-            let TopMargin:CGFloat = 5
-
-            let TabBarItemCount = CGFloat(self.tabBarController!.tabBar.items!.count)
-
-            let screenSize = UIScreen.main.bounds
-            let HalfItemWidth = (screenSize.width) / (TabBarItemCount * 2)
-
-            let  xOffset = HalfItemWidth * CGFloat(index * 2 + 1)
-
-            let imageHalfWidth: CGFloat = (self.tabBarController!.tabBar.items![index] ).selectedImage!.size.width / 2
-
-            let redDot = UIView(frame: CGRect(x: xOffset + imageHalfWidth + 3, y: TopMargin, width: RedDotDiameter, height: RedDotDiameter))
-
-            redDot.tag = 1234
-            redDot.backgroundColor = UIColor.red
-            redDot.layer.cornerRadius = RedDotRadius
-
-            self.tabBarController?.tabBar.addSubview(redDot)
-            
+    func addRedDot(index: Int, shouldShow: Bool) {
+        guard let tabBarItems = self.tabBarController?.tabBar.items, index < tabBarItems.count else {
+            return
         }
-        
+
+        // Obtener el frame del UITabBarItem
+        let tabBarItem = tabBarItems[index]
+        let tabBarButton = tabBarItem.value(forKey: "view") as? UIView
+
+        // Buscar y eliminar cualquier redDot existente
+        for subview in tabBarButton?.subviews ?? [] {
+            if subview.tag == 1234 {
+                subview.removeFromSuperview()
+            }
+        }
+
+        // Si no debemos mostrar el punto rojo, salimos de la función
+        if !shouldShow {
+            return
+        }
+
+        // Crear y agregar el redDot
+        let RedDotRadius: CGFloat = 5
+        let RedDotDiameter = RedDotRadius * 2
+        let TopMargin: CGFloat = 5
+        let itemWidth: CGFloat = index == 2 ? 25 : 10
+        let redDot = UIView(frame: CGRect(x: tabBarButton!.frame.width / 2 + itemWidth, y: TopMargin, width: RedDotDiameter, height: RedDotDiameter))
+        redDot.tag = 1234
+        redDot.backgroundColor = UIColor.red
+        redDot.layer.cornerRadius = RedDotRadius
+        tabBarButton?.addSubview(redDot)
     }
 
 }
