@@ -9,6 +9,12 @@ import UIKit
 import Firebase
 import CoreLocation
 
+extension feedView :UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
+
 class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // Variables
@@ -33,7 +39,11 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var latLabel: UITextField!
     @IBOutlet weak var longLabel: UITextField!
-    
+
+    @IBOutlet weak var heightMarginTableview: NSLayoutConstraint!
+
+    var lastVelocityYSign = 0
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -71,7 +81,38 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         refreshControl.tintColor = UIColor(red: 121/255, green: 138/255, blue: 167/255, alpha: 1.0)
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
+        
+        if tableView.isDragging, tableView.isDecelerating || tableView.isTracking {
+            print("load")
+        }
+
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+     let currentVelocityY =  scrollView.panGestureRecognizer.velocity(in: scrollView.superview).y
+     let currentVelocityYSign = Int(currentVelocityY).signum()
+     if currentVelocityYSign != lastVelocityYSign &&
+        currentVelocityYSign != 0 {
+            lastVelocityYSign = currentVelocityYSign
+     }
+        if lastVelocityYSign < 0 {
+            print("SCROLLING DOWN")
+            if let tabBarController =  self.navigationController?.topViewController?.parent?.tabBarController as? UITabBarController {
+                self.heightMarginTableview.constant = -70
+                tabBarController.tabBar.isHidden = true
+                
+            }
+        } else if lastVelocityYSign > 0 {
+            print("SCOLLING UP")
+            if let tabBarController =  self.navigationController?.topViewController?.parent?.tabBarController as? UITabBarController {
+                self.heightMarginTableview.constant = 0
+                tabBarController.tabBar.isHidden = false
+            }
+        }
+    }
+
     
     // MARK: – Table view data source
     
@@ -437,18 +478,67 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         databaseRef.child("Users/\(uid!)/Notify").observe(.value) { (snapshot) in
             
-            if snapshot.exists() {
+             if snapshot.exists() {
                 
                 self.addRedDot(index: 3, shouldShow: true)
-                
+                self.showConfirmAccept(items: snapshot.children.allObjects as? [DataSnapshot] ?? [])
             } else {
                 
                 self.addRedDot(index: 3, shouldShow: false)
                 
             }
             
+          
         }
         
+    }
+    
+    func showConfirmAccept(items: [DataSnapshot]){
+       // for child in snapshot.children.allObjects as! [DataSnapshot]
+        let uid = Auth.auth().currentUser?.uid
+        var array = [Notify]()
+        
+        for child in items {
+            
+            let approve = child.childSnapshot(forPath: "approved").value as? Bool ?? false
+            let author = child.childSnapshot(forPath: "author").value as? String ?? ""
+            let time = child.childSnapshot(forPath: "timestamp").value as? Double ?? 0.0
+            let text = child.childSnapshot(forPath: "text").value as? String ?? ""
+            let fid = child.childSnapshot(forPath: "feedId").value as? String ?? ""
+            let id = child.childSnapshot(forPath: "id").value as? String ?? ""
+            let unread = child.childSnapshot(forPath: "unread").value as? Bool ?? true
+            
+            let noty = Notify(approved: approve, timestamp: time, message: text, author: author, fid: fid, id: id, unread: unread)
+             
+            if(text.contains("accepted your bump!") && !unread){
+                   
+                let ref0 = self.databaseRef.child("Feed/\(fid)")
+                let ref1 = self.databaseRef.child("Users/\(uid!)/Notify/\(id)")
+                let ref2 = self.databaseRef.child("Users/\(author)/Notify")
+                let refKey = ref2.childByAutoId()
+                let key = refKey.key
+                
+                let value0 = ["approved": true]
+                
+                self.databaseRef.child("Users/\(uid!)").observeSingleEvent(of: .value) { (snapshot) in
+                    
+                    let name = snapshot.childSnapshot(forPath: "name").value as? String ?? ""
+                    
+                    let value2 = [key: ["author": uid!, "id": key!, "text": "\(name) accepted your bump!", "timestamp": ServerValue.timestamp(), "unread": true] as [String : Any]]
+                    
+                    ref2.updateChildValues(value2)
+                    
+                }
+                
+                ref0.updateChildValues(value0)
+                ref1.removeValue()
+                
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "confirmView") as! confirmView
+                vc.notify = noty
+                self.present(vc, animated: true)
+            }
+            
+        }
     }
     
     func addRedDot(index: Int, shouldShow: Bool) {

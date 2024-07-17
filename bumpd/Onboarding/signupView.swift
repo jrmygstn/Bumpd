@@ -75,14 +75,49 @@ class signupView: UIViewController {
 
                 self.databaseRef.child("Users").child(user.user.uid).setValue(userObj)
 
-                let go = self.storyboard?.instantiateViewController(withIdentifier: "usernameNav")
-                self.present(go!, animated: true, completion: nil)
+                self.checkIfProfileComplete()
+                
+                //let go = self.storyboard?.instantiateViewController(withIdentifier: "usernameNav")
+                //self.present(go!, animated: true, completion: nil)
             }
         } else if password != matchPwd {
             
             let alert = UIAlertController(title: "Uh oh!", message: "The passwords don't seem to match.", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
+            
+        }
+        
+    }
+    
+    // Functions
+    
+    func checkIfProfileComplete() {
+        
+        let uid = Auth.auth().currentUser?.uid
+
+        databaseRef.child("Users/\(uid!)").observeSingleEvent(of: .value) { (snap) in
+            
+            let image = snap.childSnapshot(forPath: "img").value as? String ?? ""
+            let name = snap.childSnapshot(forPath: "name").value as? String ?? ""
+            let birth = snap.childSnapshot(forPath: "birthday").value as? String ?? ""
+            
+            if image != "" && name != "" && birth != "" {
+                
+                let go = self.storyboard?.instantiateViewController(withIdentifier: "mainView")
+                self.present(go!, animated: true, completion: nil)
+                
+            } else if image != "" && name != "" && birth == "" {
+                
+                let go = self.storyboard?.instantiateViewController(withIdentifier: "birthdayNav")
+                self.present(go!, animated: true, completion: nil)
+                
+            } else if image == "" || name == "" {
+                
+                let go = self.storyboard?.instantiateViewController(withIdentifier: "picNav")
+                self.present(go!, animated: true, completion: nil)
+                
+            }
             
         }
         

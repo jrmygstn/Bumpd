@@ -27,8 +27,10 @@ class picView: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     // Outlets
     
     @IBOutlet weak var thumbnail: CustomizableImageView!
+    @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var nameField: UITextField!
-    
+    @IBOutlet weak var lastnameField: UITextField!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -151,6 +153,14 @@ class picView: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
             })
         }
         
+        guard let username = usernameField.text, username != ""
+            else {
+                let alert = UIAlertController(title: "Forget Something?", message: "Please fill out all fields.", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+        }
+        
         guard let name = nameField.text, name != ""
             else {
                 let alert = UIAlertController(title: "Forget Something?", message: "Please fill out all fields.", preferredStyle: UIAlertController.Style.alert)
@@ -159,7 +169,15 @@ class picView: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                 return
         }
         
-        let value = ["name": name]
+        guard let lastname = lastnameField.text, lastname != ""
+            else {
+                let alert = UIAlertController(title: "Forget Something?", message: "Please fill out all fields.", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+        }
+        
+        let value = ["name": name +  " " + lastname, "username": username]
 
         ref.updateChildValues(value)
         
