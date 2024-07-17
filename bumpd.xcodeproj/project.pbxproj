@@ -11,6 +11,10 @@
 		46AD61210CEF0A03F245401D /* Pods_bumpdTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A7FCD9DBB664F8289522F3 /* Pods_bumpdTests.framework */; };
 		511C04452C3478C00038601A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 511C04442C3478C00038601A /* GoogleService-Info.plist */; };
 		AAEF0C150C48D34DA309A619 /* Pods_bumpd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7B7C1547B14AC85524E161 /* Pods_bumpd.framework */; };
+		F29E6BBB2C3CEC3E00A3B2C1 /* OptionsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F29E6BBA2C3CEC3E00A3B2C1 /* OptionsView.xib */; };
+		F29E6BBF2C3CED2A00A3B2C1 /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29E6BBE2C3CED2A00A3B2C1 /* OptionsView.swift */; };
+		F29E6BC72C3DFCDB00A3B2C1 /* BottomSheetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F29E6BC52C3DFCDA00A3B2C1 /* BottomSheetViewController.xib */; };
+		F29E6BC82C3DFCDB00A3B2C1 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29E6BC62C3DFCDB00A3B2C1 /* BottomSheetViewController.swift */; };
 		FF037FD32A7191AE00182513 /* notifyViewTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF037FD22A7191AE00182513 /* notifyViewTV.swift */; };
 		FF037FD52A7192E400182513 /* Notify.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF037FD42A7192E400182513 /* Notify.swift */; };
 		FF037FD72A71940300182513 /* notifyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF037FD62A71940300182513 /* notifyCell.swift */; };
@@ -144,6 +148,10 @@
 		AB3C17B02182F19DFA1AEDD1 /* Pods-bumpd.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bumpd.release.xcconfig"; path = "Target Support Files/Pods-bumpd/Pods-bumpd.release.xcconfig"; sourceTree = "<group>"; };
 		B82DAB37A2848FFAED544C12 /* Pods-bumpd.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bumpd.debug.xcconfig"; path = "Target Support Files/Pods-bumpd/Pods-bumpd.debug.xcconfig"; sourceTree = "<group>"; };
 		E4B4D6384C7FB9D69D1C00A1 /* Pods-bumpd-bumpdUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bumpd-bumpdUITests.debug.xcconfig"; path = "Target Support Files/Pods-bumpd-bumpdUITests/Pods-bumpd-bumpdUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		F29E6BBA2C3CEC3E00A3B2C1 /* OptionsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OptionsView.xib; sourceTree = "<group>"; };
+		F29E6BBE2C3CED2A00A3B2C1 /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
+		F29E6BC52C3DFCDA00A3B2C1 /* BottomSheetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BottomSheetViewController.xib; sourceTree = "<group>"; };
+		F29E6BC62C3DFCDB00A3B2C1 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		FF037FD22A7191AE00182513 /* notifyViewTV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = notifyViewTV.swift; sourceTree = "<group>"; };
 		FF037FD42A7192E400182513 /* Notify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notify.swift; sourceTree = "<group>"; };
 		FF037FD62A71940300182513 /* notifyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = notifyCell.swift; sourceTree = "<group>"; };
@@ -307,6 +315,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F29E6BC42C3DFCC700A3B2C1 /* Modal */ = {
+			isa = PBXGroup;
+			children = (
+				F29E6BC62C3DFCDB00A3B2C1 /* BottomSheetViewController.swift */,
+				F29E6BC52C3DFCDA00A3B2C1 /* BottomSheetViewController.xib */,
+			);
+			path = Modal;
+			sourceTree = "<group>";
+		};
 		FF3EBA0D2A0AC30100B4E6AE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -391,6 +408,9 @@
 		FF7C442B29F85224001B9D35 /* Customizables */ = {
 			isa = PBXGroup;
 			children = (
+				F29E6BC42C3DFCC700A3B2C1 /* Modal */,
+				F29E6BBE2C3CED2A00A3B2C1 /* OptionsView.swift */,
+				F29E6BBA2C3CEC3E00A3B2C1 /* OptionsView.xib */,
 				FF7C442C29F85224001B9D35 /* CustomizableImageView.swift */,
 				FF7C442D29F85224001B9D35 /* PlaceholderView.swift */,
 				FF7C442E29F85224001B9D35 /* CustomizableButton.swift */,
@@ -657,6 +677,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF7C440429F836BB001B9D35 /* LaunchScreen.storyboard in Resources */,
+				F29E6BBB2C3CEC3E00A3B2C1 /* OptionsView.xib in Resources */,
 				FF135E042A6103FE00B8639E /* commentTVC.xib in Resources */,
 				FF7C442A29F84DB8001B9D35 /* poppins in Resources */,
 				FF7C440129F836BB001B9D35 /* Assets.xcassets in Resources */,
@@ -665,6 +686,7 @@
 				FF3EBA022A0A10B900B4E6AE /* Config.plist in Resources */,
 				511C04452C3478C00038601A /* GoogleService-Info.plist in Resources */,
 				FF6A24F32A1D615100D74339 /* style.json in Resources */,
+				F29E6BC72C3DFCDB00A3B2C1 /* BottomSheetViewController.xib in Resources */,
 				FF7C43FF29F836B8001B9D35 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -863,6 +885,7 @@
 				FFAB19692A0ACA3D009384C9 /* CustomizableLabel.swift in Sources */,
 				FFAB196A2A0ACA40009384C9 /* DraggableLabel.swift in Sources */,
 				FFC773782A93165F00E06F6F /* memoryProfileNav.swift in Sources */,
+				F29E6BC82C3DFCDB00A3B2C1 /* BottomSheetViewController.swift in Sources */,
 				FF135DFA2A5F037D00B8639E /* profileTableview.swift in Sources */,
 				FF7C443729F867E5001B9D35 /* signupView.swift in Sources */,
 				FF135E032A6103FE00B8639E /* commentTVC.swift in Sources */,
@@ -941,6 +964,7 @@
 				FFA28BE02AA2FE6500BDF8CA /* picView.swift in Sources */,
 				FF10E8F72A1D49D700ED1517 /* ConciergeView.swift in Sources */,
 				FF679A462A8E9C7D00F4BA0F /* confirmView.swift in Sources */,
+				F29E6BBF2C3CED2A00A3B2C1 /* OptionsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1208,7 +1232,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7HYEU555LQ;
+				DEVELOPMENT_TEAM = X8L4NGJ9BL;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MARKETING_VERSION = 1.0;
@@ -1229,7 +1253,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7HYEU555LQ;
+				DEVELOPMENT_TEAM = X8L4NGJ9BL;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MARKETING_VERSION = 1.0;
@@ -1249,7 +1273,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7HYEU555LQ;
+				DEVELOPMENT_TEAM = X8L4NGJ9BL;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bumpd.bumpdUITests;
@@ -1268,7 +1292,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7HYEU555LQ;
+				DEVELOPMENT_TEAM = X8L4NGJ9BL;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bumpd.bumpdUITests;

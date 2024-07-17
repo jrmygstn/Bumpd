@@ -189,6 +189,8 @@ class notifyViewTV: UITableViewController {
                 
             }
             
+            
+            
             self.notify = array
             self.tableView.reloadData()
             

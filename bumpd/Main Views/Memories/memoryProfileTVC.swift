@@ -8,6 +8,10 @@
 import UIKit
 import Firebase
 
+protocol memoryProfileTVCDelegate{
+    func actionOptionPrivacy(value: String)
+}
+
 class memoryProfileTVC: UITableViewCell {
 
     // Variables
@@ -29,13 +33,15 @@ class memoryProfileTVC: UITableViewCell {
     @IBOutlet weak var profileBtn: UIButton!
     @IBOutlet weak var cellBtn: UIButton!
     
+    var delegate: memoryProfileTVCDelegate!
+
     override func prepareForReuse() {
         super.prepareForReuse()
         
         self.recipientImg.image = nil
         self.metaData.text = nil
         self.timestamp.text = nil
-        self.accessLabel.image = nil
+        //self.accessLabel.image = nil
         
     }
 
@@ -59,6 +65,17 @@ class memoryProfileTVC: UITableViewCell {
         
         profileBtn.addTarget(self, action: #selector(someAction), for: .touchUpInside)
         cellBtn.addTarget(self, action: #selector(cellAction), for: .touchUpInside)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector (self.handleUpdatePrivacy (_:)))
+        accessLabel.addGestureRecognizer(tapGesture)
+        accessLabel.isUserInteractionEnabled = true
+        
+    }
+    
+    @objc func handleUpdatePrivacy(_ sender:UITapGestureRecognizer){
+        print("handleUpdatePrivacy")
+        self.delegate.actionOptionPrivacy(value: "")
+
         
     }
     

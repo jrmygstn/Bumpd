@@ -103,7 +103,7 @@ class memoryProfileTV: UITableViewController, UICollectionViewDelegate, UICollec
         let cell = tableView.dequeueReusableCell(withIdentifier: "bump", for: indexPath) as! memoryProfileTVC
         
         cell.setupCell(bum: bumps[indexPath.row])
-        
+        cell.delegate = self
         return cell
         
     }
@@ -219,4 +219,21 @@ class memoryProfileTV: UITableViewController, UICollectionViewDelegate, UICollec
         
     }
 
+}
+
+extension memoryProfileTV : memoryProfileTVCDelegate {
+    func actionOptionPrivacy(value: String) {
+        let bottomSheet = BottomSheetViewController(nibName: "BottomSheetViewController", bundle: nil)
+           bottomSheet.modalPresentationStyle = .overFullScreen
+           bottomSheet.view.backgroundColor = .clear
+        bottomSheet.delegate = self
+        self.present(bottomSheet, animated: true, completion: nil)
+    }
+}
+
+extension memoryProfileTV : BottomSheetDelegate {
+    func actionOptionPrivacySelect(value: String) {
+        print(value)
+    }
+    
 }

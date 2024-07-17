@@ -8,6 +8,10 @@
 import UIKit
 import Firebase
 
+protocol bumpTVCDelegate{
+    func actionOptionPrivacy(value: String)
+}
+
 class bumpTVC: UITableViewCell {
     
     // Variables
@@ -34,13 +38,14 @@ class bumpTVC: UITableViewCell {
     @IBOutlet weak var emptyData: CustomizableImageView!
     @IBOutlet weak var emptyTitle: CustomizableImageView!
     
+    var delegate: bumpTVCDelegate!
+
     override func prepareForReuse() {
         super.prepareForReuse()
         
         self.recipientImg.image = nil
         self.metaData.text = nil
         self.timestamp.text = nil
-        self.accessLabel.image = nil
         
     }
 
@@ -65,6 +70,16 @@ class bumpTVC: UITableViewCell {
         profileBtn.addTarget(self, action: #selector(someAction), for: .touchUpInside)
         cellBtn.addTarget(self, action: #selector(cellAction), for: .touchUpInside)
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector (self.handleUpdatePrivacy (_:)))
+        accessLabel.addGestureRecognizer(tapGesture)
+        accessLabel.isUserInteractionEnabled = true
+        
+    }
+    
+    @objc func handleUpdatePrivacy(_ sender:UITapGestureRecognizer){
+        print("handleUpdatePrivacy")
+        
+        self.delegate.actionOptionPrivacy(value: "")
     }
     
     @objc func someAction(_ sender: UITapGestureRecognizer){

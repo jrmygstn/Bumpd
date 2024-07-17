@@ -8,6 +8,10 @@
 import UIKit
 import Firebase
 
+protocol friendBumpTVCDelegate{
+    func actionOptionPrivacy(value: String)
+}
+
 class friendBumpTVC: UITableViewCell {
 
     // Variables
@@ -29,13 +33,14 @@ class friendBumpTVC: UITableViewCell {
     @IBOutlet weak var profileBtn: UIButton!
     @IBOutlet weak var cellBtn: UIButton!
     
+    var delegate: friendBumpTVCDelegate!
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         
         self.recipientImg.image = nil
         self.metaData.text = nil
         self.timestamp.text = nil
-        self.accessLabel.image = nil
         
     }
 
@@ -60,6 +65,17 @@ class friendBumpTVC: UITableViewCell {
         profileBtn.addTarget(self, action: #selector(someAction), for: .touchUpInside)
         cellBtn.addTarget(self, action: #selector(cellAction), for: .touchUpInside)
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector (self.handleUpdatePrivacy (_:)))
+        accessLabel.addGestureRecognizer(tapGesture)
+        accessLabel.isUserInteractionEnabled = true
+        
+    }
+    
+    @objc func handleUpdatePrivacy(_ sender:UITapGestureRecognizer){
+        print("handleUpdatePrivacy")
+        
+        self.delegate.actionOptionPrivacy(value: "")
+        
     }
     
     @objc func someAction(_ sender: UITapGestureRecognizer){
@@ -79,6 +95,34 @@ class friendBumpTVC: UITableViewCell {
         let recip = bum.recipient
         let auth = bum.author
         let user = Auth.auth().currentUser?.uid
+        
+        
+        databaseRef.child("Users/\(user!)/Settings").observe(.value) { (snapshot) in
+            
+            let person = snapshot.childSnapshot(forPath: "personal").value as? Bool ?? false
+            let friend = snapshot.childSnapshot(forPath: "friends").value as? Bool ?? false
+            let world = snapshot.childSnapshot(forPath: "world").value as? Bool ?? false
+            let worldloc = snapshot.childSnapshot(forPath: "worldLoc").value as? Bool ?? false
+            let frndloc = snapshot.childSnapshot(forPath: "friendsLoc").value as? Bool ?? false
+            
+            // Setup bump privacy
+            
+            if world == true {
+                
+                self.accessLabel.image = UIImage(named: "globe_icon")
+                
+            } else if friend == true {
+                
+                self.accessLabel.image = UIImage(named: "user_friends_icon")
+
+                
+            } else if person == true {
+                
+                self.accessLabel.image = UIImage(named: "lock_icon")
+
+                
+            }
+        }
         
         print("THE RECIP IS \(recip), THE AUTH IS \(auth)")
         

@@ -8,6 +8,13 @@
 import UIKit
 import Firebase
 
+extension friendProfileTV :UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
+
+
 class friendProfileTV: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     // Variables
@@ -67,11 +74,70 @@ class friendProfileTV: UITableViewController, UICollectionViewDelegate, UICollec
             
         }
         
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
+
         setupBumpCount()
         setupProfile()
         setupTopBumps()
         setupUsersBumps()
         
+    }
+    
+    @IBAction func optionsBtnTapped(_ sender: Any) {
+        let uid = Auth.auth().currentUser?.uid
+        let user = self.uidLabel.text!
+        let fullname = self.uidLabel.text!
+        let name = fullname.components(separatedBy: " ")[0]
+        
+        let actionSheet = UIAlertController()
+        
+        actionSheet.addAction(UIAlertAction(title: "Block", style: .default) {(action: UIAlertAction) in
+            
+            let alert = UIAlertController(title: "Are you sure?", message: "You're about block this user. They won't be able see you or bump with you anymore.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Block", style: .destructive, handler: { alert in
+                
+                let uid = Auth.auth().currentUser?.uid
+                let user = self.uidLabel.text!
+                let ref = self.databaseRef.child("Users/\(uid!)/Blocked")
+                
+                let val = [user: ["uid": user]]
+                
+                ref.updateChildValues(val)
+                
+                let alert = UIAlertController(title: "User blocked!", message: "", preferredStyle: .alert)
+                self.present(alert, animated: true, completion: nil)
+                self.dismiss(animated: true)
+                
+                self.uidLabel.text = ""
+                
+            }))
+            self.present(alert, animated: true, completion: nil)
+            
+        })
+        actionSheet.addAction(UIAlertAction(title: "Unbump", style: .default) {(action: UIAlertAction) in
+            
+            let alert = UIAlertController(title: "Are you certain?", message: "You're about to remove all past bumps with this user. This cannot be undone.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { alert in
+                
+                let alert = UIAlertController(title: "Bumps removed!", message: "", preferredStyle: .alert)
+                self.present(alert, animated: true, completion: nil)
+                self.dismiss(animated: true)
+                
+            }))
+            self.present(alert, animated: true, completion: nil)
+            
+        })
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        if let popoverController = actionSheet.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.maxY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+        }
+        
+        self.present(actionSheet, animated: true, completion: nil)
     }
     
     // MARK: – Collection view data source
@@ -109,7 +175,7 @@ class friendProfileTV: UITableViewController, UICollectionViewDelegate, UICollec
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "bump", for: indexPath) as! friendBumpTVC
-        
+        cell.delegate = self
         cell.setupCell(bum: bumps[indexPath.row])
         
         return cell
@@ -265,4 +331,21 @@ class friendProfileTV: UITableViewController, UICollectionViewDelegate, UICollec
         
     }
 
+}
+
+extension friendProfileTV : friendBumpTVCDelegate {
+    func actionOptionPrivacy(value: String) {
+        let bottomSheet = BottomSheetViewController(nibName: "BottomSheetViewController", bundle: nil)
+           bottomSheet.modalPresentationStyle = .overFullScreen
+           bottomSheet.view.backgroundColor = .clear
+        bottomSheet.delegate = self
+        self.present(bottomSheet, animated: true, completion: nil)
+    }
+}
+
+extension friendProfileTV : BottomSheetDelegate {
+    func actionOptionPrivacySelect(value: String) {
+        print(value)
+    }
+    
 }

@@ -161,7 +161,8 @@ class profileTableview: UITableViewController, UICollectionViewDelegate, UIColle
             }
             
         }
-        
+        cell.delegate = self
+
         return cell
         
     }
@@ -290,4 +291,21 @@ class profileTableview: UITableViewController, UICollectionViewDelegate, UIColle
         
     }
 
+}
+extension profileTableview : bumpTVCDelegate {
+    func actionOptionPrivacy(value: String) {
+        let bottomSheet = BottomSheetViewController(nibName: "BottomSheetViewController", bundle: nil)
+           bottomSheet.modalPresentationStyle = .overFullScreen
+           bottomSheet.view.backgroundColor = .clear
+        bottomSheet.delegate = self
+        self.present(bottomSheet, animated: true, completion: nil)
+    }
+}
+
+extension profileTableview : BottomSheetDelegate {
+    func actionOptionPrivacySelect(value: String) {
+        print(value)
+    }
+    
+    
 }

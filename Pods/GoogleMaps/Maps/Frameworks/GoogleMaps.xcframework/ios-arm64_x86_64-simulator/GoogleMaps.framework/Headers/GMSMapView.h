@@ -25,6 +25,7 @@
 @class GMSCameraPosition;
 @class GMSCameraUpdate;
 @class GMSCoordinateBounds;
+@class GMSDatasetFeatureLayer;
 @class GMSIndoorDisplay;
 @class GMSMapID;
 @class GMSMapStyle;
@@ -255,13 +256,13 @@ typedef NS_OPTIONS(NSUInteger, GMSMapCapabilityFlags) {
  * Display types for GMSMapView.
  */
 typedef NS_ENUM(NSUInteger, GMSMapViewType) {
-  /** Basic maps.  The default. */
+  /** Basic maps.  The default. Supports both Light and Dark color schemes. */
   kGMSTypeNormal GMS_SWIFT_NAME_2_0_3_0(Normal, normal) = 1,
 
   /** Satellite maps with no labels. */
   kGMSTypeSatellite GMS_SWIFT_NAME_2_0_3_0(Satellite, satellite),
 
-  /** Terrain maps. */
+  /** Terrain maps. Supports both Light and Dark color schemes. */
   kGMSTypeTerrain GMS_SWIFT_NAME_2_0_3_0(Terrain, terrain),
 
   /** Satellite maps with a transparent label overview. */
@@ -320,14 +321,32 @@ typedef NS_ENUM(NSUInteger, GMSMapViewPaddingAdjustmentBehavior) {
 
 /**@}*/
 
+/** This class defines initialization-time options for GMSMapView. */
+@interface GMSMapViewOptions : NSObject
+
+/** Initial frame for the view. Defaults to CGRectZero. */
+@property(nonatomic) CGRect frame;
+
+/** Initial camera position. Defaults to nil. */
+@property(nonatomic, nullable) GMSCameraPosition *camera;
+
+/** The mapID for advanced map usage. Defaults to nil. */
+@property(nonatomic, nullable) GMSMapID *mapID;
+
+/**
+ * Specifies the background color of the map view, which displays whenever the map tiles are not
+ * fully loaded. This is required because GMSMapView ignores the inherited mutable backgroundColor.
+ * The color is displayed on the background of the map. Defaults to a light grey color.
+ */
+@property(nonatomic, nullable) UIColor *backgroundColor;
+
+@end
 
 /**
  * This is the main class of the Google Maps SDK for iOS and is the entry point for all methods
  * related to the map.
  *
- * The map should be instantiated via the convenience constructor [GMSMapView mapWithFrame:camera:].
- * It may also be created with the default [[GMSMapView alloc] initWithFrame:] method (wherein its
- * camera will be set to a default location).
+ * The map should be instantiated with one of the constructors -init or -initWithOptions:.
  *
  * GMSMapView can only be read and modified from the main thread, similar to all UIKit objects.
  * Calling these methods from another thread will result in an exception or undefined behavior.
@@ -385,6 +404,13 @@ typedef NS_ENUM(NSUInteger, GMSMapViewPaddingAdjustmentBehavior) {
  * A non-nil mapStyle will only apply if mapType is Normal.
  */
 @property(nonatomic, nullable) GMSMapStyle *mapStyle;
+
+/* Change the map to desired [UIUserInterfaceStyle]
+ * (https://developer.apple.com/documentation/uikit/uiuserinterfacestyle?language=objc). This
+ * overrides the default UIKit behavior and defaults to UIUserInterfaceStyleLight to ensure
+ * backwards compatibility. This affects the color scheme of Normal and Terrain map types.
+ */
+@property(nonatomic) UIUserInterfaceStyle overrideUserInterfaceStyle;
 
 /**
  * Minimum zoom (the farthest the camera may be zoomed out). Defaults to kGMSMinZoomLevel. Modified
@@ -472,10 +498,25 @@ typedef NS_ENUM(NSUInteger, GMSMapViewPaddingAdjustmentBehavior) {
  */
 @property(nonatomic, readonly) GMSMapCapabilityFlags mapCapabilities;
 
+/** Initializes with CGRectZero and default options. */
+- (instancetype)init;
+
+/**
+ * Creates a new map view with the given options. The value of the options object is copied by this
+ * method.
+ */
+- (instancetype)initWithOptions:(nonnull GMSMapViewOptions *)options NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithFrame:(CGRect)frame
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG("Use -init or -initWithOptions: instead.");
+
+- (nullable instancetype)initWithCoder:(NSCoder *)coder
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG("Use -init or -initWithOptions: instead.");
+
 /** Builds and returns a map view with a frame and camera target. */
 + (instancetype)mapWithFrame:(CGRect)frame
                       camera:(GMSCameraPosition *)camera
-        ;
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG("Use -init or -initWithOptions: instead.");
 
 /** Convenience initializer to build and return a map view with a frame, map ID, and camera target.
  */
@@ -483,18 +524,18 @@ typedef NS_ENUM(NSUInteger, GMSMapViewPaddingAdjustmentBehavior) {
                        mapID:(GMSMapID *)mapID
                       camera:(GMSCameraPosition *)camera
     NS_SWIFT_UNAVAILABLE("Use initializer instead")
-            ;
+        __GMS_AVAILABLE_BUT_DEPRECATED_MSG("Use -init or -initWithOptions: instead.");
 
 /** Builds and returns a map view, with a frame and camera target. */
 - (instancetype)initWithFrame:(CGRect)frame
                        camera:(GMSCameraPosition *)camera
-        ;
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG("Use -init or -initWithOptions: instead.");
 
 /** Builds and returns a map view with a frame, map ID, and camera target. */
 - (instancetype)initWithFrame:(CGRect)frame
                         mapID:(GMSMapID *)mapID
                        camera:(GMSCameraPosition *)camera
-        ;
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG("Use -init or -initWithOptions: instead.");
 
 /** Tells this map to power up its renderer. This is optional and idempotent. */
 - (void)startRendering __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
@@ -553,6 +594,15 @@ typedef NS_ENUM(NSUInteger, GMSMapViewPaddingAdjustmentBehavior) {
 - (GMSFeatureLayer<GMSPlaceFeature *> *)featureLayerOfFeatureType:(GMSFeatureType)featureType
     NS_SWIFT_NAME(featureLayer(of:));
 
+/**
+ * Returns a dataset feature layer of the specified dataset. Dataset IDs must be configured in the
+ * Cloud Console.
+ *
+ * If a dataset of the specified ID does not exist on this map, or if data-driven styling is not
+ * enabled, the resulting layer's isAvailable will be @c NO, and will not respond to any calls.
+ */
+- (GMSDatasetFeatureLayer *)datasetFeatureLayerOfDatasetID:(NSString *)datasetID
+    NS_SWIFT_NAME(datasetFeatureLayer(of:));
 @end
 
 NS_ASSUME_NONNULL_END

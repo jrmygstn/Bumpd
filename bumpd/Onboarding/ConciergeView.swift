@@ -78,7 +78,7 @@ class ConciergeView: UIViewController {
                 
             } else {
                 
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "usernameNav")
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "picNav")
                 self.present(vc!, animated: false, completion: nil)
                 
             }

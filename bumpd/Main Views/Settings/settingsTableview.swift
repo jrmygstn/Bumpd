@@ -8,6 +8,12 @@
 import UIKit
 import Firebase
 
+extension settingsTableview :UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
+
 class settingsTableview: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // Variables
@@ -43,6 +49,8 @@ class settingsTableview: UITableViewController, UIImagePickerControllerDelegate,
         editBtn.addGestureRecognizer(tapGesture2)
         editBtn.isUserInteractionEnabled = true
         
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
+
         setupProfile()
         
     }
