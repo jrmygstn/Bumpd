@@ -31,6 +31,8 @@ class feedCell: UITableViewCell {
     @IBOutlet weak var likeBtn: UIButton!
     @IBOutlet weak var authBtn: UIButton!
     @IBOutlet weak var recipBtn: UIButton!
+    @IBOutlet weak var cellEmpty: UIView!
+    @IBOutlet weak var containerView: UIView!
     
     override func prepareForReuse() {
         super.prepareForReuse()

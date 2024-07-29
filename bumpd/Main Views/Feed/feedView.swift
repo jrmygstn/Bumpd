@@ -76,69 +76,81 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: – Table view data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return feed.count
+        return if feed.count == 0 {
+            4
+        }else{
+            feed.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "bumps", for: indexPath) as! feedCell
-        
-        let id = feed[indexPath.row].id
-        let uid = Auth.auth().currentUser?.uid
-        
-        cell.setupCell(bump: feed[indexPath.row])
-        
-        cell.btnTapAction1 = {
+
+        if feed.count == 0 {
+            cell.cellEmpty.isHidden = false
+            cell.cellEmpty.layer.cornerRadius = 20
+            cell.containerView.isHidden = true
+        }else{
             
-            () in
+            let id = feed[indexPath.row].id
+            let uid = Auth.auth().currentUser?.uid
             
-            if cell.likeBtn.isSelected == false {
+            cell.setupCell(bump: feed[indexPath.row])
+            
+            cell.btnTapAction1 = {
                 
-                cell.likeBtn.isSelected = true
+                () in
                 
-                let ref = self.databaseRef.child("Feed/\(id)/Likes")
-                
-                let value = [uid: ["uid": uid!] as [String: Any]]
-                
-                DispatchQueue.main.async {
+                if cell.likeBtn.isSelected == false {
                     
-                    ref.updateChildValues(value)
+                    cell.likeBtn.isSelected = true
                     
-                }
-                
-            } else if cell.likeBtn.isSelected == true {
-                
-                cell.likeBtn.isSelected = false
-                
-                let ref = self.databaseRef.child("Feed/\(id)/Likes/\(uid!)")
-                
-                DispatchQueue.main.async {
+                    let ref = self.databaseRef.child("Feed/\(id)/Likes")
                     
-                    ref.removeValue()
+                    let value = [uid: ["uid": uid!] as [String: Any]]
+                    
+                    DispatchQueue.main.async {
+                        
+                        ref.updateChildValues(value)
+                        
+                    }
+                    
+                } else if cell.likeBtn.isSelected == true {
+                    
+                    cell.likeBtn.isSelected = false
+                    
+                    let ref = self.databaseRef.child("Feed/\(id)/Likes/\(uid!)")
+                    
+                    DispatchQueue.main.async {
+                        
+                        ref.removeValue()
+                        
+                    }
                     
                 }
                 
             }
             
-        }
-        
-        cell.btnTapAction2 = {
+            cell.btnTapAction2 = {
+                
+                () in
+                
+                let vc = self.storyboard?.instantiateViewController(identifier: "feedProfileVC") as! feedProfileTV
+                vc.auth = self.feed[indexPath.row].author
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            }
             
-            () in
-            
-            let vc = self.storyboard?.instantiateViewController(identifier: "feedProfileVC") as! feedProfileTV
-            vc.auth = self.feed[indexPath.row].author
-            self.navigationController?.pushViewController(vc, animated: true)
-            
-        }
-        
-        cell.btnTapAction3 = {
-            
-            () in
-            
-            let vc = self.storyboard?.instantiateViewController(identifier: "feedProfileVC") as! feedProfileTV
-            vc.recip = self.feed[indexPath.row].recipient
-            self.navigationController?.pushViewController(vc, animated: true)
+            cell.btnTapAction3 = {
+                
+                () in
+                
+                let vc = self.storyboard?.instantiateViewController(identifier: "feedProfileVC") as! feedProfileTV
+                vc.recip = self.feed[indexPath.row].recipient
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            }
             
         }
         
