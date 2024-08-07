@@ -28,6 +28,7 @@ class picView: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     
     @IBOutlet weak var thumbnail: CustomizableImageView!
     @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var lastNameField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -159,7 +160,15 @@ class picView: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                 return
         }
         
-        let value = ["name": name]
+        guard let lastName = lastNameField.text, lastName != ""
+            else {
+                let alert = UIAlertController(title: "Forget Something?", message: "Please fill out all fields.", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+        }
+        
+        let value = ["name": name+" "+lastName]
 
         ref.updateChildValues(value)
         

@@ -77,7 +77,7 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return if feed.count == 0 {
-            4
+            5
         }else{
             feed.count
         }
