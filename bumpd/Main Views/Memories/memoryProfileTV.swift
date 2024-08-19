@@ -27,11 +27,28 @@ class memoryProfileTV: UITableViewController, UICollectionViewDelegate, UICollec
     @IBOutlet weak var thumbnail: CustomizableImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var webLabel: UILabel!{
+        didSet{
+            webLabel.underline()
+            webLabel.tag = 2
+        }
+    }
+    @IBOutlet weak var webStackView: UIStackView!
+    @IBOutlet weak var instagramStackView: UIStackView!
+    @IBOutlet weak var instagramLabel: UILabel!{
+        didSet{
+            instagramLabel.underline()
+            instagramLabel.tag = 1
+        }
+    }
     @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var uidLabel: UILabel!
     
     @IBOutlet weak var topCollection: UICollectionView!
+    
+    private var webUrl = ""
+    private var instagramUrl = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,8 +148,42 @@ class memoryProfileTV: UITableViewController, UICollectionViewDelegate, UICollec
             self.thumbnail.loadImageUsingCacheWithUrlString(urlString: img)
             self.nameLabel.text = name
             
+            let instagram = snapshot.childSnapshot(forPath: "instagram").value as? String ?? ""
+            
+            let web = snapshot.childSnapshot(forPath: "web").value as? String ?? ""
+            
+            if instagram.isEmpty == false{
+                self.instagramUrl = instagram
+                self.instagramStackView.isHidden = false
+                let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapFunction))
+                self.instagramLabel.addGestureRecognizer(tap)
+            }
+            
+            if web.isEmpty == false{
+                self.webUrl = web
+                self.webStackView.isHidden = false
+                self.webLabel.text = web
+                let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapFunction))
+                self.webLabel.addGestureRecognizer(tap)
+            }
+            
         }
         
+    }
+    
+    func openUrl(urlString: String){
+        if let url = URL(string: urlString) {
+            UIApplication.shared.open(url)
+        }
+    }
+    
+    @objc
+    func tapFunction(sender: UITapGestureRecognizer) {
+        if sender.view?.tag == 1{
+            openUrl(urlString: instagramUrl)
+        }else{
+            openUrl(urlString: webUrl)
+        }
     }
     
     func setupTopBumps() {

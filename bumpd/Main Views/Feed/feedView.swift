@@ -92,6 +92,8 @@ class feedView: UIViewController, UITableViewDelegate, UITableViewDataSource {
             cell.cellEmpty.layer.cornerRadius = 20
             cell.containerView.isHidden = true
         }else{
+            cell.cellEmpty.isHidden = true
+            cell.containerView.isHidden = false
             
             let id = feed[indexPath.row].id
             let uid = Auth.auth().currentUser?.uid

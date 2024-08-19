@@ -33,11 +33,13 @@ class friendProfileTV: UITableViewController, UICollectionViewDelegate, UICollec
     @IBOutlet weak var webStackView: UIStackView!
     @IBOutlet weak var webLabel: UILabel!{
         didSet{
+            webLabel.underline()
             webLabel.tag = 2
         }
     }
     @IBOutlet weak var instagramLabel: UILabel!{
         didSet{
+            instagramLabel.underline()
             instagramLabel.tag = 1
         }
     }
