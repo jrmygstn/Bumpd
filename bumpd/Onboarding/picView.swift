@@ -29,6 +29,8 @@ class picView: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     @IBOutlet weak var thumbnail: CustomizableImageView!
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var lastNameField: UITextField!
+    @IBOutlet weak var userNameField: UITextField!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -152,6 +154,16 @@ class picView: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
             })
         }
         
+        guard let uname = userNameField.text, uname != ""
+            else {
+                let alert = UIAlertController(title: "Forget Something?", message: "Please fill out all fields.", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+        }
+        
+        
+        
         guard let name = nameField.text, name != ""
             else {
                 let alert = UIAlertController(title: "Forget Something?", message: "Please fill out all fields.", preferredStyle: UIAlertController.Style.alert)
@@ -168,9 +180,26 @@ class picView: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                 return
         }
         
-        let value = ["name": name+" "+lastName]
+        
+        let uid = Auth.auth().currentUser?.uid
 
-        ref.updateChildValues(value)
+        let value = ["username": uname]
+
+        self.databaseRef.child("Users/\(uid!)").updateChildValues(value)
+
+        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+
+        changeRequest?.displayName = uname
+
+        changeRequest?.commitChanges { error in
+
+            print("********Your change request was not completed!")
+
+        }
+        
+        let valueSecondary = ["name": name+" "+lastName]
+
+        ref.updateChildValues(valueSecondary)
         
     }
 

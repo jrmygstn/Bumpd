@@ -26,6 +26,16 @@ class profileTableview: UITableViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var countLabel: UILabel!
+    @IBOutlet weak var webLabel: UILabel!{
+        didSet{
+            webLabel.underline()
+        }
+    }
+    @IBOutlet weak var instagramLabel: UILabel!{
+        didSet{
+            instagramLabel.underline()
+        }
+    }
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var viewAllBtn: UIButton!
     
@@ -168,6 +178,12 @@ class profileTableview: UITableViewController, UICollectionViewDelegate, UIColle
     
     // Actions
     
+    @objc
+    func tapFunction(sender: UITapGestureRecognizer) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "settingsView") as! settingsTableview
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @IBAction func unwindToProfile(segue:UIStoryboardSegue) {
         
     }
@@ -196,9 +212,25 @@ class profileTableview: UITableViewController, UICollectionViewDelegate, UIColle
             
             let img = snapshot.childSnapshot(forPath: "img").value as? String ?? "https://firebasestorage.googleapis.com/v0/b/bumpd-7f46b.appspot.com/o/profileImage%2Fdefault_profile%402x.png?alt=media&token=973f10a5-4b54-433f-859f-c6657bed5c29"
             let name = snapshot.childSnapshot(forPath: "name").value as? String ?? ""
+            let instagram = snapshot.childSnapshot(forPath: "instagram").value as? String
+            let web = snapshot.childSnapshot(forPath: "web").value as? String
+            
+            
+            if instagram?.isEmpty == false{
+                self.instagramLabel.text = "instagram"
+            }
+            
+            if web?.isEmpty == false{
+                self.webLabel.text = web
+            }
             
             self.thumbnail.loadImageUsingCacheWithUrlString(urlString: img)
             self.nameLabel.text = name
+            
+            let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapFunction))
+            self.webLabel.addGestureRecognizer(tap)
+            let tap2 = UITapGestureRecognizer(target: self, action: #selector(self.tapFunction))
+            self.instagramLabel.addGestureRecognizer(tap2)
             
         }
         

@@ -29,6 +29,8 @@ class settingsTableview: UITableViewController, UIImagePickerControllerDelegate,
     @IBOutlet weak var thumbnail: CustomizableImageView!
     @IBOutlet weak var nameLabel: UITextField!
     @IBOutlet weak var editBtn: UIButton!
+    @IBOutlet weak var webLabel: UITextField!
+    @IBOutlet weak var instagramLabel: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -167,8 +169,14 @@ class settingsTableview: UITableViewController, UIImagePickerControllerDelegate,
             let img = snapshot.childSnapshot(forPath: "img").value as? String ?? "https://firebasestorage.googleapis.com/v0/b/bumpd-7f46b.appspot.com/o/profileImage%2Fdefault_profile%402x.png?alt=media&token=973f10a5-4b54-433f-859f-c6657bed5c29"
             let name = snapshot.childSnapshot(forPath: "name").value as? String ?? ""
             
+            let instagram = snapshot.childSnapshot(forPath: "instagram").value as? String ?? ""
+            
+            let web = snapshot.childSnapshot(forPath: "web").value as? String ?? ""
+            
             self.thumbnail.loadImageUsingCacheWithUrlString(urlString: img)
             self.nameLabel.text = name
+            self.instagramLabel.text = instagram
+            self.webLabel.text = web
             
         }
         
@@ -259,7 +267,9 @@ class settingsTableview: UITableViewController, UIImagePickerControllerDelegate,
             })
         }
         
-        let value = ["name": self.nameLabel.text!]
+        let value = ["name": self.nameLabel.text!,
+                     "instagram": self.instagramLabel.text!,
+                     "web": self.webLabel.text!]
         
         ref.updateChildValues(value)
         

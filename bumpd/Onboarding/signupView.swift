@@ -74,8 +74,8 @@ class signupView: UIViewController {
                 let userObj = ["uid": user.user.uid , "email": email]
 
                 self.databaseRef.child("Users").child(user.user.uid).setValue(userObj)
-
-                let go = self.storyboard?.instantiateViewController(withIdentifier: "usernameNav")
+                
+                let go = self.storyboard?.instantiateViewController(withIdentifier: "picNav")
                 self.present(go!, animated: true, completion: nil)
             }
         } else if password != matchPwd {
