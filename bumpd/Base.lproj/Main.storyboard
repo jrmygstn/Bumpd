@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TVP-4V-pR4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TVP-4V-pR4">
     <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1708,14 +1708,14 @@ Sara</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_link" translatesAutoresizingMaskIntoConstraints="NO" id="JwU-9j-KqC">
-                                            <rect key="frame" x="89" y="0.0" width="19" height="19"/>
+                                            <rect key="frame" x="89" y="0.0" width="18" height="19"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="19" id="dtL-Ds-512"/>
-                                                <constraint firstAttribute="width" constant="19" id="kgF-e6-bOX"/>
+                                                <constraint firstAttribute="width" constant="18" id="kgF-e6-bOX"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="connect" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQ0-Hn-WUF">
-                                            <rect key="frame" x="113" y="0.0" width="145" height="19"/>
+                                            <rect key="frame" x="112" y="0.0" width="146" height="19"/>
                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -4215,8 +4215,8 @@ Sara</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Intagram Handle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MiC-3U-fcO">
-                                    <rect key="frame" x="40" y="220" width="126" height="21"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instagram" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MiC-3U-fcO">
+                                    <rect key="frame" x="40" y="220" width="76" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -4227,8 +4227,8 @@ Sara</string>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="@roescamilla" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8EV-Zn-d9g">
-                                    <rect key="frame" x="186" y="213" width="224" height="35"/>
+                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="instagram.com/bumpd_app" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8EV-Zn-d9g">
+                                    <rect key="frame" x="136" y="213" width="274" height="35"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="35" id="VrX-Qt-ydT"/>
                                     </constraints>
@@ -4236,7 +4236,7 @@ Sara</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                     <textInputTraits key="textInputTraits" keyboardType="URL" textContentType="url"/>
                                 </textField>
-                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="https://www.web.com/" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yxz-Vu-6Vj">
+                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="bumpd.us" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yxz-Vu-6Vj">
                                     <rect key="frame" x="122" y="239" width="288" height="35"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="35" id="Mbl-8F-mYc"/>
@@ -5598,17 +5598,17 @@ Sara</string>
                                             </subviews>
                                         </stackView>
                                         <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Gdi-Dr-S8I">
-                                            <rect key="frame" x="0.0" y="0.0" width="24" height="19"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="23" height="19"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_link" translatesAutoresizingMaskIntoConstraints="NO" id="wl9-Zu-d3l">
-                                                    <rect key="frame" x="0.0" y="0.0" width="19" height="19"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="18" height="19"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="19" id="H30-Dk-xiz"/>
-                                                        <constraint firstAttribute="width" constant="19" id="ya3-cS-vFe"/>
+                                                        <constraint firstAttribute="width" constant="18" id="ya3-cS-vFe"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="connect" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJY-o8-fc4">
-                                                    <rect key="frame" x="24" y="0.0" width="0.0" height="19"/>
+                                                    <rect key="frame" x="23" y="0.0" width="0.0" height="19"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="19" id="yfe-Sl-YVI"/>
                                                     </constraints>
@@ -6012,17 +6012,17 @@ Sara</string>
                                             </subviews>
                                         </stackView>
                                         <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="MCl-wh-NEJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="24" height="19"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="23" height="19"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_link" translatesAutoresizingMaskIntoConstraints="NO" id="GI0-BJ-Xx3">
-                                                    <rect key="frame" x="0.0" y="0.0" width="19" height="19"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="18" height="19"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="19" id="9Uw-pd-pkU"/>
-                                                        <constraint firstAttribute="width" constant="19" id="CKY-zd-cC0"/>
+                                                        <constraint firstAttribute="width" constant="18" id="CKY-zd-cC0"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="connect" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sf1-EN-BhN">
-                                                    <rect key="frame" x="24" y="0.0" width="0.0" height="19"/>
+                                                    <rect key="frame" x="23" y="0.0" width="0.0" height="19"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="19" id="OUt-Fk-3uX"/>
                                                     </constraints>
@@ -7458,8 +7458,8 @@ By using the Bumpd App, you acknowledge that you have read, understood, and agre
         <image name="heart" catalog="system" width="128" height="107"/>
         <image name="heart.fill" catalog="system" width="128" height="107"/>
         <image name="home_icon 1" width="25" height="25"/>
-        <image name="ic_insta" width="22" height="22"/>
-        <image name="ic_link" width="20" height="20"/>
+        <image name="ic_insta" width="66" height="66"/>
+        <image name="ic_link" width="60" height="60"/>
         <image name="letter_icon 1" width="25" height="25"/>
         <image name="location_arrow_icon (1) 1" width="10" height="9"/>
         <image name="lock_icon" width="13" height="13"/>
